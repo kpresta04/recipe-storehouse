@@ -9,12 +9,13 @@ import Vue from "vue";
 
 export default Vue.extend({
   methods: {
-    hello: async () => {
+    hello: async function() {
       // console.log('hello')
 
       const res = await fetch("/api/test");
+      const text = await res.text();
 
-      console.log(res);
+      console.log(text);
     }
   }
 });

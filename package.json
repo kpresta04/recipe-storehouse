@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@nuxt/typescript-runtime": "^2.0.0",
+    "@prisma/cli": "^2.10.2",
+    "@prisma/client": "^2.10.2",
     "core-js": "^3.6.5",
     "nuxt": "^2.14.6"
   },

@@ -6,7 +6,8 @@ const app = express();
 // Require API routes
 // const users = require('./routes/users')
 const test = require("./routes/test");
-
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 // // Import API Routes
 // app.use(users)
 app.use(test);

@@ -1,21 +1,53 @@
 <template>
   <div>
-    <h1>Login</h1>
-    <form>
-      <input type="email" name="email" id="email" />
+    <form @submit.prevent="userLogin">
+      <div>
+        <label>Email</label>
+
+        <input type="email" name="email" id="email" v-model="login.email" />
+      </div>
       <div class="break"></div>
-      <input type="password" name="password" id="password" />
+      <div>
+        <label>Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          v-model="login.password"
+        />
+      </div>
       <div class="break"></div>
 
-      <button type="submit">Log In</button>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
     </form>
   </div>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-
-export default Vue.extend({});
+<script>
+export default {
+  data() {
+    return {
+      login: {
+        email: "",
+        password: ""
+      }
+    };
+  },
+  methods: {
+    async userLogin() {
+      try {
+        let response = await this.$auth.loginWith("local", {
+          data: this.login
+        });
+        console.log(response);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>

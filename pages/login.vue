@@ -37,14 +37,15 @@ export default {
   },
   methods: {
     async userLogin() {
-      try {
-        let response = await this.$auth.loginWith("local", {
-          data: this.login
-        });
-        console.log(response);
-      } catch (err) {
-        console.log(err);
-      }
+      console.log(this.$auth);
+      // try {
+      //   let response = await this.$auth.loginWith("local", {
+      //     data: this.login
+      //   });
+      //   console.log(response);
+      // } catch (err) {
+      //   console.log(err);
+      // }
     }
   }
 };

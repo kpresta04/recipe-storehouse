@@ -31,10 +31,14 @@ export default {
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: ["@nuxtjs/axios", "@nuxtjs/auth"],
-  auth: {
-    // Options
-  },
+  modules: ["@nuxt/components"],
+  // axios: {
+  //   baseURL: process.env.BASE_URL || "http://localhost:3000/api"
+  // },
+  // server: {
+  //   port: process.env.PORT || 8000
+  // },
+
   serverMiddleware: [{ path: "/api", handler: "~/api/index.js" }],
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
@@ -56,5 +60,6 @@ export default {
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {}
+  build: {},
+  components: true
 };

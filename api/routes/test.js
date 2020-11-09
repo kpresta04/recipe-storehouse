@@ -4,7 +4,7 @@ require("dotenv").config();
 const router = Router();
 
 // Test route
-router.use("/test", (req, res) => {
+router.get("/test", (req, res) => {
   res.send("Test API!");
 });
 

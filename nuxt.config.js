@@ -31,7 +31,10 @@ export default {
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: [],
+  modules: ["@nuxtjs/axios", "@nuxtjs/auth"],
+  auth: {
+    // Options
+  },
   serverMiddleware: [{ path: "/api", handler: "~/api/index.js" }],
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {

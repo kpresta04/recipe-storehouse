@@ -54,6 +54,7 @@ export default {
         .then(response => response.text())
         .then(data => {
           console.log(data);
+          this.$store.commit("SET_USER", this.login.email);
         })
         .catch(error => {
           console.error("Error:", error);

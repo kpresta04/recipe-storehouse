@@ -1,24 +1,48 @@
 <template>
   <div>
-    <form @submit.prevent="userLogin">
+    <form @submit.prevent="userRegister">
+      <div>
+        <label>First Name</label>
+
+        <input
+          type="text"
+          name="firstName"
+          id="firstName"
+          v-model="login.firstName"
+        />
+      </div>
+      <div class="break"></div>
+
+      <div>
+        <label>Last Name</label>
+
+        <input
+          type="lastName"
+          name="lastName"
+          id="lastName"
+          v-model="login.lastName"
+        />
+      </div>
+      <div class="break"></div>
+
       <div>
         <label>Email</label>
 
         <input
-          required
           type="email"
           name="email"
           id="email"
           v-model="login.email"
+          required
         />
       </div>
       <div class="break"></div>
       <div>
         <label>Password</label>
         <input
-          required
           type="password"
           name="password"
+          required
           id="password"
           v-model="login.password"
         />
@@ -38,22 +62,24 @@ export default {
     return {
       login: {
         email: "",
-        password: ""
+        password: "",
+        firstName: "",
+        lastName: ""
       }
     };
   },
   methods: {
-    async userLogin() {
-      fetch("/api/login", {
+    async userRegister() {
+      fetch("/api/register", {
         method: "POST", // or 'PUT'
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(this.login)
       })
-        .then(response => response.text())
+        .then(response => response.json())
         .then(data => {
-          console.log(data);
+          console.log("Success:", data);
         })
         .catch(error => {
           console.error("Error:", error);

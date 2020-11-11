@@ -17,13 +17,17 @@ router.post("/login", async (req, res) => {
     const user = await prisma.user.findOne({
       where: {
         email: req.body.email
-      },
-      select: { hash: true }
+      }
     });
-    if (await bcrypt.compare(req.body.password, user.hash)) {
+    if (!user) {
+      //Email does not exist
+      res.send("Incorrect email");
+    } else if (await bcrypt.compare(req.body.password, user.hash)) {
+      //Login successful
       res.send("Success");
     } else {
-      res.send("Not Allowed");
+      //Wrong password
+      res.send("Wrong Password");
     }
   } catch (error) {
     console.log(error);
@@ -44,7 +48,7 @@ router.post("/register", async (req, res) => {
 
     res.send(user);
   } catch (error) {
-    console.log(error);
+    res.send({ message: error.message });
   }
 });
 

@@ -1,9 +1,9 @@
 export const state = () => ({
-  user: null
+  accessToken: null
 });
 
 export const mutations = {
-  SET_USER(state, user) {
-    state.user = user;
+  SET_TOKEN(state, accessToken) {
+    state.accessToken = accessToken;
   }
 };

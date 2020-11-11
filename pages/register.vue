@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     async userRegister() {
-      fetch("/api/register", {
+      fetch("/auth/register", {
         method: "POST", // or 'PUT'
         headers: {
           "Content-Type": "application/json"

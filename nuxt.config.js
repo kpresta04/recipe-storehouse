@@ -39,7 +39,7 @@ export default {
   //   port: process.env.PORT || 8000
   // },
 
-  serverMiddleware: [{ path: "/api", handler: "~/api/index.js" }],
+  serverMiddleware: [{ path: "/auth", handler: "~/api/index.js" }],
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
     customVariables: ["~/assets/variables.scss"],

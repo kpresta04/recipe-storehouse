@@ -44,17 +44,17 @@ export default {
   },
   methods: {
     async userLogin() {
-      fetch("/api/login", {
+      fetch("/auth/login", {
         method: "POST", // or 'PUT'
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(this.login)
       })
-        .then(response => response.text())
+        .then(response => response.json())
         .then(data => {
           console.log(data);
-          this.$store.commit("SET_USER", this.login.email);
+          // this.$store.commit("SET_USER", this.login.email);
         })
         .catch(error => {
           console.error("Error:", error);

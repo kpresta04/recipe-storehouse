@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="hello">Test express route</button>
+    <button>Test express route</button>
   </div>
 </template>
 

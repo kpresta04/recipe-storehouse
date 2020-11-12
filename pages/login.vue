@@ -29,6 +29,9 @@
         <button type="submit">Submit</button>
       </div>
     </form>
+    <div>
+      <nuxt-link to="/import">Import Recipe</nuxt-link>
+    </div>
   </div>
 </template>
 

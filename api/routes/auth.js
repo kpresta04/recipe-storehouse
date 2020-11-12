@@ -21,8 +21,8 @@ router.post("/login", async (req, res) => {
     } else if (await bcrypt.compare(req.body.password, user.hash)) {
       //Login successful
       const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-      const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
-      console.log(decoded);
+      // const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+      // console.log(decoded);
 
       res.send({ accessToken });
     } else {

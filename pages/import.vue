@@ -27,7 +27,8 @@ export default Vue.extend({
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            accessToken: this.$store.state.accessToken
           },
           body: JSON.stringify({ recipeURL: this.recipeURL })
         }

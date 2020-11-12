@@ -28,7 +28,7 @@ router.post("/import", authenticateToken, async (req, res) => {
 
     const data = await response.json();
     if (data.status === "failure") {
-      return res.send({ error: data });
+      return res.status(data.code).send({ error: data });
     }
 
     const {

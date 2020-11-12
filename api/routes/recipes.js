@@ -45,6 +45,8 @@ router.post("/import", authenticateToken, async (req, res) => {
     const recipe = await prisma.recipe.upsert({
       where: { sourceURL: sourceUrl },
       update: {
+        title,
+        sourceURL: sourceUrl,
         analyzedInstructions,
         servings,
         cuisines,
@@ -52,13 +54,13 @@ router.post("/import", authenticateToken, async (req, res) => {
         dishTypes,
         extendedIngredients,
         imageURL: image,
-        sourceURL: sourceUrl,
-        title,
         users: {
           connect: { id: user.id }
         }
       },
       create: {
+        title,
+        sourceURL: sourceUrl,
         analyzedInstructions,
         servings,
         cuisines,
@@ -66,8 +68,6 @@ router.post("/import", authenticateToken, async (req, res) => {
         dishTypes,
         extendedIngredients,
         imageURL: image,
-        sourceURL: sourceUrl,
-        title,
         users: {
           connect: { id: user.id }
         }

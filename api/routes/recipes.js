@@ -24,8 +24,13 @@ router.post("/import", authenticateToken, async (req, res) => {
         }
       }
     );
+    // console.log(response);
 
     const data = await response.json();
+    if (data.status === "failure") {
+      return res.send({ error: data });
+    }
+
     const {
       analyzedInstructions,
       servings,

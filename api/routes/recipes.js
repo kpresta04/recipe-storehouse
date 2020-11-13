@@ -7,6 +7,18 @@ const jwt = require("jsonwebtoken");
 const prisma = new PrismaClient();
 const router = Router();
 
+router.get("/recipes", authenticateToken, async (req, res) => {
+  const user = JSON.parse(JSON.stringify(req.user));
+
+  try {
+    const recipes = await prisma.user
+      .findOne({ where: { email: user.email } })
+      .recipes();
+    res.send(recipes);
+  } catch (error) {
+    console.log(error);
+  }
+});
 router.post("/import", authenticateToken, async (req, res) => {
   const user = JSON.parse(JSON.stringify(req.user));
   // console.log(user.email);

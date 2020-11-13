@@ -1,6 +1,7 @@
 <template>
   <div>
     <button>Test express route</button>
+    <nuxt-link to="/my-recipes">My recipes</nuxt-link>
   </div>
 </template>
 

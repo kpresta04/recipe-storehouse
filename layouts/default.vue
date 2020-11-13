@@ -26,7 +26,6 @@
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
-
       <v-btn absolute bottom right nuxt>
         <nuxt-link to="/login">Login</nuxt-link>
       </v-btn>

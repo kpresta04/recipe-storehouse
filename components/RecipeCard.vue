@@ -10,9 +10,7 @@
     </v-card-subtitle>
 
     <v-card-actions>
-      <v-btn color="teal darken-2" text>
-        View Recipe
-      </v-btn>
+      <slot name="link" />
 
       <v-spacer></v-spacer>
 

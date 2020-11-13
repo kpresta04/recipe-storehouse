@@ -26,7 +26,7 @@
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <v-btn absolute bottom right nuxt>
+      <v-btn v-if="!$store.state.accessToken" absolute bottom right nuxt>
         <nuxt-link to="/login">Login</nuxt-link>
       </v-btn>
 

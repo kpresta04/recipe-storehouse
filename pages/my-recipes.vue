@@ -1,5 +1,15 @@
 <template>
-  <div></div>
+  <div class="recipeList">
+    <RecipeCard :key="recipe.id" v-for="recipe in recipeList">
+      <template v-slot:image>
+        <v-img :src="recipe.imageURL" height="200px"></v-img>
+      </template>
+      <template v-slot:title>
+        {{ recipe.title }}
+      </template>
+      <template v-slot:servings> Serves {{ recipe.servings }} </template>
+    </RecipeCard>
+  </div>
 </template>
 
 <script lang="ts">
@@ -34,4 +44,8 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.recipeList {
+  display: flex;
+}
+</style>

@@ -46,6 +46,8 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .recipeList {
+  width: 100%;
+  flex-wrap: wrap;
   display: flex;
 }
 </style>

@@ -29,9 +29,6 @@
         <button type="submit">Submit</button>
       </div>
     </form>
-    <div>
-      <nuxt-link to="/import">Import Recipe</nuxt-link>
-    </div>
   </div>
 </template>
 
@@ -56,7 +53,7 @@ export default {
       })
         .then(response => response.json())
         .then(data => {
-          console.log(data);
+          // console.log(data);
           this.$store.commit("SET_TOKEN", data.accessToken);
         })
         .catch(error => {

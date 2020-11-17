@@ -32,28 +32,24 @@
 import Vue from "vue";
 
 export default Vue.extend({
+  middleware: "authenticated",
   data() {
     return {
       slug: null,
       recipe: null
     };
   },
-  async asyncData({ params }) {
+  async asyncData({ params, store }) {
     const slug = params.slug; // When calling /abc the slug will be "abc"
-
-    return { slug };
-  },
-  created: async function() {
-    const recipeInfo = await fetch(`/api/recipe/${this.slug}`, {
+    const recipeInfo = await fetch(`/api/recipe/${slug}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        accessToken: this.$store.state.accessToken
+        accessToken: store.state.accessToken
       }
     }).then(res => res.json());
 
-    this.recipe = recipeInfo;
-    console.log(this.recipe);
+    return { slug, recipe: recipeInfo };
   }
 });
 </script>

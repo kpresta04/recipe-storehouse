@@ -28,7 +28,7 @@ export default Vue.extend({
       recipeList: []
     };
   },
-  created: async function() {
+  async asyncData({ store }) {
     // console.log("created");
     const data = await fetch(
       "/api/recipes",
@@ -37,7 +37,7 @@ export default Vue.extend({
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          accessToken: this.$store.state.accessToken
+          accessToken: store.state.accessToken
         }
       }
     ).then(res => {
@@ -45,8 +45,8 @@ export default Vue.extend({
       return res.json();
     });
 
-    this.recipeList = data;
     console.log(data);
+    return { recipeList: data };
   },
   middleware: "authenticated"
 });

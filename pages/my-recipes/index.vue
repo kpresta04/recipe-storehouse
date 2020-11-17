@@ -9,11 +9,15 @@
       </template>
       <template v-slot:servings> Serves {{ recipe.servings }} </template>
       <template v-slot:link>
-        <v-btn color="teal darken-2" text>
-          <nuxt-link class="card-link" :to="'/my-recipes/' + recipe.id">
-            View Recipe
-          </nuxt-link>
-        </v-btn>
+        <!-- <v-btn color="teal darken-2" text> -->
+        <nuxt-link
+          color="teal darken-2"
+          class="card-link"
+          :to="'/my-recipes/' + recipe.id"
+        >
+          View Recipe
+        </nuxt-link>
+        <!-- </v-btn> -->
       </template>
     </RecipeCard>
   </div>
@@ -61,5 +65,6 @@ export default Vue.extend({
 .card-link {
   color: teal;
   text-decoration: none;
+  text-transform: capitalize;
 }
 </style>

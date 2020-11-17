@@ -30,7 +30,7 @@ export default Vue.extend({
   },
   created: async function() {
     // console.log("created");
-    const response = await fetch(
+    const data = await fetch(
       "/api/recipes",
 
       {
@@ -40,14 +40,15 @@ export default Vue.extend({
           accessToken: this.$store.state.accessToken
         }
       }
-    );
-    const data = await response.json();
+    ).then(res => {
+      // console.log(res);
+      return res.json();
+    });
+
     this.recipeList = data;
     console.log(data);
   },
-  mounted: function() {
-    // console.log(this.recipeList);
-  }
+  middleware: "authenticated"
 });
 </script>
 

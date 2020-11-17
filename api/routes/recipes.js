@@ -54,7 +54,7 @@ router.post("/import", authenticateToken, async (req, res) => {
       return res.status(data.code).send({ error: data });
     }
 
-    const {
+    let {
       analyzedInstructions,
       servings,
       cuisines,
@@ -65,6 +65,10 @@ router.post("/import", authenticateToken, async (req, res) => {
       sourceUrl,
       title
     } = data;
+
+    extendedIngredients = extendedIngredients.filter(
+      ingredient => ingredient.aisle !== "?"
+    );
     const recipe = await prisma.recipe.upsert({
       where: { sourceURL: sourceUrl },
       update: {

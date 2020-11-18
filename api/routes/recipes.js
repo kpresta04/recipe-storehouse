@@ -17,6 +17,24 @@ router.get("/recipe/:id", authenticateToken, async (req, res) => {
     console.log(error);
   }
 });
+router.delete("/recipe/:id", authenticateToken, async (req, res) => {
+  const user = JSON.parse(JSON.stringify(req.user));
+
+  try {
+    const id = Number(req.params.id);
+    const recipe = await prisma.recipe.update({
+      where: { id: id },
+      data: {
+        users: {
+          disconnect: { id: user.id }
+        }
+      }
+    });
+    res.send({ status: "200", message: "disconnect successful" });
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 router.get("/recipes", authenticateToken, async (req, res) => {
   const user = JSON.parse(JSON.stringify(req.user));

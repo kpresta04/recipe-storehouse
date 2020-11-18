@@ -48,6 +48,7 @@ export default Vue.extend({
         accessToken: store.state.accessToken
       }
     }).then(res => res.json());
+    console.log(recipeInfo);
 
     return { slug, recipe: recipeInfo };
   }

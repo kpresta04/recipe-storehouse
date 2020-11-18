@@ -21,7 +21,12 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-item class="hoverClass" v-for="(item, i) in items" :key="i">
+          <v-list-item
+            @click="deleteClick"
+            class="hoverClass"
+            v-for="(item, i) in items"
+            :key="i"
+          >
             <v-list-item-title class="listItem">{{
               item.title
             }}</v-list-item-title>
@@ -58,7 +63,27 @@ export default {
       { title: "Add to Meal Plan" },
       { title: "Delete recipe" }
     ]
-  })
+  }),
+  props: ["source", "recipe_id"],
+
+  methods: {
+    async deleteClick(e) {
+      if (e.target.textContent === "Delete recipe") {
+        try {
+          await fetch(`/api/recipe/${this.recipe_id}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              accessToken: this.$store.state.accessToken
+            }
+          });
+          this.$emit("deleteRecipe", this.recipe_id);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

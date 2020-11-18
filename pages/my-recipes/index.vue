@@ -1,6 +1,12 @@
 <template>
   <div class="recipeList">
-    <RecipeCard :key="recipe.id" v-for="recipe in recipeList">
+    <RecipeCard
+      v-for="(recipe, i) in recipeList"
+      v-on:deleteRecipe="deleteRecipe"
+      :key="i"
+      :source="recipe.sourceURL"
+      :recipe_id="recipe.id"
+    >
       <template v-slot:image>
         <v-img :src="recipe.imageURL" height="200px"></v-img>
       </template>
@@ -31,6 +37,14 @@ export default Vue.extend({
     return {
       recipeList: []
     };
+  },
+  methods: {
+    deleteRecipe(id: Number) {
+      const filteredList = this.recipeList.filter(
+        (recipe: any) => recipe.id !== id
+      );
+      this.recipeList = filteredList;
+    }
   },
   async asyncData({ store }) {
     // console.log("created");

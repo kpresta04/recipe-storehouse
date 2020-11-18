@@ -55,6 +55,7 @@ export default {
         .then(data => {
           // console.log(data);
           this.$store.commit("SET_TOKEN", data.accessToken);
+          localStorage.setItem("accessToken", data.accessToken);
         })
         .catch(error => {
           console.error("Error:", error);

@@ -1,3 +1,5 @@
+// require("dotenv").config();
+
 export default function({ store, redirect }) {
   // If the user is not authenticated
   // console.log(store.state);
@@ -5,9 +7,4 @@ export default function({ store, redirect }) {
   if (!store.state.accessToken) {
     return redirect("/login");
   }
-  // mounted: {
-  //   if (typeof window !== "undefined") {
-  //     console.log(localStorage);
-  //   }
-  // }
 }

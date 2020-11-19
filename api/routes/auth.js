@@ -17,17 +17,20 @@ router.post("/login", async (req, res) => {
     });
     if (!user) {
       //Email does not exist
-      res.send({ error: "Incorrect email" });
+      res.status(401).send({ error: "Incorrect email" });
     } else if (await bcrypt.compare(req.body.password, user.hash)) {
       //Login successful
-      const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+      const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: "30d"
+      });
+
       // const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
       // console.log(decoded);
 
       res.send({ accessToken });
     } else {
       //Wrong password
-      res.send({ error: "Wrong Password" });
+      res.status(401).send({ error: "Wrong Password" });
     }
   } catch (error) {
     console.log(error);

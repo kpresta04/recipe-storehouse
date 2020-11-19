@@ -58,10 +58,17 @@ export default Vue.extend({
           accessToken: store.state.accessToken
         }
       }
-    ).then(res => {
-      // console.log(res);
-      return res.json();
-    });
+    )
+      .then(res => {
+        // console.log(res);
+        return res.json();
+      })
+      .catch(err => {
+        localStorage.removeItem("accessToken");
+        store.commit("SET_TOKEN", null);
+
+        throw err;
+      });
 
     console.log(data);
     return { recipeList: data };

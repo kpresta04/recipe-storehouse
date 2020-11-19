@@ -6,12 +6,12 @@
       max-width="250"
       :src="this.recipe.imageURL"
     ></v-img>
-    <div class="title">
-      <h1>{{ this.recipe && this.recipe.title }}</h1>
-      <h3>
-        Serves: <span v-if="this.recipe">{{ this.recipe.servings }} </span>
-      </h3>
-    </div>
+    <h1>{{ this.recipe && this.recipe.title }}</h1>
+    <h3>
+      Serves: <span v-if="this.recipe">{{ this.recipe.servings }} </span>
+    </h3>
+    <!-- <div class="title">
+    </div> -->
     <h2>
       Ingredients
       <v-btn icon @click="showIngredients = !showIngredients">
@@ -58,22 +58,37 @@
         </v-card-text>
       </div>
     </v-expand-transition>
-    <h2>Notes</h2>
-    <v-textarea
-      :value="this.recipe.notes.length > 0 ? this.recipe.notes[0].text : ''"
-      @input="handleChange"
-      id="notes"
-      outlined
-      shaped
-    ></v-textarea>
-    <div>
-      <v-btn @click="handleSave" :disabled="!this.textChanged" color="primary">
-        Save
+    <h2>
+      Notes
+      <v-btn icon @click="showNotes = !showNotes">
+        <v-icon>{{ showNotes ? "mdi-chevron-up" : "mdi-chevron-down" }}</v-icon>
       </v-btn>
-      <v-btn color="error">
-        Delete
-      </v-btn>
-    </div>
+    </h2>
+    <v-expand-transition>
+      <div v-show="showNotes">
+        <!-- <v-card-text> -->
+        <v-textarea
+          :value="this.recipe.notes.length > 0 ? this.recipe.notes[0].text : ''"
+          @input="handleChange"
+          id="notes"
+          outlined
+          shaped
+        ></v-textarea>
+        <div>
+          <v-btn
+            @click="handleSave"
+            :disabled="!this.textChanged"
+            color="primary"
+          >
+            Save
+          </v-btn>
+          <v-btn @click="handleDelete" color="error">
+            Delete
+          </v-btn>
+        </div>
+        <!-- </v-card-text> -->
+      </div>
+    </v-expand-transition>
   </div>
 </template>
 
@@ -85,9 +100,12 @@ export default Vue.extend({
   data() {
     return {
       slug: null,
-      recipe: null,
-      showMethod: true,
+      recipe: {
+        id: 0
+      },
+      showMethod: false,
       showIngredients: true,
+      showNotes: false,
       textChanged: false
     };
   },
@@ -95,6 +113,21 @@ export default Vue.extend({
     handleChange() {
       if (!this.textChanged) {
         this.textChanged = true;
+      }
+    },
+    async handleDelete() {
+      // const recipeId = this.recipe.id;
+
+      try {
+        const response = await fetch(`/api/note/${this.slug}`, {
+          method: "DELETE", // or 'PUT'
+          headers: {
+            "Content-Type": "application/json",
+            accessToken: this.$store.state.accessToken
+          }
+        });
+      } catch (error) {
+        console.log(error);
       }
     },
     async handleSave() {
@@ -115,7 +148,7 @@ export default Vue.extend({
               text: textArea.value
             })
           }).then(res => res.json());
-          console.log(response);
+          // console.log(response);
         } catch (error) {
           console.log(error);
         }
@@ -139,10 +172,10 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+h3 {
+  color: gray;
+}
 .title {
   margin-top: 1rem;
-  h3 {
-    color: gray;
-  }
 }
 </style>

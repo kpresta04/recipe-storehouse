@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 
 const prisma = new PrismaClient();
 const router = Router();
+
 router.get("/recipe/:id", authenticateToken, async (req, res) => {
   const user = JSON.parse(JSON.stringify(req.user));
 
@@ -53,6 +54,22 @@ router.get("/recipes", authenticateToken, async (req, res) => {
       .findOne({ where: { email: user.email } })
       .recipes();
     res.send(recipes);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.delete("/note/:recipeId", authenticateToken, async (req, res) => {
+  const user = JSON.parse(JSON.stringify(req.user));
+  const noteId = { recipeId: Number(req.params.recipeId), userId: user.id };
+  // console.log(noteId);
+  try {
+    await prisma.note.delete({
+      where: {
+        recipeId_userId: noteId
+      }
+    });
+
+    res.sendStatus(204);
   } catch (error) {
     console.log(error);
   }

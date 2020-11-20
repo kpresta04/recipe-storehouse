@@ -166,7 +166,11 @@ export default Vue.extend({
     }).then(res => res.json());
     console.log(recipeInfo);
 
-    return { slug, recipe: recipeInfo };
+    return {
+      slug,
+      recipe: recipeInfo,
+      showNotes: recipeInfo.notes.length > 0 ? true : false
+    };
   }
 });
 </script>

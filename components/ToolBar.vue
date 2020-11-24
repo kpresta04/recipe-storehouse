@@ -30,7 +30,6 @@
         chips
         deletable-chips
         multiple
-        @click:clear="handleClear"
       >
         <template v-slot:selection> </template>
       </v-autocomplete>
@@ -47,7 +46,7 @@ export default Vue.extend({
       loading: false,
       items: <any>[],
       search: null,
-      select: <any>null,
+      select: <any>this.tags,
       choices: [
         "Breakfast",
         "Lunch",
@@ -78,12 +77,17 @@ export default Vue.extend({
     },
     async handleDeleteTag(tag: string) {
       //   console.log(this.select, tag);
+      if (this.select) {
+        this.select = this.select.filter((tagText: string) => tagText !== tag);
 
-      this.select = this.select.filter((tagText: string) => tagText !== tag);
-
-      this.handleChange();
+        this.handleChange();
+      } else {
+        const filteredArray = this.tags.filter((text: any) => text !== tag);
+        this.$emit("changeTag", filteredArray);
+      }
     },
     handleChange() {
+      //   console.log("toolbar select is " + this.select);
       this.$emit("changeTag", this.select);
     },
     querySelections(v: any) {
@@ -97,9 +101,9 @@ export default Vue.extend({
       }, 500);
     }
   },
-  mounted() {
-    console.log(this.tags);
-  },
+  //   mounted() {
+  //     console.log(this.tags);
+  //   },
   props: {
     tags: Array
   }

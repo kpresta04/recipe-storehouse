@@ -33,7 +33,10 @@
     <!-- <div class="title">
     </div> -->
 
-    <ToolBar v-on:changeTag="handleChangeTag" :tags="this.recipe.tags" />
+    <ToolBar
+      v-on:changeTag="handleChangeTag"
+      :tags="this.recipe.tags.length > 0 ? this.recipe.tags : []"
+    />
     <h2>
       Ingredients
       <v-btn icon @click="showIngredients = !showIngredients">
@@ -168,8 +171,48 @@ export default Vue.extend({
       );
     },
     async handleChangeTag(select: string[]) {
-      this.recipe.tags = select;
-      console.log(this.recipe.tags);
+      // console.log(select);
+      if (select.length > 0) {
+        try {
+          const response = await fetch(`/api/recipe/${this.slug}/tag`, {
+            method: "POST", // or 'PUT'
+            headers: {
+              "Content-Type": "application/json",
+              accessToken: this.$store.state.accessToken
+            },
+            body: JSON.stringify({ tagList: select })
+          }).then(res => res.json());
+          // console.log(response);
+          this.recipe.tags = response.tagList;
+
+          // if (this.recipe.tags.length > 0) {
+          //   this.recipe.tags[0].tagList = response.tagList;
+          // } else {
+          //   this.recipe.tags = response;
+          // }
+
+          // this.recipe.tags = select;
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        this.recipe.tags = [];
+        try {
+          const response = await fetch(`/api/recipe/${this.slug}/tag`, {
+            method: "DELETE", // or 'PUT'
+            headers: {
+              "Content-Type": "application/json",
+              accessToken: this.$store.state.accessToken
+            }
+          });
+
+          // console.log(response);
+
+          // this.recipe.tags = select;
+        } catch (error) {
+          console.log(error);
+        }
+      }
     },
     handleChange() {
       if (!this.textChanged) {
@@ -232,11 +275,17 @@ export default Vue.extend({
         accessToken: store.state.accessToken
       }
     }).then(res => res.json());
-    console.log(recipeInfo);
+    let recipe;
+    if (recipeInfo.tags.length > 0) {
+      recipe = { ...recipeInfo, tags: recipeInfo.tags[0].tagList };
+    } else {
+      recipe = recipeInfo;
+    }
+    console.log(recipe);
 
     return {
       slug,
-      recipe: recipeInfo,
+      recipe,
       showNotes: recipeInfo.notes.length > 0 ? true : false,
       baseServings: recipeInfo.servings
     };

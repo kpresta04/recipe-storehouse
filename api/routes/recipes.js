@@ -7,31 +7,82 @@ const jwt = require("jsonwebtoken");
 const prisma = new PrismaClient();
 const router = Router();
 
-router.get("/recipe/:id", authenticateToken, async (req, res) => {
+router.delete("/recipe/:id/tag", authenticateToken, async (req, res) => {
   const user = JSON.parse(JSON.stringify(req.user));
+  const tagId = { recipeId: Number(req.params.id), userId: user.id };
 
   try {
-    const id = Number(req.params.id);
-    const recipe = await prisma.recipe.findOne({
-      where: { id: id },
-      include: {
-        notes: {
-          where: {
-            userId: user.id
-          }
-        },
-        tags: {
-          where: {
-            userId: user.id
-          }
-        }
+    await prisma.tag.delete({
+      where: {
+        recipeId_userId: tagId
       }
     });
-    res.send(recipe);
+
+    res.sendStatus(204);
   } catch (error) {
     console.log(error);
   }
-});
+}),
+  router.post("/recipe/:id/tag", authenticateToken, async (req, res) => {
+    const user = JSON.parse(JSON.stringify(req.user));
+    const recipeID = Number(req.params.id);
+
+    try {
+      const tag = await prisma.tag.upsert({
+        where: {
+          recipeId_userId: {
+            recipeId: recipeID,
+            userId: user.id
+          }
+        },
+        update: {
+          tagList: req.body.tagList
+        },
+        create: {
+          tagList: req.body.tagList,
+          // recipeId: recipeID,
+          // userId: user.id,
+
+          User: {
+            connect: { id: user.id }
+          },
+          Recipe: {
+            connect: { id: recipeID }
+          }
+        }
+      });
+
+      res.send(tag);
+    } catch (error) {
+      console.log(error);
+    }
+  }),
+  router.get("/recipe/:id", authenticateToken, async (req, res) => {
+    const user = JSON.parse(JSON.stringify(req.user));
+
+    try {
+      const id = Number(req.params.id);
+      const recipe = await prisma.recipe.findOne({
+        where: { id: id },
+        include: {
+          notes: {
+            where: {
+              userId: user.id
+            }
+          },
+          tags: {
+            where: {
+              userId: user.id
+            },
+            select: { tagList: true }
+          }
+        }
+      });
+      res.send(recipe);
+    } catch (error) {
+      console.log(error);
+    }
+  });
 router.delete("/recipe/:id", authenticateToken, async (req, res) => {
   const user = JSON.parse(JSON.stringify(req.user));
 

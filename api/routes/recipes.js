@@ -19,6 +19,11 @@ router.get("/recipe/:id", authenticateToken, async (req, res) => {
           where: {
             userId: user.id
           }
+        },
+        tags: {
+          where: {
+            userId: user.id
+          }
         }
       }
     });

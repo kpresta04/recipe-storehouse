@@ -17,6 +17,7 @@ model User {
   tokens    Token[]
   recipes   Recipe[]
   notes     Note[]
+  tags      Tag[]
 }
 
 model Token {
@@ -42,11 +43,23 @@ model Note {
   @@id([recipeId, userId])
 }
 
+model Tag {
+
+  text     String
+  Recipe   Recipe @relation(fields: [recipeId], references: [id])
+  recipeId Int
+  User     User   @relation(fields: [userId], references: [id])
+  userId   Int
+
+
+  @@id([recipeId, userId])
+}
+
 model Recipe {
   id                   Int     @id @default(autoincrement())
   title                String
   sourceURL            String  @unique
-  tags                 Json?
+  tags                 Tag[]
   analyzedInstructions Json?
   servings             Int
   cuisines             Json?

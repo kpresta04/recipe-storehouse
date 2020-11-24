@@ -8,8 +8,28 @@
     ></v-img>
     <h1>{{ this.recipe && this.recipe.title }}</h1>
     <h3>
-      Serves: <span v-if="this.recipe">{{ this.recipe.servings }} </span>
+      Servings:
+      {{ this.baseServings }}
+      <!-- <input
+        :value="this.baseServings"
+        type="number"
+        min="1"
+        name="servings"
+        id="servings"
+      /> -->
+      <!-- <v-text-field readonly :value="this.recipe.servings">
+        <v-icon @click="adjustServings" slot="append" color="blue">
+          mdi-plus
+        </v-icon>
+        <v-icon slot="prepend" color="green">
+          mdi-minus
+        </v-icon>
+      </v-text-field> -->
+      <!-- <v-btn text color="primary">
+        Adjust
+      </v-btn> -->
     </h3>
+    <!-- <h5>Original recipe yields&nbsp;{{ this.baseServings }} servings</h5> -->
     <!-- <div class="title">
     </div> -->
     <h2>
@@ -58,6 +78,19 @@
         </v-card-text>
       </div>
     </v-expand-transition>
+    <h2>Tags</h2>
+    <div class="tags text-center">
+      <v-chip
+        class="ma-2"
+        close
+        color="blue"
+        label
+        outlined
+        @click:close="handleDeleteTag"
+      >
+        Complete
+      </v-chip>
+    </div>
     <h2>
       Notes
       <v-btn icon @click="showNotes = !showNotes">
@@ -82,13 +115,40 @@
           >
             Save
           </v-btn>
-          <v-btn @click="handleDelete" color="error">
+          <v-btn @click="handleDeleteNote" color="error">
             Delete
           </v-btn>
         </div>
         <!-- </v-card-text> -->
       </div>
     </v-expand-transition>
+    <h2>Options</h2>
+    <v-row align="center">
+      <v-btn class="ma-2" color="primary" dark>
+        Add to Shopping List
+        <v-icon dark right>
+          mdi-cart
+        </v-icon>
+      </v-btn>
+
+      <v-btn dark class="ma-2" color="teal">
+        Add to Meal Plan
+        <v-icon right> mdi-calendar </v-icon>
+      </v-btn>
+      <v-btn class="ma-2" color="red" dark>
+        Delete
+        <v-icon dark right>
+          mdi-delete
+        </v-icon>
+      </v-btn>
+
+      <v-btn :to="'/my-recipes/' + this.slug + '/print'" class="ma-2">
+        Print
+        <v-icon dark right>
+          mdi-printer
+        </v-icon>
+      </v-btn>
+    </v-row>
   </div>
 </template>
 
@@ -101,7 +161,8 @@ export default Vue.extend({
     return {
       slug: null,
       recipe: {
-        id: 0
+        id: 0,
+        servings: 0
       },
       showMethod: false,
       showIngredients: true,
@@ -110,12 +171,19 @@ export default Vue.extend({
     };
   },
   methods: {
+    async handleDeleteTag() {
+      console.log("delete tag");
+    },
     handleChange() {
       if (!this.textChanged) {
         this.textChanged = true;
       }
     },
-    async handleDelete() {
+    adjustServings() {
+      console.log("honkey");
+      this.recipe.servings++;
+    },
+    async handleDeleteNote() {
       // const recipeId = this.recipe.id;
 
       try {
@@ -126,6 +194,9 @@ export default Vue.extend({
             accessToken: this.$store.state.accessToken
           }
         });
+
+        const textArea = <HTMLInputElement>document.querySelector("#notes");
+        textArea.value = "";
       } catch (error) {
         console.log(error);
       }
@@ -169,17 +240,25 @@ export default Vue.extend({
     return {
       slug,
       recipe: recipeInfo,
-      showNotes: recipeInfo.notes.length > 0 ? true : false
+      showNotes: recipeInfo.notes.length > 0 ? true : false,
+      baseServings: recipeInfo.servings
     };
   }
 });
 </script>
 
 <style lang="scss" scoped>
+input {
+  max-width: 4rem !important;
+}
 h3 {
   color: gray;
 }
 .title {
   margin-top: 1rem;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>

@@ -44,8 +44,8 @@ model Note {
 }
 
 model Tag {
-
-  text     String
+  //tagList: array of tags, unique to each recipe and user
+  tagList  Json
   Recipe   Recipe @relation(fields: [recipeId], references: [id])
   recipeId Int
   User     User   @relation(fields: [userId], references: [id])

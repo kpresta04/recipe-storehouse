@@ -32,6 +32,8 @@
     <!-- <h5>Original recipe yields&nbsp;{{ this.baseServings }} servings</h5> -->
     <!-- <div class="title">
     </div> -->
+
+    <ToolBar v-on:changeTag="handleChangeTag" :tags="this.recipe.tags" />
     <h2>
       Ingredients
       <v-btn icon @click="showIngredients = !showIngredients">
@@ -40,7 +42,6 @@
         }}</v-icon>
       </v-btn>
     </h2>
-
     <v-expand-transition>
       <div v-show="showIngredients">
         <v-card-text>
@@ -78,19 +79,7 @@
         </v-card-text>
       </div>
     </v-expand-transition>
-    <h2>Tags</h2>
-    <div class="tags text-center">
-      <v-chip
-        class="ma-2"
-        close
-        color="blue"
-        label
-        outlined
-        @click:close="handleDeleteTag"
-      >
-        Complete
-      </v-chip>
-    </div>
+
     <h2>
       Notes
       <v-btn icon @click="showNotes = !showNotes">
@@ -159,10 +148,12 @@ export default Vue.extend({
   middleware: "authenticated",
   data() {
     return {
+      toots: ["Breakfast"],
       slug: null,
       recipe: {
         id: 0,
-        servings: 0
+        servings: 0,
+        tags: <any>[]
       },
       showMethod: false,
       showIngredients: true,
@@ -171,8 +162,14 @@ export default Vue.extend({
     };
   },
   methods: {
-    async handleDeleteTag() {
-      console.log("delete tag");
+    async handleDeleteTag(tag: string) {
+      this.recipe.tags = this.recipe.tags.filter(
+        (tagText: string) => tagText !== tag
+      );
+    },
+    async handleChangeTag(select: string[]) {
+      this.recipe.tags = select;
+      console.log(this.recipe.tags);
     },
     handleChange() {
       if (!this.textChanged) {

@@ -15,7 +15,7 @@
       </template>
       <template v-slot:servings> Serves {{ recipe.servings }} </template>
       <template v-slot:link>
-        <v-btn :to="'/my-recipes/' + recipe.id" color="teal darken-2" text>
+        <v-btn nuxt :to="'/my-recipes/' + recipe.id" color="teal darken-2" text>
           View Recipe
         </v-btn>
       </template>

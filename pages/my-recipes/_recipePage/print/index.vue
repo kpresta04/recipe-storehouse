@@ -59,10 +59,4 @@ export default Vue.extend({
 h4 {
   color: gray;
 }
-header {
-  display: none !important;
-}
-.v-main {
-  padding-top: 0 !important;
-}
 </style>

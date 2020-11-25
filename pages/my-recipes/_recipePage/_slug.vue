@@ -116,7 +116,7 @@
     </v-expand-transition>
     <h2>Options</h2>
     <v-row align="center">
-      <v-btn class="ma-2" color="primary" dark>
+      <v-btn @click="handleShoppingListAdd" class="ma-2" color="primary" dark>
         Add to Shopping List
         <v-icon dark right>
           mdi-cart
@@ -168,6 +168,21 @@ export default Vue.extend({
       this.recipe.tags = this.recipe.tags.filter(
         (tagText: string) => tagText !== tag
       );
+    },
+    async handleShoppingListAdd() {
+      try {
+        const response = await fetch("/api/shopping-list", {
+          method: "POST", // or 'PUT'
+          headers: {
+            "Content-Type": "application/json",
+            accessToken: this.$store.state.accessToken
+          }
+          // body: JSON.stringify({ tagList: select })
+        }).then(res => res.json());
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
     },
     async handleChangeTag(select: string[]) {
       // console.log(select);

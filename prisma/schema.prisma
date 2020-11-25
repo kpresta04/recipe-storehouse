@@ -8,16 +8,29 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  firstName String?
-  lastName  String?
-  isAdmin   Boolean  @default(false)
-  hash      String
-  tokens    Token[]
-  recipes   Recipe[]
-  notes     Note[]
-  tags      Tag[]
+  id            Int            @id @default(autoincrement())
+  email         String         @unique
+  firstName     String?
+  lastName      String?
+  isAdmin       Boolean        @default(false)
+  hash          String
+  tokens        Token[]
+  recipes       Recipe[]
+  notes         Note[]
+  tags          Tag[]
+  shoppingLists ShoppingList[]
+}
+
+model ShoppingList {
+  id          Int      @id @default(autoincrement())
+  user        User     @relation(fields: [userId], references: [id])
+  ingredients Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String?
+  recipes     Recipe[]
+
+  userId Int
 }
 
 model Token {
@@ -72,6 +85,7 @@ model Recipe {
 
 
 
+  shoppingLists ShoppingList[]
 }
 
 enum UserRole {

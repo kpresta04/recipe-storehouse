@@ -24,6 +24,9 @@ router.delete("/recipe/:id/tag", authenticateToken, async (req, res) => {
     console.log(error);
   }
 }),
+  router.post("/shopping-list", authenticateToken, async (req, res) => {
+    res.send({ message: "hello" });
+  }),
   router.post("/recipe/:id/tag", authenticateToken, async (req, res) => {
     const user = JSON.parse(JSON.stringify(req.user));
     const recipeID = Number(req.params.id);

@@ -39,11 +39,23 @@ export default Vue.extend({
     };
   },
   methods: {
-    deleteRecipe(id: Number) {
+    async deleteRecipe(id: Number) {
       const filteredList = this.recipeList.filter(
         (recipe: any) => recipe.id !== id
       );
       this.recipeList = filteredList;
+      try {
+        const response = await fetch(`/api/recipe/${id}`, {
+          method: "DELETE", // or 'PUT'
+          headers: {
+            "Content-Type": "application/json",
+            accessToken: this.$store.state.accessToken
+          }
+        }).then(res => res.json());
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
   async asyncData({ store }) {

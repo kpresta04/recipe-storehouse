@@ -17,6 +17,7 @@ router.delete("/recipe/:id/tag", authenticateToken, async (req, res) => {
         recipeId_userId: tagId
       }
     });
+    await prisma.$disconnect();
 
     res.sendStatus(204);
   } catch (error) {

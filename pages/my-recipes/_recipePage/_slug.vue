@@ -127,13 +127,12 @@
         Add to Meal Plan
         <v-icon right> mdi-calendar </v-icon>
       </v-btn>
-      <v-btn class="ma-2" color="red" dark>
+      <v-btn @click="handleDeleteRecipe" class="ma-2" color="red" dark>
         Delete
         <v-icon dark right>
           mdi-delete
         </v-icon>
       </v-btn>
-
       <v-btn :to="'/my-recipes/' + this.slug + '/print'" class="ma-2">
         Print
         <v-icon dark right>
@@ -212,6 +211,20 @@ export default Vue.extend({
         } catch (error) {
           console.log(error);
         }
+      }
+    },
+    async handleDeleteRecipe() {
+      try {
+        const response = await fetch(`/api/recipe/${this.slug}`, {
+          method: "DELETE", // or 'PUT'
+          headers: {
+            "Content-Type": "application/json",
+            accessToken: this.$store.state.accessToken
+          }
+        }).then(res => res.json());
+        console.log(response);
+      } catch (error) {
+        console.log(error);
       }
     },
     handleChange() {

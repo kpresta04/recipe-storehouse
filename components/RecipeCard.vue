@@ -67,20 +67,9 @@ export default {
   props: ["source", "recipe_id"],
 
   methods: {
-    async deleteClick(e) {
+    deleteClick(e) {
       if (e.target.textContent === "Delete recipe") {
-        try {
-          await fetch(`/api/recipe/${this.recipe_id}`, {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-              accessToken: this.$store.state.accessToken
-            }
-          });
-          this.$emit("deleteRecipe", this.recipe_id);
-        } catch (error) {
-          console.log(error);
-        }
+        this.$emit("deleteRecipe", this.recipe_id);
       }
     }
   }

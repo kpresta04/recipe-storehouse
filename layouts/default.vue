@@ -1,15 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar
-      class="appBar"
-      absolute
-      color="#fcb69f"
-      dark
-      shrink-on-scroll
-      src="/ar1.jpg"
-      scroll-target="#scrolling-techniques-2"
-      app
-    >
+    <v-app-bar absolute color="#fcb69f" dark src="/ar1.jpg" app>
       <template v-slot:img="{ props }">
         <v-img
           v-bind="props"
@@ -18,17 +9,36 @@
       </template>
 
       <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
-
+      <v-app-bar-nav-icon
+        class="navIcon"
+        @click="drawer = true"
+      ></v-app-bar-nav-icon>
       <v-toolbar-title>
-        <nuxt-link to="/">
-          Recipe DB
-        </nuxt-link>
+        Recipe DB
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
       <v-btn v-if="!$store.state.accessToken" absolute bottom right nuxt>
         <nuxt-link to="/login">Login</nuxt-link>
       </v-btn>
+
+      <v-navigation-drawer app v-model="drawer" absolute temporary>
+        <v-list nav dense>
+          <v-list-item-group
+            v-model="group"
+            active-class="deep-purple--text text--accent-4"
+          >
+            <v-list-item v-for="(item, i) in items" :key="i" :to="item.to">
+              <v-list-item-icon>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>
+                {{ item.title }}
+              </v-list-item-title>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-navigation-drawer>
 
       <!-- <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
@@ -60,19 +70,41 @@
 export default {
   data() {
     return {
+      group: null,
       clipped: false,
       drawer: false,
       fixed: false,
       items: [
         {
-          icon: "mdi-apps",
-          title: "Welcome",
+          icon: "mdi-home",
+          title: "Home",
           to: "/"
         },
         {
-          icon: "mdi-chart-bubble",
-          title: "Inspire",
-          to: "/inspire"
+          icon: "mdi-account",
+          title: "Account",
+          to: "/account"
+        },
+        {
+          icon: "mdi-pasta",
+          title: "My Recipes",
+          to: "/my-recipes"
+        },
+
+        {
+          icon: "mdi-cart",
+          title: "Shopping List",
+          to: "/shopping-list"
+        },
+        {
+          icon: "mdi-calendar-month-outline",
+          title: "Meal Plan",
+          to: "/meal-plan"
+        },
+        {
+          icon: "mdi-upload-outline",
+          title: "Import Recipe",
+          to: "/import"
         }
       ],
       miniVariant: false,
@@ -83,7 +115,10 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
+.navIcon {
+  margin: 0;
+}
 a {
   color: white;
   text-decoration: none;

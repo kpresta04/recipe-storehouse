@@ -13,7 +13,7 @@
         class="navIcon"
         @click="drawer = true"
       ></v-app-bar-nav-icon>
-      <v-toolbar-title>
+      <v-toolbar-title class="toolbar-title">
         Recipe DB
       </v-toolbar-title>
 
@@ -117,7 +117,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 .navIcon {
-  margin: 0;
+  margin: 0 !important;
+}
+.toolbar-title {
+  padding-left: 20px;
 }
 a {
   color: white;

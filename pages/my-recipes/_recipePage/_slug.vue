@@ -45,6 +45,7 @@
         }}</v-icon>
       </v-btn>
     </h2>
+
     <v-expand-transition>
       <div v-show="showIngredients">
         <v-card-text>
@@ -116,12 +117,19 @@
     </v-expand-transition>
     <h2>Options</h2>
     <v-row align="center">
-      <v-btn @click="handleShoppingListAdd" class="ma-2" color="primary" dark>
+      <PopUpModal color="primary" buttonText="Add to Shopping List">
+        <template v-slot:buttonIcon>
+          <v-icon dark right>
+            mdi-cart
+          </v-icon>
+        </template>
+      </PopUpModal>
+      <!-- <v-btn @click="handleShoppingListAdd" class="ma-2" color="primary" dark>
         Add to Shopping List
         <v-icon dark right>
           mdi-cart
         </v-icon>
-      </v-btn>
+      </v-btn> -->
 
       <v-btn dark class="ma-2" color="teal">
         Add to Meal Plan
@@ -150,7 +158,8 @@ export default Vue.extend({
   middleware: "authenticated",
   data() {
     return {
-      toots: ["Breakfast"],
+      baseServings: 0,
+
       slug: null,
       recipe: {
         id: 0,

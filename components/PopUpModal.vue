@@ -14,7 +14,7 @@
         >Servings:
         <input
           type="number"
-          :value="baseServings"
+          :value="recipe.servings"
           min="1"
           name="servingAmount"
           id="servingAmount"
@@ -26,6 +26,7 @@
             <v-checkbox
               class="checkBoxRow"
               v-model="selected"
+              :id="'checkbox-' + i"
               checked
               :label="ingredient.calculated"
               :value="ingredient.calculated"
@@ -67,16 +68,34 @@ export default Vue.extend({
     adjustIngredients(e: any) {
       if (e.target.value > 0) {
         const servings = e.target.value;
-        this.recipe.extendedIngredients.forEach((ingredient: any) => {
-          const servingRatio = servings / this.baseServings;
-          const amount = ingredient.amount * servingRatio;
-          const measure =
-            amount > 1 ? ingredient.measures.us.unitShort : ingredient.unit;
+        this.recipe.servings = servings;
+        let newSelected: any = [];
+        this.recipe.extendedIngredients.forEach(
+          (ingredient: any, i: Number) => {
+            const servingRatio = servings / this.baseServings;
+            const amount = ingredient.amount * servingRatio;
+            const measure =
+              amount > 1
+                ? ingredient.measures.us.unitLong.slice(-1) === "s"
+                  ? ingredient.measures.us.unitLong
+                  : ingredient.measures.us.unitLong + "s"
+                : ingredient.unit.slice(-1) === "s"
+                ? ingredient.unit.slice(0, -1)
+                : ingredient.unit;
 
-          ingredient.calculated =
-            amount + " " + measure + " " + ingredient.originalName;
-          console.log(ingredient.calculated);
-        });
+            const newCalc = amount + " " + measure + " " + ingredient.name;
+
+            // console.log(ingredient.calculated);
+            const checkbox = <HTMLInputElement>(
+              document.querySelector(`#checkbox-${i}`)
+            );
+            if (checkbox.checked) {
+              newSelected.push(newCalc);
+            }
+            ingredient.calculated = newCalc;
+          }
+        );
+        this.selected = newSelected;
       }
     }
   },

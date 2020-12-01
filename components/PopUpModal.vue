@@ -66,12 +66,17 @@ export default Vue.extend({
   },
   methods: {
     adjustIngredients(e: any) {
+      const gcd = (a: number, b: number): number => {
+        if (b < 0.0000001) return a; // Since there is a limited precision we need to limit the value.
+
+        return gcd(b, Math.floor(a % b)); // Discard any fractions due to limitations in precision.
+      };
       if (e.target.value > 0) {
         const servings = e.target.value;
         this.recipe.servings = servings;
         let newSelected: any = [];
         this.recipe.extendedIngredients.forEach(
-          (ingredient: any, i: Number) => {
+          (ingredient: any, i: number) => {
             const servingRatio = servings / this.baseServings;
             const amount = ingredient.amount * servingRatio;
             const measure =
@@ -82,8 +87,49 @@ export default Vue.extend({
                 : ingredient.unit.slice(-1) === "s"
                 ? ingredient.unit.slice(0, -1)
                 : ingredient.unit;
+            let newCalc;
+            if (String(amount).includes(".")) {
+              const amountInt = Math.floor(amount);
+              const amountDecimal = amount - amountInt;
+              const len = amountDecimal.toString().length - 2;
+              //amount is a decimal
+              let denominator = Math.pow(10, len);
+              let numerator = amountDecimal * denominator;
+              const divisor = gcd(numerator, denominator);
+              numerator /= divisor;
+              denominator /= divisor;
+              const amountFraction =
+                amountInt > 0
+                  ? amountInt +
+                    " " +
+                    Math.floor(numerator) +
+                    "/" +
+                    Math.floor(denominator)
+                  : Math.floor(numerator) + "/" + Math.floor(denominator);
 
-            const newCalc = amount + " " + measure + " " + ingredient.name;
+              ingredient.metaInformation.length > 0
+                ? (newCalc =
+                    amountFraction +
+                    " " +
+                    measure +
+                    " " +
+                    ingredient.metaInformation[0] +
+                    " " +
+                    ingredient.name)
+                : (newCalc =
+                    amountFraction + " " + measure + " " + ingredient.name);
+            } else {
+              ingredient.metaInformation.length > 0
+                ? (newCalc =
+                    amount +
+                    " " +
+                    measure +
+                    " " +
+                    ingredient.metaInformation[0] +
+                    " " +
+                    ingredient.name)
+                : (newCalc = amount + " " + measure + " " + ingredient.name);
+            }
 
             // console.log(ingredient.calculated);
             const checkbox = <HTMLInputElement>(

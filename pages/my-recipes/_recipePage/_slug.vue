@@ -117,7 +117,12 @@
     </v-expand-transition>
     <h2>Options</h2>
     <v-row align="center">
-      <PopUpModal color="primary" buttonText="Add to Shopping List">
+      <PopUpModal
+        :recipe="recipe"
+        :baseServings="baseServings"
+        color="primary"
+        buttonText="Add to Shopping List"
+      >
         <template v-slot:buttonIcon>
           <v-icon dark right>
             mdi-cart

@@ -80,7 +80,7 @@ export default Vue.extend({
             const servingRatio = servings / this.baseServings;
             const amount = ingredient.amount * servingRatio;
             const measure =
-              amount > 1
+              amount > 1 && ingredient.unit !== ""
                 ? ingredient.measures.us.unitLong.slice(-1) === "s"
                   ? ingredient.measures.us.unitLong
                   : ingredient.measures.us.unitLong + "s"
@@ -107,28 +107,9 @@ export default Vue.extend({
                     Math.floor(denominator)
                   : Math.floor(numerator) + "/" + Math.floor(denominator);
 
-              ingredient.metaInformation.length > 0
-                ? (newCalc =
-                    amountFraction +
-                    " " +
-                    measure +
-                    " " +
-                    ingredient.metaInformation[0] +
-                    " " +
-                    ingredient.name)
-                : (newCalc =
-                    amountFraction + " " + measure + " " + ingredient.name);
+              newCalc = amountFraction + " " + measure + " " + ingredient.name;
             } else {
-              ingredient.metaInformation.length > 0
-                ? (newCalc =
-                    amount +
-                    " " +
-                    measure +
-                    " " +
-                    ingredient.metaInformation[0] +
-                    " " +
-                    ingredient.name)
-                : (newCalc = amount + " " + measure + " " + ingredient.name);
+              newCalc = amount + " " + measure + " " + ingredient.name;
             }
 
             // console.log(ingredient.calculated);

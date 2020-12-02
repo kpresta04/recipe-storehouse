@@ -90,7 +90,9 @@ export default Vue.extend({
             let newCalc;
             if (String(amount).includes(".")) {
               const amountInt = Math.floor(amount);
-              const amountDecimal = amount - amountInt;
+              let amountDecimal = amount - amountInt;
+              amountDecimal = Number(amountDecimal.toFixed(3));
+
               const len = amountDecimal.toString().length - 2;
               //amount is a decimal
               let denominator = Math.pow(10, len);
@@ -98,14 +100,25 @@ export default Vue.extend({
               const divisor = gcd(numerator, denominator);
               numerator /= divisor;
               denominator /= divisor;
-              const amountFraction =
+              let amountFraction;
+              // console.log(amountDecimal);
+              if (amountDecimal === 0.667) {
+                amountFraction = "2/3";
+              } else if (amountDecimal === 0.333) {
+                amountFraction = "1/3";
+              } else if (amountDecimal === 0.833) {
+                amountFraction = "5/6";
+              } else if (amountDecimal === 0.167) {
+                amountFraction = "1/6";
+              } else {
+                amountFraction =
+                  Math.floor(numerator) + "/" + Math.floor(denominator);
+              }
+
+              amountFraction =
                 amountInt > 0
-                  ? amountInt +
-                    " " +
-                    Math.floor(numerator) +
-                    "/" +
-                    Math.floor(denominator)
-                  : Math.floor(numerator) + "/" + Math.floor(denominator);
+                  ? amountInt + " " + amountFraction
+                  : amountFraction;
 
               newCalc = amountFraction + " " + measure + " " + ingredient.name;
             } else {

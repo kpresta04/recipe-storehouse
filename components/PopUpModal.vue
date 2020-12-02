@@ -93,15 +93,8 @@ export default Vue.extend({
               let amountDecimal = amount - amountInt;
               amountDecimal = Number(amountDecimal.toFixed(3));
 
-              const len = amountDecimal.toString().length - 2;
-              //amount is a decimal
-              let denominator = Math.pow(10, len);
-              let numerator = amountDecimal * denominator;
-              const divisor = gcd(numerator, denominator);
-              numerator /= divisor;
-              denominator /= divisor;
               let amountFraction;
-              // console.log(amountDecimal);
+              // handle special cases
               if (amountDecimal === 0.667) {
                 amountFraction = "2/3";
               } else if (amountDecimal === 0.333) {
@@ -111,6 +104,13 @@ export default Vue.extend({
               } else if (amountDecimal === 0.167) {
                 amountFraction = "1/6";
               } else {
+                const len = amountDecimal.toString().length - 2;
+                //amount is a decimal
+                let denominator = Math.pow(10, len);
+                let numerator = amountDecimal * denominator;
+                const divisor = gcd(numerator, denominator);
+                numerator /= divisor;
+                denominator /= divisor;
                 amountFraction =
                   Math.floor(numerator) + "/" + Math.floor(denominator);
               }

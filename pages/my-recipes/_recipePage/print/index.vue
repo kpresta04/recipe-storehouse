@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <h1>{{ recipe.title }}</h1>
     <h4>Servings: {{ recipe.servings }}</h4>
     <h3>Ingredients</h3>
@@ -8,7 +8,7 @@
         {{ ingredient.originalString }}
       </li>
     </ul>
-    <div v-if="recipe.notes.length > 0">
+    <div class="notesDiv" v-if="recipe.notes.length > 0">
       <h3>Notes</h3>
       <ul>
         <li>{{ recipe.notes[0].text }}</li>
@@ -28,6 +28,7 @@ import Vue from "vue";
 
 export default Vue.extend({
   middleware: "authenticated",
+  layout: "print",
   // mounted() {
   //   console.log( this.$route.params.recipePage);
   // },
@@ -51,6 +52,9 @@ export default Vue.extend({
     return {
       recipe
     };
+  },
+  mounted() {
+    // window.print();
   }
 });
 </script>
@@ -58,5 +62,17 @@ export default Vue.extend({
 <style lang="scss" scoped>
 h4 {
   color: gray;
+}
+.main {
+  margin: 1rem 1rem 1rem 2rem;
+}
+li,
+h3 {
+  margin-top: 0.3rem;
+}
+.notesDiv {
+  li {
+    margin-top: 0;
+  }
 }
 </style>

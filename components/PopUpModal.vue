@@ -40,7 +40,7 @@
         <v-btn color="black darken-1" text @click="dialog = false">
           Cancel
         </v-btn>
-        <v-btn color="green darken-1" text @click="dialog = false">
+        <v-btn color="green darken-1" text @click="addToShoppingList">
           Add
         </v-btn>
       </v-card-actions>
@@ -80,6 +80,7 @@ export default Vue.extend({
           (ingredient: any, i: number) => {
             const servingRatio = servings / this.baseServings;
             const amount = ingredient.amount * servingRatio;
+            const aisle = ingredient.aisle;
             const measure =
               amount > 1 && ingredient.unit !== ""
                 ? ingredient.measures.us.unitLong.slice(-1) === "s"
@@ -138,6 +139,20 @@ export default Vue.extend({
         );
         this.selected = newSelected;
       }
+    },
+    addToShoppingList() {
+      // console.log(this.selected);
+
+      this.recipe.extendedIngredients.forEach((ingredient: any, i: number) => {
+        const checkbox = <HTMLInputElement>(
+          document.querySelector(`#checkbox-${i}`)
+        );
+        if (checkbox.checked) {
+          console.log(ingredient.calculated);
+        }
+      });
+
+      this.dialog = false;
     }
   },
   props: ["color", "buttonText", "recipe", "baseServings"]

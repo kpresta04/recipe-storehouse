@@ -152,6 +152,19 @@
           mdi-printer
         </v-icon>
       </v-btn>
+      <v-btn
+        dark
+        :href="this.recipe.sourceURL"
+        color="purple"
+        class="ma-2"
+        target="_blank"
+        rel="noopener"
+      >
+        View Source
+        <v-icon dark right>
+          mdi-web
+        </v-icon>
+      </v-btn>
     </v-row>
   </div>
 </template>

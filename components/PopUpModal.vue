@@ -20,6 +20,7 @@
           id="servingAmount"
           @change="adjustIngredients"
         />
+        <h4>Original recipe yields {{ baseServings }} servings</h4>
 
         <ul>
           <li v-for="(ingredient, i) in recipe.extendedIngredients" :key="i">
@@ -35,12 +36,12 @@
         </ul>
       </v-card-text>
       <v-card-actions>
-        <v-spacer></v-spacer>
+        <!-- <v-spacer></v-spacer> -->
         <v-btn color="black darken-1" text @click="dialog = false">
           Cancel
         </v-btn>
         <v-btn color="green darken-1" text @click="dialog = false">
-          Agree
+          Add
         </v-btn>
       </v-card-actions>
     </v-card>

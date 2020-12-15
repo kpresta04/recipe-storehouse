@@ -55,7 +55,8 @@ export default Vue.extend({
   data() {
     return {
       dialog: false,
-      selected: [""]
+      selected: [""],
+      selectedObj: []
     };
   },
   mounted() {
@@ -66,16 +67,26 @@ export default Vue.extend({
     });
   },
   methods: {
-    adjustIngredients(e: any) {
+    checkChanged(e: any) {
+      this.selected = e;
+      if (this.selectedObj.length > 0) {
+      }
+      console.log(this.selected);
+    },
+    adjustIngredients() {
       const gcd = (a: number, b: number): number => {
         if (b < 0.0000001) return a; // Since there is a limited precision we need to limit the value.
 
         return gcd(b, Math.floor(a % b)); // Discard any fractions due to limitations in precision.
       };
-      if (e.target.value > 0) {
-        const servings = e.target.value;
+      const servingAmountEl = <HTMLInputElement>(
+        document.querySelector("#servingAmount")
+      );
+      const servings = Number(servingAmountEl.value);
+      if (servings > 0) {
         this.recipe.servings = servings;
         let newSelected: any = [];
+
         this.recipe.extendedIngredients.forEach(
           (ingredient: any, i: number) => {
             const servingRatio = servings / this.baseServings;
@@ -141,16 +152,50 @@ export default Vue.extend({
       }
     },
     addToShoppingList() {
-      // console.log(this.selected);
-
+      let newSelectedObj: any = [];
+      const servingAmountEl = <HTMLInputElement>(
+        document.querySelector("#servingAmount")
+      );
+      const servings = Number(servingAmountEl.value);
       this.recipe.extendedIngredients.forEach((ingredient: any, i: number) => {
+        const servingRatio = servings / this.baseServings;
+        const amount = ingredient.amount * servingRatio;
+        const aisle = ingredient.aisle;
+        const measure =
+          amount > 1 && ingredient.unit !== ""
+            ? ingredient.measures.us.unitLong.slice(-1) === "s"
+              ? ingredient.measures.us.unitLong
+              : ingredient.measures.us.unitLong + "s"
+            : ingredient.unit.slice(-1) === "s"
+            ? ingredient.unit.slice(0, -1)
+            : ingredient.unit;
+
+        const ingObject = {
+          aisle,
+          string: ingredient.calculated,
+          amount,
+          measure
+        };
         const checkbox = <HTMLInputElement>(
           document.querySelector(`#checkbox-${i}`)
         );
         if (checkbox.checked) {
-          console.log(ingredient.calculated);
+          newSelectedObj.push(ingObject);
         }
       });
+
+      // console.log(this.selected);
+
+      // this.recipe.extendedIngredients.forEach((ingredient: any, i: number) => {
+      //   const checkbox = <HTMLInputElement>(
+      //     document.querySelector(`#checkbox-${i}`)
+      //   );
+      //   if (checkbox.checked) {
+      //     console.log(ingredient.calculated);
+      //   }
+      // });
+      this.selectedObj = newSelectedObj;
+      console.log(this.selectedObj);
 
       this.dialog = false;
     }

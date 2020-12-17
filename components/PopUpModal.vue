@@ -30,7 +30,7 @@
               :id="'checkbox-' + i"
               checked
               :label="ingredient.calculated"
-              :value="ingredient.calculated"
+              :value="ingredient.id"
             ></v-checkbox>
           </li>
         </ul>
@@ -63,7 +63,7 @@ export default Vue.extend({
     this.selected = [];
     this.recipe.extendedIngredients.forEach((ingredient: any) => {
       ingredient.calculated = ingredient.originalString;
-      this.selected.push(ingredient.originalString);
+      this.selected.push(ingredient.id);
     });
   },
   methods: {
@@ -143,7 +143,7 @@ export default Vue.extend({
               document.querySelector(`#checkbox-${i}`)
             );
             if (checkbox.checked) {
-              newSelected.push(newCalc);
+              newSelected.push(ingredient.id);
             }
             ingredient.calculated = newCalc;
           }

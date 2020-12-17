@@ -41,7 +41,7 @@
           Cancel
         </v-btn>
         <v-btn color="green darken-1" text @click="addToShoppingList">
-          Add
+          Add to Shopping List
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -50,7 +50,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-
+import dayjs from "dayjs";
 export default Vue.extend({
   data() {
     return {
@@ -151,7 +151,7 @@ export default Vue.extend({
         this.selected = newSelected;
       }
     },
-    addToShoppingList() {
+    async addToShoppingList() {
       let newSelectedObj: any = [];
       const servingAmountEl = <HTMLInputElement>(
         document.querySelector("#servingAmount")
@@ -197,7 +197,27 @@ export default Vue.extend({
       //   }
       // });
       this.selectedObj = newSelectedObj;
-      console.log(this.selectedObj);
+      const startDate = dayjs(dayjs().day(0)).format("DD/MM/YYYY");
+
+      try {
+        const response = await fetch("/api/shopping-list", {
+          method: "POST", // or 'PUT'
+          headers: {
+            "Content-Type": "application/json",
+            accessToken: this.$store.state.accessToken
+          },
+          body: JSON.stringify({
+            ingredients: [...newSelectedObj],
+            startDate
+          })
+        }).then(res => res.json());
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+
+      // console.log(this.selectedObj);
+      // console.log(dayjs().day());
 
       this.dialog = false;
     }

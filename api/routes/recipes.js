@@ -17,7 +17,7 @@ router.delete("/recipe/:id/tag", authenticateToken, async (req, res) => {
         recipeId_userId: tagId
       }
     });
-    await prisma.$disconnect();
+    // await prisma.$disconnect();
 
     res.sendStatus(204);
   } catch (error) {
@@ -25,7 +25,71 @@ router.delete("/recipe/:id/tag", authenticateToken, async (req, res) => {
   }
 }),
   router.post("/shopping-list", authenticateToken, async (req, res) => {
-    res.send({ message: "hello" });
+    const user = JSON.parse(JSON.stringify(req.user));
+    // console.log(req.body);
+    // res.send(req.body);
+    try {
+      const shoppingList = await prisma.shoppingList.findOne({
+        where: {
+          startDate_userId: {
+            startDate: req.body.startDate,
+            userId: user.id
+          }
+        }
+      });
+      // console.log(shoppingList);
+
+      let returnedList;
+
+      if (shoppingList !== null) {
+        //update shopping list
+        returnedList = await prisma.shoppingList.update({
+          where: {
+            startDate_userId: {
+              startDate: req.body.startDate,
+              userId: user.id
+            }
+          },
+          data: {
+            ingredients: [...shoppingList.ingredients, ...req.body.ingredients]
+          }
+        });
+      } else {
+        //create shopping list
+        returnedList = await prisma.shoppingList.create({
+          data: {
+            user: {
+              connect: { id: user.id }
+            },
+            ingredients: req.body.ingredients,
+            startDate: req.body.startDate
+          }
+        });
+      }
+      // const shoppingListUpdated = await prisma.shoppingList.create({
+      //   where: {
+      //     startDate_userId: {
+      //       startDate: req.body.startDate,
+      //       userId: user.id
+      //     }
+      //   },
+      //   update: {
+      //     ingredients: [...shoppingList.ingredients, ...req.body.ingredients]
+      //   },
+      //   create: {
+      //     ingredients: req.body.ingredients,
+      //     startDate: req.body.startDate,
+
+      //     user: {
+      //       connect: { id: user.id }
+      //     }
+      //   }
+      // });
+      res.send(shoppingList);
+    } catch (error) {
+      console.log(error);
+      res.send({ message: "jablowie" });
+    }
   }),
   router.post("/recipe/:id/tag", authenticateToken, async (req, res) => {
     const user = JSON.parse(JSON.stringify(req.user));

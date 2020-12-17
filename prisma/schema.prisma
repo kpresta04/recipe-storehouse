@@ -22,15 +22,18 @@ model User {
 }
 
 model ShoppingList {
-  id          Int      @id @default(autoincrement())
+  // id          Int      @id @default(autoincrement())
   user        User     @relation(fields: [userId], references: [id])
   ingredients Json?
+  startDate   String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   name        String?
-  recipes     Recipe[]
+
 
   userId Int
+
+  @@id([startDate, userId])
 }
 
 model Token {
@@ -85,7 +88,6 @@ model Recipe {
 
 
 
-  shoppingLists ShoppingList[]
 }
 
 enum UserRole {

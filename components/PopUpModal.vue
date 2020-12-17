@@ -173,6 +173,8 @@ export default Vue.extend({
         const ingObject = {
           aisle,
           string: ingredient.calculated,
+          name: ingredient.name,
+          id: ingredient.id,
           amount,
           measure
         };

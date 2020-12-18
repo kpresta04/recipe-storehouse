@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 
 const prisma = new PrismaClient();
 const router = Router();
+import dayjs from "dayjs";
 
 router.delete("/recipe/:id/tag", authenticateToken, async (req, res) => {
   const user = JSON.parse(JSON.stringify(req.user));
@@ -24,6 +25,29 @@ router.delete("/recipe/:id/tag", authenticateToken, async (req, res) => {
     console.log(error);
   }
 }),
+  router.get("/shopping-list", authenticateToken, async (req, res) => {
+    const user = JSON.parse(JSON.stringify(req.user));
+    const startDate = dayjs(dayjs().day(0)).format("DD/MM/YYYY");
+
+    try {
+      const shoppingList = await prisma.shoppingList.findOne({
+        where: {
+          startDate_userId: {
+            startDate,
+            userId: user.id
+          }
+        }
+      });
+      if (shoppingList !== null) {
+        res.send(shoppingList);
+      } else {
+        res.send({ message: "No shopping list found" });
+      }
+    } catch (error) {
+      console.log(error);
+      res.end();
+    }
+  }),
   router.post("/shopping-list", authenticateToken, async (req, res) => {
     const user = JSON.parse(JSON.stringify(req.user));
     // console.log(req.body);

@@ -74,14 +74,16 @@ export default Vue.extend({
           // });
           measureMap = new Set(measureMap);
           measureMap = [...measureMap];
-          console.log(measureMap);
+          // console.log(measureMap);
           measureMap.forEach((el: any) => {
             const measureFilter = idArray.filter(
               (ing: any) => ing.measure === el
             );
+            // console.log(measureFilter);
             if (measureFilter.length > 1) {
               const ingSum = measureFilter.reduce((acc: any, cv: any) => {
-                return { amount: acc.amount + cv.amount, measure: cv.measure };
+                console.log(measureFilter);
+                return { amount: acc.amount + cv.amount };
               });
               finalAmount.push(ingSum);
             } else {
@@ -108,7 +110,7 @@ export default Vue.extend({
             // }
             // console.log(typeof el, "el");
 
-            return el.amount + " " + el.measure;
+            return el.amount;
           });
 
           // console.log(finalAmount, idArray[0].name);

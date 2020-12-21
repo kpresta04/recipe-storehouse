@@ -45,10 +45,15 @@ export default Vue.extend({
       //full array
       console.log(shoppingList.ingredients);
       let idList: any = [];
+      let aisleList: any = [];
+
       shoppingList.ingredients.forEach((ingredient: any) => {
         idList.push(ingredient.id);
+        aisleList.push(ingredient.aisle);
       });
       idList = new Set(idList);
+      aisleList = new Set(aisleList);
+
       // idList.forEach((id: number) => {
       //   console.log(id);
       // });
@@ -64,9 +69,8 @@ export default Vue.extend({
 
       ingFilteredByIdList.forEach((idArray: any, i: number) => {
         if (idArray.length > 1) {
-          // const ingMap = idArray.map((id: any) => {
-          //   return { amount: id.amount, measure: id.measure };
-          // });
+          //if there are more ingredients with same ID
+
           let finalAmount: any = [];
           let measureMap = idArray.map((id: any) => id.measure);
           // .reduce((acc: any, cv: any) => {
@@ -75,6 +79,18 @@ export default Vue.extend({
           measureMap = new Set(measureMap);
           measureMap = [...measureMap];
           // console.log(measureMap);
+          if (measureMap.length > 1) {
+            //if the ingredients have different units
+          } else {
+            //ingredients have same unit but different amounts
+            // console.log(idArray);
+            const egSum = idArray.reduce((acc: any, cv: any) => {
+              return { amount: acc.amount + cv.amount };
+            });
+            const { amount: ingSum } = egSum;
+            console.log(idArray[0].name, ingSum, "same unit diff amount sum");
+          }
+
           measureMap.forEach((el: any) => {
             const measureFilter = idArray.filter(
               (ing: any) => ing.measure === el
@@ -82,8 +98,8 @@ export default Vue.extend({
             // console.log(measureFilter);
             if (measureFilter.length > 1) {
               const ingSum = measureFilter.reduce((acc: any, cv: any) => {
-                console.log(measureFilter);
-                return { amount: acc.amount + cv.amount };
+                // console.log(measureFilter);
+                return acc.amount + cv.amount;
               });
               finalAmount.push(ingSum);
             } else {
@@ -145,14 +161,9 @@ export default Vue.extend({
         }
       });
       ingFilteredByIdList = ingFilteredByIdList.flatMap((el: any) => el);
-      console.log(ingFilteredByIdList);
+      // console.log(ingFilteredByIdList);
       //rethink end
-      let aisleList: any = [];
 
-      shoppingList.ingredients.forEach((ingredient: any) => {
-        aisleList.push(ingredient.aisle);
-      });
-      aisleList = new Set(aisleList);
       // console.log(aisleList);
       aisleList.forEach((aisle: string) => {
         const ingredients = ingFilteredByIdList.filter(

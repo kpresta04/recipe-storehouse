@@ -5,7 +5,13 @@
       <ul>
         <li v-for="(ingredient, i) in aisle.ingredients" :key="i">
           {{
-            ingredient.amount + " " + ingredient.measure + " " + ingredient.name
+            ingredient.amount.length > 1
+              ? ingredient.amount + " " + ingredient.name
+              : ingredient.amount +
+                " " +
+                ingredient.measure +
+                " " +
+                ingredient.name
           }}
         </li>
       </ul>
@@ -56,6 +62,88 @@ export default Vue.extend({
       });
       console.log(ingFilteredByIdList);
 
+      ingFilteredByIdList.forEach((idArray: any, i: number) => {
+        if (idArray.length > 1) {
+          // const ingMap = idArray.map((id: any) => {
+          //   return { amount: id.amount, measure: id.measure };
+          // });
+          let finalAmount: any = [];
+          let measureMap = idArray.map((id: any) => id.measure);
+          // .reduce((acc: any, cv: any) => {
+          //   return acc.amount + cv.amount;
+          // });
+          measureMap = new Set(measureMap);
+          measureMap = [...measureMap];
+          console.log(measureMap);
+          measureMap.forEach((el: any) => {
+            const measureFilter = idArray.filter(
+              (ing: any) => ing.measure === el
+            );
+            if (measureFilter.length > 1) {
+              const ingSum = measureFilter.reduce((acc: any, cv: any) => {
+                return { amount: acc.amount + cv.amount, measure: cv.measure };
+              });
+              finalAmount.push(ingSum);
+            } else {
+              finalAmount.push(measureFilter);
+            }
+          });
+          // console.log(finalAmount);
+          finalAmount = finalAmount.flatMap((el: any) => {
+            // if (el.length > 1) {
+            //   return el;
+            // } else {
+            //   return el.amount;
+            // }
+
+            return el;
+          });
+
+          finalAmount = finalAmount.map((el: any) => {
+            // console.log(el);
+            // if (el.measure !== undefined) {
+            //   return el.amount + " " + el.measure;
+            // } else {
+            //   return el.amount;
+            // }
+            // console.log(typeof el, "el");
+
+            return el.amount + " " + el.measure;
+          });
+
+          // console.log(finalAmount, idArray[0].name);
+
+          ingFilteredByIdList[i] = {
+            ...ingFilteredByIdList[i][0],
+            amount: finalAmount
+          };
+          // const ingSum = ingMap.reduce((acc: any, cv: any) => {
+          //   if (acc.measure === cv.measure) {
+          //     return { amount: acc.amount + cv.amount, measure: cv.measure };
+          //   }
+          // });
+          // if (ingSum) {
+          //   ingFilteredByIdList[i] = {
+          //     ...ingFilteredByIdList[i][0],
+          //     amount: ingSum.amount
+          //   };
+          //   // console.log(idArray[0].name, ingMap, ingSum);
+          // } else {
+          //   const diffIngAmounts = ingMap.map((ing: any) => {
+          //     return " " + ing.amount + " " + ing.measure;
+          //   });
+          //   // console.log(diffIngAmounts, idArray[0].name);
+          //   ingFilteredByIdList[i] = {
+          //     ...ingFilteredByIdList[i][0],
+          //     amount: diffIngAmounts
+          //   };
+          // }
+
+          // console.log(idArray[0].name, ingSum, idArray[0].measure);
+        }
+      });
+      ingFilteredByIdList = ingFilteredByIdList.flatMap((el: any) => el);
+      console.log(ingFilteredByIdList);
       //rethink end
       let aisleList: any = [];
 
@@ -65,7 +153,7 @@ export default Vue.extend({
       aisleList = new Set(aisleList);
       // console.log(aisleList);
       aisleList.forEach((aisle: string) => {
-        const ingredients = shoppingList.ingredients.filter(
+        const ingredients = ingFilteredByIdList.filter(
           (ingredient: any) => ingredient.aisle === aisle
         );
         const ingredientObj: any = {

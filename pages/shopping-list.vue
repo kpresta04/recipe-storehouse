@@ -2,24 +2,38 @@
   <div>
     <div v-for="(aisle, i) in aisleListWithIngredients" :key="i">
       <h4>{{ aisle.aisle }}</h4>
-      <ul>
-        <li v-for="(ingredient, i) in aisle.ingredients" :key="i">
-          <span v-for="(item, i) in ingredient" :key="i">
-            {{
-              ingredient.length > 1
-                ? i === ingredient.length - 1
-                  ? item.amount + " " + item.measure + " " + item.name
-                  : item.amount + " " + item.measure + " " + "+" + " "
-                : item.amount + " " + item.measure + " " + item.name
-            }}
-          </span>
-          <!-- <span v-else-if="ingredient.length > 1">
+
+      <div
+        v-for="(ingredient, index) in aisle.ingredients"
+        :key="index"
+        class="cbContainer"
+      >
+        <input
+          type="checkbox"
+          :name="`cb-${ingredient[0].id}`"
+          :id="`cb-${ingredient[0].id}`"
+          class="checkbox"
+        />
+        <label
+          class="cbLabel"
+          :for="`cb-${item.id}`"
+          v-for="(item, i) in ingredient"
+          :key="i"
+        >
+          {{
+            ingredient.length > 1
+              ? i === ingredient.length - 1
+                ? item.amount + " " + item.measure + " " + item.name
+                : item.amount + " " + item.measure + " " + "+" + " "
+              : item.amount + " " + item.measure + " " + item.name
+          }}
+        </label>
+        <!-- <span v-else-if="ingredient.length > 1">
             {{ "boop" }}
           </span> -->
-          <!-- <span v-for="(ing, i) in ingredient" :key="i">
+        <!-- <span v-for="(ing, i) in ingredient" :key="i">
           </span> -->
-        </li>
-      </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -30,6 +44,12 @@ import dayjs from "dayjs";
 import { set } from "~/api";
 
 export default Vue.extend({
+  data() {
+    return {
+      selected: []
+    };
+  },
+
   async asyncData({ store }) {
     const startDate = dayjs(dayjs().day(0)).format("DD/MM/YYYY");
 
@@ -229,4 +249,16 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+/* .checkbox {
+  height: 16px;
+  width: 16px;
+} */
+.cbLabel:hover {
+  cursor: pointer;
+  background-color: rgb(188, 237, 253);
+}
+.checkbox:hover {
+  cursor: pointer;
+}
+</style>

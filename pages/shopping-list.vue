@@ -48,7 +48,7 @@ export default Vue.extend({
 
     if (shoppingList.ingredients) {
       //full array
-      console.log(shoppingList.ingredients);
+      // console.log(shoppingList.ingredients);
       let idList: any = [];
       let aisleList: any = [];
 
@@ -70,7 +70,7 @@ export default Vue.extend({
         );
         ingFilteredByIdList.push(ingFilteredById);
       });
-      console.log(ingFilteredByIdList);
+      // console.log(ingFilteredByIdList);
 
       ingFilteredByIdList.forEach((idArray: any, i: number) => {
         if (idArray.length > 1) {
@@ -97,7 +97,15 @@ export default Vue.extend({
                   // console.log(measureFilter);
                   return { amount: acc.amount + cv.amount };
                 });
-                const { amount: ingSum } = egSum;
+                let { amount: ingSum } = egSum;
+                if (String(ingSum).includes(".")) {
+                  const amountInt = Math.floor(ingSum);
+                  let amountDecimal = ingSum - amountInt;
+
+                  if (amountDecimal !== 0.5) {
+                    ingSum = ingSum.toFixed(2);
+                  }
+                }
 
                 finalArray.push({ ...measureFilter[0], amount: ingSum });
               } else {
@@ -112,7 +120,15 @@ export default Vue.extend({
             const egSum = idArray.reduce((acc: any, cv: any) => {
               return { amount: acc.amount + cv.amount };
             });
-            const { amount: ingSum } = egSum;
+            let { amount: ingSum } = egSum;
+            if (String(ingSum).includes(".")) {
+              const amountInt = Math.floor(ingSum);
+              let amountDecimal = ingSum - amountInt;
+
+              if (amountDecimal !== 0.5) {
+                ingSum = ingSum.toFixed(2);
+              }
+            }
             ingFilteredByIdList[i] = [{ ...idArray[0], amount: ingSum }];
             // console.log(idArray, "same unit diff amount array");
 
@@ -124,7 +140,7 @@ export default Vue.extend({
       });
       //separate each array into own object
       ingFilteredByIdList = ingFilteredByIdList.flatMap((el: any) => el);
-      console.log(ingFilteredByIdList);
+      // console.log(ingFilteredByIdList);
       //rethink end
 
       // console.log(aisleList);
@@ -151,7 +167,7 @@ export default Vue.extend({
             const ingFilterByIdAndAisle = ingredients.filter(
               (ing: any) => ing.id === id
             );
-            console.log(ingFilterByIdAndAisle);
+            // console.log(ingFilterByIdAndAisle);
             ingredientObject.ingredients.push(ingFilterByIdAndAisle);
 
             // ingFilterByIdAndAisle.forEach((ing: any) => {

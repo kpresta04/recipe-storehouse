@@ -43,7 +43,6 @@ export default Vue.extend({
 
     let message;
     let aisleListWithIngredients: any = [];
-    console.log(typeof aisleListWithIngredients);
 
     // console.log(shoppingList);
 

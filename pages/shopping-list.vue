@@ -4,15 +4,20 @@
       <h4>{{ aisle.aisle }}</h4>
       <ul>
         <li v-for="(ingredient, i) in aisle.ingredients" :key="i">
-          {{
-            ingredient.amount.length > 1
-              ? ingredient.amount + " " + ingredient.name
-              : ingredient.amount +
-                " " +
-                ingredient.measure +
-                " " +
-                ingredient.name
-          }}
+          <span v-for="(item, i) in ingredient" :key="i">
+            {{
+              ingredient.length > 1
+                ? i === ingredient.length - 1
+                  ? item.amount + " " + item.measure + " " + item.name
+                  : item.amount + " " + item.measure + " " + "+" + " "
+                : item.amount + " " + item.measure + " " + item.name
+            }}
+          </span>
+          <!-- <span v-else-if="ingredient.length > 1">
+            {{ "boop" }}
+          </span> -->
+          <!-- <span v-for="(ing, i) in ingredient" :key="i">
+          </span> -->
         </li>
       </ul>
     </div>
@@ -38,6 +43,7 @@ export default Vue.extend({
 
     let message;
     let aisleListWithIngredients: any = [];
+    console.log(typeof aisleListWithIngredients);
 
     // console.log(shoppingList);
 
@@ -115,76 +121,61 @@ export default Vue.extend({
 
             // console.log(idArray[0].name, ingSum, "same unit diff amount sum");
           }
-
-          // console.log(finalAmount);
-          // finalAmount = finalAmount.flatMap((el: any) => {
-          //   // if (el.length > 1) {
-          //   //   return el;
-          //   // } else {
-          //   //   return el.amount;
-          //   // }
-
-          //   return el;
-          // });
-
-          // finalAmount = finalAmount.map((el: any) => {
-          //   // console.log(el);
-          //   // if (el.measure !== undefined) {
-          //   //   return el.amount + " " + el.measure;
-          //   // } else {
-          //   //   return el.amount;
-          //   // }
-          //   // console.log(typeof el, "el");
-
-          //   return el.amount;
-          // });
-
-          // console.log(finalAmount, idArray[0].name);
-
-          // ingFilteredByIdList[i] = {
-          //   ...ingFilteredByIdList[i][0],
-          //   amount: finalAmount
-          // };
-          // const ingSum = ingMap.reduce((acc: any, cv: any) => {
-          //   if (acc.measure === cv.measure) {
-          //     return { amount: acc.amount + cv.amount, measure: cv.measure };
-          //   }
-          // });
-          // if (ingSum) {
-          //   ingFilteredByIdList[i] = {
-          //     ...ingFilteredByIdList[i][0],
-          //     amount: ingSum.amount
-          //   };
-          //   // console.log(idArray[0].name, ingMap, ingSum);
-          // } else {
-          //   const diffIngAmounts = ingMap.map((ing: any) => {
-          //     return " " + ing.amount + " " + ing.measure;
-          //   });
-          //   // console.log(diffIngAmounts, idArray[0].name);
-          //   ingFilteredByIdList[i] = {
-          //     ...ingFilteredByIdList[i][0],
-          //     amount: diffIngAmounts
-          //   };
-          // }
-
-          // console.log(idArray[0].name, ingSum, idArray[0].measure);
         }
       });
       //separate each array into own object
-      // ingFilteredByIdList = ingFilteredByIdList.flatMap((el: any) => el);
+      ingFilteredByIdList = ingFilteredByIdList.flatMap((el: any) => el);
       console.log(ingFilteredByIdList);
       //rethink end
 
       // console.log(aisleList);
+      // ingFilteredByIdList.forEach((el:any) => {
+
+      // });
       aisleList.forEach((aisle: string) => {
-        const ingredients = shoppingList.ingredients.filter(
+        const ingredients = ingFilteredByIdList.filter(
           (ingredient: any) => ingredient.aisle === aisle
         );
-        const ingredientObj: any = {
+        // console.log(ingredients);
+        let ingredientObject: any = {
           aisle,
-          ingredients
+          ingredients: []
         };
-        aisleListWithIngredients.push(ingredientObj);
+        if (ingredients.length > 1) {
+          let idList = ingredients.map((el: any) => el.id);
+          idList = new Set(idList);
+          idList = [...idList];
+          // console.log(ingredients);
+          // console.log(idList);
+
+          idList.forEach((id: number) => {
+            const ingFilterByIdAndAisle = ingredients.filter(
+              (ing: any) => ing.id === id
+            );
+            console.log(ingFilterByIdAndAisle);
+            ingredientObject.ingredients.push(ingFilterByIdAndAisle);
+
+            // ingFilterByIdAndAisle.forEach((ing: any) => {
+            //   ingredientObject.ingredients.push(ing);
+            // });
+          });
+          aisleListWithIngredients.push(ingredientObject);
+
+          // ingredients.forEach((id: number) => {
+          //   // console.log(ingredients);
+
+          //   const ingById = ingredients.filter((el: any) => el.id === id);
+          //   // console.log(ingById);
+          //   ingredientObject.ingredients.push(ingById);
+          // });
+        } else {
+          ingredientObject = {
+            aisle,
+            ingredients: [ingredients]
+          };
+
+          aisleListWithIngredients.push(ingredientObject);
+        }
       });
       // console.log(aisleListWithIngredients);
       // sum up duplicates

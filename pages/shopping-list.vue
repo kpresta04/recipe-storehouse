@@ -97,7 +97,8 @@ export default Vue.extend({
                 finalArray.push({ ...measureFilter[0], amount: ingSum });
               } else {
                 // unit has only one instance
-                finalArray.push(measureFilter);
+                // console.log({ ...measureFilter[0] }, "mf");
+                finalArray.push(measureFilter[0]);
               }
             });
             ingFilteredByIdList[i] = finalArray;
@@ -107,7 +108,7 @@ export default Vue.extend({
               return { amount: acc.amount + cv.amount };
             });
             const { amount: ingSum } = egSum;
-            ingFilteredByIdList[i] = { ...idArray[0], amount: ingSum };
+            ingFilteredByIdList[i] = [{ ...idArray[0], amount: ingSum }];
             // console.log(idArray, "same unit diff amount array");
 
             return;
@@ -169,6 +170,7 @@ export default Vue.extend({
           // console.log(idArray[0].name, ingSum, idArray[0].measure);
         }
       });
+      //separate each array into own object
       // ingFilteredByIdList = ingFilteredByIdList.flatMap((el: any) => el);
       console.log(ingFilteredByIdList);
       //rethink end

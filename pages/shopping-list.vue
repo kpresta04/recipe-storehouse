@@ -48,12 +48,12 @@ export default Vue.extend({
   },
   methods: {
     strikeOut(e: any) {
-      if (e.path[1].className) {
-        e.path[1].className = "";
+      // console.log(e.target.parentNode.className);
+      if (e.target.parentNode.className) {
+        e.target.parentNode.className = "";
       } else {
-        e.path[1].className = "strike";
+        e.target.parentNode.className = "strike";
       }
-      // console.log(typeof e.path[1].className);
     }
   },
   async asyncData({ store }) {

@@ -32,6 +32,12 @@
           </span> -->
       </div>
     </div>
+    <v-btn to="shopping-list/print" class="ma-2">
+      Print
+      <v-icon dark right>
+        mdi-printer
+      </v-icon>
+    </v-btn>
   </div>
 </template>
 

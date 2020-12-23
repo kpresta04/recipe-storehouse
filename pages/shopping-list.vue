@@ -3,13 +3,10 @@
     <div v-for="(aisle, i) in aisleListWithIngredients" :key="i">
       <h4>{{ aisle.aisle }}</h4>
 
-      <div
-        v-for="(ingredient, index) in aisle.ingredients"
-        :key="index"
-        class="cbContainer"
-      >
+      <div v-for="(ingredient, index) in aisle.ingredients" :key="index">
         <input
           type="checkbox"
+          @click="strikeOut"
           :name="`cb-${ingredient[0].id}`"
           :id="`cb-${ingredient[0].id}`"
           class="checkbox"
@@ -49,7 +46,16 @@ export default Vue.extend({
       selected: []
     };
   },
-
+  methods: {
+    strikeOut(e: any) {
+      if (e.path[1].className) {
+        e.path[1].className = "";
+      } else {
+        e.path[1].className = "strike";
+      }
+      // console.log(typeof e.path[1].className);
+    }
+  },
   async asyncData({ store }) {
     const startDate = dayjs(dayjs().day(0)).format("DD/MM/YYYY");
 
@@ -256,9 +262,12 @@ export default Vue.extend({
 } */
 .cbLabel:hover {
   cursor: pointer;
-  background-color: rgb(188, 237, 253);
+  /* background-color: rgb(188, 237, 253); */
 }
 .checkbox:hover {
   cursor: pointer;
+}
+.strike {
+  text-decoration: line-through;
 }
 </style>

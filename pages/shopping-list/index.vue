@@ -47,14 +47,8 @@ import dayjs from "dayjs";
 import { set } from "~/api";
 
 export default Vue.extend({
-  data() {
-    return {
-      selected: []
-    };
-  },
   methods: {
     strikeOut(e: any) {
-      // console.log(e.target.parentNode.className);
       if (e.target.parentNode.className) {
         e.target.parentNode.className = "";
       } else {

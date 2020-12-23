@@ -2,30 +2,32 @@
   <div class="main">
     <div v-for="(aisle, i) in aisleListWithIngredients" :key="i">
       <h4>{{ aisle.aisle }}</h4>
-
-      <div v-for="(ingredient, index) in aisle.ingredients" :key="index">
-        <input
+      <ul>
+        <li v-for="(ingredient, index) in aisle.ingredients" :key="index">
+          <!-- <input
           type="checkbox"
           @click="strikeOut"
           :name="`cb-${ingredient[0].id}`"
           :id="`cb-${ingredient[0].id}`"
           class="checkbox"
-        />
-        <label
-          class="cbLabel"
-          :for="`cb-${item.id}`"
-          v-for="(item, i) in ingredient"
-          :key="i"
-        >
-          {{
-            ingredient.length > 1
-              ? i === ingredient.length - 1
-                ? item.amount + " " + item.measure + " " + item.name
-                : item.amount + " " + item.measure + " " + "+" + " "
-              : item.amount + " " + item.measure + " " + item.name
-          }}
-        </label>
-      </div>
+        /> -->
+          <span
+            @click="strikeOut"
+            class="cbLabel"
+            :for="`cb-${item.id}`"
+            v-for="(item, i) in ingredient"
+            :key="i"
+          >
+            {{
+              ingredient.length > 1
+                ? i === ingredient.length - 1
+                  ? item.amount + " " + item.measure + " " + item.name
+                  : item.amount + " " + item.measure + " " + "+" + " "
+                : item.amount + " " + item.measure + " " + item.name
+            }}
+          </span>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -249,8 +251,8 @@ export default Vue.extend({
   width: 100%;
   max-width: 900px;
   padding: 12px;
-  margin-right: auto;
-  margin-left: auto;
+  /* margin-right: auto; */
+  margin-left: 3em;
   font-family: "Roboto", sans-serif;
   line-height: 1.5;
 }

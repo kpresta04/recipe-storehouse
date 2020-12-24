@@ -40,7 +40,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import dayjs from "dayjs";
+
 import { fetchShoppingList } from "~/utils.ts";
 
 export default Vue.extend({

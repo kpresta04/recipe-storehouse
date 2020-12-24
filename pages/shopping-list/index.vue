@@ -42,14 +42,14 @@
       </v-btn>
     </div>
     <div v-else>
-      <h2>{{ message }}</h2>
+      <h2>{{ message }} for {{ dateString }}</h2>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import dayjs from "dayjs";
+
 import { set } from "~/api";
 import { fetchShoppingList } from "~/utils.ts";
 

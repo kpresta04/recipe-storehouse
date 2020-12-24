@@ -180,7 +180,10 @@ export const fetchShoppingList = async (store:any)=>{
 			message: null
 		  };
 	  } else {
-		return {message:"No list found"}
+		return {
+			message:"No shopping list found",
+			dateString,
+		}
 	  }
 	
 }

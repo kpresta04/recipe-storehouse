@@ -93,13 +93,15 @@ export default Vue.extend({
             const amount = ingredient.amount * servingRatio;
             const aisle = ingredient.aisle;
             const measure =
-              amount > 1 && ingredient.unit !== ""
-                ? ingredient.measures.us.unitLong.slice(-1) === "s"
-                  ? ingredient.measures.us.unitLong
-                  : ingredient.measures.us.unitLong + "s"
-                : ingredient.unit.slice(-1) === "s"
-                ? ingredient.unit.slice(0, -1)
-                : ingredient.unit;
+              ingredient.unit !== ""
+                ? amount > 1
+                  ? ingredient.unit.slice(-1) === "s"
+                    ? ingredient.unit
+                    : ingredient.unit + "s"
+                  : ingredient.unit.slice(-1) === "s"
+                  ? ingredient.unit.slice(0, -1)
+                  : ingredient.unit
+                : ingredient.measures.us.unitLong;
             let newCalc;
             if (String(amount).includes(".")) {
               const amountInt = Math.floor(amount);
@@ -162,13 +164,15 @@ export default Vue.extend({
         const amount = ingredient.amount * servingRatio;
         const aisle = ingredient.aisle;
         const measure =
-          amount > 1 && ingredient.unit !== ""
-            ? ingredient.measures.us.unitLong.slice(-1) === "s"
-              ? ingredient.measures.us.unitLong
-              : ingredient.measures.us.unitLong + "s"
-            : ingredient.unit.slice(-1) === "s"
-            ? ingredient.unit.slice(0, -1)
-            : ingredient.unit;
+          ingredient.unit !== ""
+            ? amount > 1
+              ? ingredient.unit.slice(-1) === "s"
+                ? ingredient.unit
+                : ingredient.unit + "s"
+              : ingredient.unit.slice(-1) === "s"
+              ? ingredient.unit.slice(0, -1)
+              : ingredient.unit
+            : ingredient.measures.us.unitLong;
 
         const ingObject = {
           aisle,

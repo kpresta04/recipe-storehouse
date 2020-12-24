@@ -294,6 +294,10 @@ router.post("/note", authenticateToken, async (req, res) => {
       extendedIngredients = extendedIngredients.filter(
         ingredient => ingredient.aisle !== "?"
       );
+
+      extendedIngredients.forEach(ing => {
+        ing.unit = ing.unit === "g" ? "grams" : ing.unit;
+      });
       const recipe = await prisma.recipe.upsert({
         where: { sourceURL: sourceUrl },
         update: {

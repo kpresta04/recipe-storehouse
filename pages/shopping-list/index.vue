@@ -201,10 +201,26 @@ export default Vue.extend({
           // console.log(idList);
 
           idList.forEach((id: number) => {
-            const ingFilterByIdAndAisle = ingredients.filter(
+            let ingFilterByIdAndAisle = ingredients.filter(
               (ing: any) => ing.id === id
             );
-            // console.log(ingFilterByIdAndAisle);
+            if (ingFilterByIdAndAisle[0].amount > 1) {
+              ingFilterByIdAndAisle[0].measure =
+                ingFilterByIdAndAisle[0].measure.slice(-1) === "s"
+                  ? ingFilterByIdAndAisle[0].measure
+                  : ingFilterByIdAndAisle[0].measure + "s";
+            }
+            // console.log(ingFilterByIdAndAisle[0]);
+            //   const measure =
+            // ingredient.unit !== ""
+            //   ? amount > 1
+            //     ? ingredient.unit.slice(-1) === "s"
+            //       ? ingredient.unit
+            //       : ingredient.unit + "s"
+            //     : ingredient.unit.slice(-1) === "s"
+            //     ? ingredient.unit.slice(0, -1)
+            //     : ingredient.unit
+            //   : ingredient.measures.us.unitLong;
             ingredientObject.ingredients.push(ingFilterByIdAndAisle);
 
             // ingFilterByIdAndAisle.forEach((ing: any) => {

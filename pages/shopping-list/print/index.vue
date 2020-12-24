@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <h2>Shopping List {{ dateString }}</h2>
     <div v-for="(aisle, i) in aisleListWithIngredients" :key="i">
       <h4>{{ aisle.aisle }}</h4>
       <ul>
@@ -49,6 +50,16 @@ export default Vue.extend({
   },
   async asyncData({ store }) {
     const startDate = dayjs(dayjs().day(0)).format("DD/MM/YYYY");
+    const startDay = dayjs(dayjs().day(0)).format("DD");
+
+    const endDay = dayjs(dayjs().day(6)).format("DD");
+    const startMonth = dayjs(dayjs().day(0)).format("MMMM");
+    const endMonth = dayjs(dayjs().day(6)).format("MMMM");
+
+    const dateString =
+      startMonth === endMonth
+        ? `${startDay}-${endDay} ${startMonth}`
+        : `${startDay} ${startMonth} - ${endDay} ${endMonth}`;
 
     const shoppingList = await fetch(`/api/shopping-list`, {
       method: "GET",
@@ -240,7 +251,8 @@ export default Vue.extend({
 
     return {
       shoppingList,
-      aisleListWithIngredients
+      aisleListWithIngredients,
+      dateString
     };
   }
 });

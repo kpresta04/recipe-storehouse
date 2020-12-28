@@ -54,6 +54,7 @@
           :events="events"
           :event-color="getEventColor"
           :type="type"
+          interval-count="0"
           @click:event="showEvent"
           @click:more="viewDay"
           @click:date="viewDay"
@@ -199,4 +200,20 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.v-calendar-daily__body {
+  display: none;
+}
+
+.theme--light.v-calendar-daily {
+  border-left: none;
+  border-top: none;
+}
+.v-calendar-daily__intervals-head {
+  display: none;
+}
+.v-calendar-daily__head {
+  border-left: #e0e0e0 1px solid;
+  border-top: #e0e0e0 1px solid;
+}
+</style>

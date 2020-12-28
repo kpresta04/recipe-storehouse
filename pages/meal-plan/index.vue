@@ -180,7 +180,7 @@ export default {
         const firstTimestamp = this.rnd(min.getTime(), max.getTime());
         const first = new Date(firstTimestamp - (firstTimestamp % 900000));
         const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000;
-        const second = new Date(first.getTime() + secondTimestamp);
+        const second = new Date(first.getTime() + 1);
 
         events.push({
           name: this.names[this.rnd(0, this.names.length - 1)],
@@ -215,5 +215,11 @@ export default {
 .v-calendar-daily__head {
   border-left: #e0e0e0 1px solid;
   border-top: #e0e0e0 1px solid;
+}
+.v-calendar-daily_head-day {
+  min-height: 150px;
+}
+.v-event {
+  margin: 0.5rem auto !important;
 }
 </style>

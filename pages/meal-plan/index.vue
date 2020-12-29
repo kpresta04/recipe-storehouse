@@ -1,26 +1,27 @@
 <template>
-  <v-row class="fill-height">
-    <v-col>
-      <v-sheet height="64">
-        <v-toolbar flat>
-          <!-- <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
+  <div>
+    <v-row class="fill-height">
+      <v-col>
+        <v-sheet height="64">
+          <v-toolbar flat>
+            <!-- <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
             Today
           </v-btn> -->
-          <v-btn fab text small color="grey darken-2" @click="prev">
-            <v-icon small>
-              mdi-chevron-left
-            </v-icon>
-          </v-btn>
-          <v-btn fab text small color="grey darken-2" @click="next">
-            <v-icon small>
-              mdi-chevron-right
-            </v-icon>
-          </v-btn>
-          <v-toolbar-title v-if="$refs.calendar">
-            {{ $refs.calendar.title }}
-          </v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-menu bottom right>
+            <v-btn fab text small color="grey darken-2" @click="prev">
+              <v-icon small>
+                mdi-chevron-left
+              </v-icon>
+            </v-btn>
+            <v-btn fab text small color="grey darken-2" @click="next">
+              <v-icon small>
+                mdi-chevron-right
+              </v-icon>
+            </v-btn>
+            <v-toolbar-title v-if="$refs.calendar">
+              {{ $refs.calendar.title }}
+            </v-toolbar-title>
+            <v-spacer></v-spacer>
+            <!-- <v-menu bottom right> 
             <template v-slot:activator="{ on, attrs }">
               <v-btn outlined color="grey darken-2" v-bind="attrs" v-on="on">
                 <span>{{ typeToLabel[type] }}</span>
@@ -36,65 +37,92 @@
               <v-list-item @click="type = 'week'">
                 <v-list-item-title>Week</v-list-item-title>
               </v-list-item>
-              <!-- <v-list-item @click="type = 'month'">
+             <v-list-item @click="type = 'month'">
                 <v-list-item-title>Month</v-list-item-title>
               </v-list-item>
               <v-list-item @click="type = '4day'">
                 <v-list-item-title>4 days</v-list-item-title>
-              </v-list-item> -->
+              </v-list-item> 
             </v-list>
+          </v-menu> -->
+          </v-toolbar>
+        </v-sheet>
+        <v-sheet height="600">
+          <v-calendar
+            ref="calendar"
+            v-model="focus"
+            color="primary"
+            :events="events"
+            :event-color="getEventColor"
+            :type="type"
+            interval-count="0"
+            @click:event="showEvent"
+            @click:more="viewDay"
+            @click:date="viewDay"
+            @change="updateRange"
+          ></v-calendar>
+          <v-menu
+            v-model="selectedOpen"
+            :close-on-content-click="false"
+            :activator="selectedElement"
+            offset-x
+          >
+            <!-- <v-card color="grey lighten-4" min-width="350px" flat> -->
+            <RecipeCard>
+              <template v-slot:toolbar>
+                <v-toolbar :color="selectedEvent.color" dark>
+                  <v-btn icon>
+                    <v-icon>mdi-pencil</v-icon>
+                  </v-btn>
+                  <v-toolbar-title
+                    v-html="selectedEvent.name"
+                  ></v-toolbar-title>
+                  <v-spacer></v-spacer>
+                  <v-btn icon>
+                    <v-icon>mdi-heart</v-icon>
+                  </v-btn>
+                  <v-btn icon>
+                    <v-icon>mdi-dots-vertical</v-icon>
+                  </v-btn>
+                </v-toolbar>
+              </template>
+              <template v-slot:image>
+                <v-img
+                  :src="recipes[selectedEvent.index].imageURL"
+                  height="200px"
+                ></v-img>
+              </template>
+              <template v-slot:title>
+                {{ recipes[selectedEvent.index].title }}
+              </template>
+              <template v-slot:servings>
+                Serves {{ recipes[selectedEvent.index].servings }}
+              </template>
+              <template v-slot:link>
+                <v-btn
+                  nuxt
+                  :to="'/my-recipes/' + recipes[selectedEvent.index].id"
+                  color="teal darken-2"
+                  text
+                >
+                  View Recipe
+                </v-btn>
+              </template>
+            </RecipeCard>
+            <!-- <v-card-actions>
+                <v-btn text color="secondary" @click="selectedOpen = false">
+                  Cancel
+                </v-btn>
+              </v-card-actions> -->
+            <!-- </v-card> -->
           </v-menu>
-        </v-toolbar>
-      </v-sheet>
-      <v-sheet height="600">
-        <v-calendar
-          ref="calendar"
-          v-model="focus"
-          color="primary"
-          :events="events"
-          :event-color="getEventColor"
-          :type="type"
-          interval-count="0"
-          @click:event="showEvent"
-          @click:more="viewDay"
-          @click:date="viewDay"
-          @change="updateRange"
-        ></v-calendar>
-        <v-menu
-          v-model="selectedOpen"
-          :close-on-content-click="false"
-          :activator="selectedElement"
-          offset-x
-        >
-          <v-card color="grey lighten-4" min-width="350px" flat>
-            <v-toolbar :color="selectedEvent.color" dark>
-              <v-btn icon>
-                <v-icon>mdi-pencil</v-icon>
-              </v-btn>
-              <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
-              <v-spacer></v-spacer>
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon>mdi-dots-vertical</v-icon>
-              </v-btn>
-            </v-toolbar>
-            <v-card-text>
-              <span v-html="selectedEvent.details"></span>
-            </v-card-text>
-            <v-card-actions>
-              <v-btn text color="secondary" @click="selectedOpen = false">
-                Cancel
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-menu>
-      </v-sheet>
-    </v-col>
-  </v-row>
+        </v-sheet>
+      </v-col>
+    </v-row>
+  </div>
 </template>
 <script>
+import dayjs from "dayjs";
 export default {
   data: () => ({
     focus: "",
@@ -129,8 +157,36 @@ export default {
       "Party"
     ]
   }),
+  async asyncData({ store }) {
+    // console.log("created");
+    const data = await fetch(
+      "/api/userInfo",
+
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          accessToken: store.state.accessToken
+        }
+      }
+    )
+      .then(res => res.json())
+      .catch(err => {
+        localStorage.removeItem("accessToken");
+        store.commit("SET_TOKEN", null);
+
+        throw err;
+      });
+
+    console.log(data);
+
+    const { recipes, MealPlans, shoppingLists } = data;
+    return { recipes, MealPlans, shoppingLists };
+  },
+  middleware: "authenticated",
   mounted() {
     this.$refs.calendar.checkChange();
+    // console.log(this.$refs);
   },
   methods: {
     viewDay({ date }) {
@@ -152,6 +208,7 @@ export default {
     showEvent({ nativeEvent, event }) {
       const open = () => {
         this.selectedEvent = event;
+        console.log(event);
         this.selectedElement = nativeEvent.target;
         setTimeout(() => {
           this.selectedOpen = true;
@@ -168,12 +225,17 @@ export default {
       nativeEvent.stopPropagation();
     },
     updateRange({ start, end }) {
+      const startDate = dayjs(dayjs().day(start.weekday)).format("DD/MM/YYYY");
+      const endDate = dayjs(dayjs().day(end.weekday)).format("DD/MM/YYYY");
+
+      console.log(startDate, " - ", endDate);
+
       const events = [];
 
       const min = new Date(`${start.date}T00:00:00`);
       const max = new Date(`${end.date}T23:59:59`);
       const days = (max.getTime() - min.getTime()) / 86400000;
-      const eventCount = this.rnd(days, days + 20);
+      const eventCount = this.recipes.length;
 
       for (let i = 0; i < eventCount; i++) {
         const allDay = this.rnd(0, 3) === 0;
@@ -183,11 +245,12 @@ export default {
         const second = new Date(first.getTime() + 1);
 
         events.push({
-          name: this.names[this.rnd(0, this.names.length - 1)],
+          name: this.recipes[i].title,
           start: first,
           end: second,
           color: this.colors[this.rnd(0, this.colors.length - 1)],
-          timed: !allDay
+          timed: !allDay,
+          index: i
         });
       }
 

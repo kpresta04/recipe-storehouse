@@ -193,7 +193,25 @@ router.delete("/recipe/:id", authenticateToken, async (req, res) => {
     console.log(error);
   }
 });
+router.get("/userInfo", authenticateToken, async (req, res) => {
+  const user = JSON.parse(JSON.stringify(req.user));
 
+  try {
+    const info = await prisma.user.findOne({
+      where: { email: user.email },
+      include: {
+        recipes: true,
+        MealPlans: true,
+        shoppingLists: true
+      }
+    });
+
+    const { recipes, MealPlans, shoppingLists } = info;
+    res.send({ recipes, MealPlans, shoppingLists });
+  } catch (error) {
+    console.log(error);
+  }
+});
 router.get("/recipes", authenticateToken, async (req, res) => {
   const user = JSON.parse(JSON.stringify(req.user));
 
@@ -201,6 +219,12 @@ router.get("/recipes", authenticateToken, async (req, res) => {
     const recipes = await prisma.user
       .findOne({ where: { email: user.email } })
       .recipes();
+
+    // {
+    // include: {
+    //   tags: true
+    // }
+    // }
     res.send(recipes);
   } catch (error) {
     console.log(error);

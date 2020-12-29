@@ -1,5 +1,7 @@
 <template>
   <v-card class="my-4 mx-auto" max-width="344">
+    <slot name="toolbar" />
+
     <slot name="image" />
     <v-card-title>
       <slot name="title" />

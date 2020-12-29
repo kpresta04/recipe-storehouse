@@ -19,6 +19,7 @@ model User {
   notes         Note[]
   tags          Tag[]
   shoppingLists ShoppingList[]
+  MealPlans     MealPlan[]
 }
 
 model ShoppingList {
@@ -29,6 +30,21 @@ model ShoppingList {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   name        String?
+
+
+  userId Int
+
+  @@id([startDate, userId])
+}
+
+model MealPlan {
+  // id          Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  recipes   Json?
+  startDate String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
 
 
   userId Int

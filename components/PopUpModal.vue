@@ -1,7 +1,19 @@
 <template>
   <v-dialog v-model="dialog" max-width="600">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn class="ma-2" :color="color" dark v-bind="attrs" v-on="on">
+      <v-btn
+        v-if="outlined"
+        class="ma-2"
+        outlined
+        :color="color"
+        dark
+        v-bind="attrs"
+        v-on="on"
+      >
+        {{ buttonText }}
+        <slot name="buttonIcon" />
+      </v-btn>
+      <v-btn v-else class="ma-2" :color="color" dark v-bind="attrs" v-on="on">
         {{ buttonText }}
         <slot name="buttonIcon" />
       </v-btn>
@@ -226,7 +238,7 @@ export default Vue.extend({
       this.dialog = false;
     }
   },
-  props: ["color", "buttonText", "recipe", "baseServings"]
+  props: ["color", "buttonText", "recipe", "baseServings", "outlined"]
 });
 </script>
 

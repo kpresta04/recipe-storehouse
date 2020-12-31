@@ -18,9 +18,22 @@
               {{ $refs.calendar.title }}
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn outlined class="mr-4" color="grey darken-2">
+            <!-- <v-btn outlined class="mr-4" color="grey darken-2">
               Add Recipe
-            </v-btn>
+            </v-btn> -->
+            <PopUpModal
+              :recipe="recipes[0]"
+              outlined="true"
+              class="mr-4"
+              color="grey darken-2"
+              buttonText="Add Recipe"
+            >
+              <!-- <template v-slot:buttonIcon>
+          <v-icon dark right>
+            mdi-cart
+          </v-icon>
+        </template> -->
+            </PopUpModal>
             <!-- <v-menu bottom right> 
             <template v-slot:activator="{ on, attrs }">
               <v-btn outlined color="grey darken-2" v-bind="attrs" v-on="on">

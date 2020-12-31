@@ -123,6 +123,11 @@
         color="primary"
         buttonText="Add to Shopping List"
       >
+        <template v-slot:cardTitle>
+          <v-card-title class="headline">
+            Add to Shopping List
+          </v-card-title>
+        </template>
         <template v-slot:buttonIcon>
           <v-icon dark right>
             mdi-cart

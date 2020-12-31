@@ -19,9 +19,8 @@
       </v-btn>
     </template>
     <v-card>
-      <v-card-title class="headline">
-        Add to Shopping List
-      </v-card-title>
+      <slot name="cardTitle" />
+
       <v-card-text
         >Servings:
         <input

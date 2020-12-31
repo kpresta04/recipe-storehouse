@@ -181,6 +181,9 @@ export default {
     console.log(data);
 
     const { recipes, MealPlans, shoppingLists } = data;
+
+    store.commit("SET_RECIPES", recipes);
+
     return { recipes, MealPlans, shoppingLists };
   },
   middleware: "authenticated",

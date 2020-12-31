@@ -28,6 +28,11 @@
               color="grey darken-2"
               buttonText="Add Recipe"
             >
+              <template v-slot:cardTitle>
+                <v-card-title class="headline">
+                  Add Recipe to Meal Plan
+                </v-card-title>
+              </template>
               <!-- <template v-slot:buttonIcon>
           <v-icon dark right>
             mdi-cart

@@ -7,6 +7,11 @@
       :source="recipe.sourceURL"
       :recipe_id="recipe.id"
     >
+      <template v-slot:cardTitle>
+        <v-card-title class="headline">
+          Add to Shopping List
+        </v-card-title>
+      </template>
       <template v-slot:image>
         <v-img :src="recipe.imageURL" height="200px"></v-img>
       </template>

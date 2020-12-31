@@ -94,4 +94,7 @@ export default Vue.extend({
   text-decoration: none;
   text-transform: capitalize;
 }
+.recipeCard {
+  margin: 16px auto;
+}
 </style>

@@ -4,9 +4,6 @@
       <v-col>
         <v-sheet height="64">
           <v-toolbar flat>
-            <!-- <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
-            Today
-          </v-btn> -->
             <v-btn fab text small color="grey darken-2" @click="prev">
               <v-icon small>
                 mdi-chevron-left
@@ -21,6 +18,9 @@
               {{ $refs.calendar.title }}
             </v-toolbar-title>
             <v-spacer></v-spacer>
+            <v-btn outlined class="mr-4" color="grey darken-2">
+              Add Recipe
+            </v-btn>
             <!-- <v-menu bottom right> 
             <template v-slot:activator="{ on, attrs }">
               <v-btn outlined color="grey darken-2" v-bind="attrs" v-on="on">
@@ -78,9 +78,9 @@
                     v-html="selectedEvent.name"
                   ></v-toolbar-title>
                   <v-spacer></v-spacer>
-                  <v-btn icon>
+                  <!-- <v-btn icon>
                     <v-icon>mdi-heart</v-icon>
-                  </v-btn>
+                  </v-btn> -->
                   <v-btn icon>
                     <v-icon>mdi-dots-vertical</v-icon>
                   </v-btn>

@@ -1,5 +1,5 @@
 <template>
-  <v-card class="my-4 mx-auto" max-width="344">
+  <v-card class="recipeCard mx-auto" max-width="344">
     <slot name="toolbar" />
 
     <slot name="image" />
@@ -18,7 +18,7 @@
 
       <v-menu transition="slide-y-transition" bottom>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn class="teal" color="primary" dark v-bind="attrs" v-on="on">
+          <v-btn :color="color ? color : 'teal'" dark v-bind="attrs" v-on="on">
             Actions
           </v-btn>
         </template>
@@ -66,7 +66,7 @@ export default {
       { title: "Delete recipe" }
     ]
   }),
-  props: ["source", "recipe_id"],
+  props: ["source", "recipe_id", "color"],
 
   methods: {
     deleteClick(e) {

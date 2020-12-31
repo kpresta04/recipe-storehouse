@@ -68,7 +68,7 @@
             offset-x
           >
             <!-- <v-card color="grey lighten-4" min-width="350px" flat> -->
-            <RecipeCard>
+            <RecipeCard :color="selectedEvent.color">
               <template v-slot:toolbar>
                 <v-toolbar :color="selectedEvent.color" dark>
                   <v-btn icon>
@@ -102,7 +102,7 @@
                 <v-btn
                   nuxt
                   :to="'/my-recipes/' + recipes[selectedEvent.index].id"
-                  color="teal darken-2"
+                  :color="selectedEvent.color"
                   text
                 >
                   View Recipe
@@ -208,7 +208,7 @@ export default {
     showEvent({ nativeEvent, event }) {
       const open = () => {
         this.selectedEvent = event;
-        console.log(event);
+        // console.log(event);
         this.selectedElement = nativeEvent.target;
         setTimeout(() => {
           this.selectedOpen = true;

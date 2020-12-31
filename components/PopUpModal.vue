@@ -48,12 +48,7 @@
       </v-card-text>
       <v-card-actions>
         <!-- <v-spacer></v-spacer> -->
-        <v-btn color="black darken-1" text @click="dialog = false">
-          Cancel
-        </v-btn>
-        <v-btn color="green darken-1" text @click="addToShoppingList">
-          Add to Shopping List
-        </v-btn>
+        <slot name="cardActions" />
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -76,8 +71,23 @@ export default Vue.extend({
       ingredient.calculated = ingredient.originalString;
       this.selected.push(ingredient.id);
     });
+    document.addEventListener("click", this.closeDialog);
   },
   methods: {
+    closeDialog(e: any) {
+      // console.log(e);
+      if (
+        e.target.id === "addListBtn" ||
+        e.target.parentElement.id === "addListBtn"
+      ) {
+        this.addToShoppingList();
+      } else if (
+        e.target.classList.contains("actionButton") ||
+        e.target.parentElement.classList.contains("actionButton")
+      ) {
+        this.dialog = false;
+      }
+    },
     checkChanged(e: any) {
       this.selected = e;
       if (this.selectedObj.length > 0) {
@@ -249,5 +259,8 @@ ul {
 .v-input--checkbox {
   margin: 0;
   padding: 0;
+}
+.v-btn__content {
+  display: none;
 }
 </style>

@@ -128,6 +128,19 @@
             Add to Shopping List
           </v-card-title>
         </template>
+        <template v-slot:cardActions>
+          <v-btn class="actionButton" color="black darken-1" text>
+            Cancel
+          </v-btn>
+          <v-btn
+            id="addListBtn"
+            class="actionButton"
+            color="green darken-1"
+            text
+          >
+            Add to Shopping List
+          </v-btn>
+        </template>
         <template v-slot:buttonIcon>
           <v-icon dark right>
             mdi-cart
@@ -279,6 +292,7 @@ export default Vue.extend({
         this.textChanged = true;
       }
     },
+
     adjustServings() {
       console.log("honkey");
       this.recipe.servings++;

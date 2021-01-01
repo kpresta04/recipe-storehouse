@@ -66,7 +66,13 @@ export const fetchShoppingList = async (store:any)=>{
 			// });
 			measureMap = new Set(measureMap);
 			measureMap = [...measureMap];
-			// console.log(measureMap);
+			if (measureMap.length > 1) {
+				//filter for duplicates
+				// console.log(measureMap);
+				measureMap = measureMap.filter((el:any, i:number)=> el!== measureMap[i -1] + "s")
+				// console.log(measureMap);
+			}
+
 			if (measureMap.length > 1) {
 			  //if the ingredients have different units
 			  measureMap.forEach((el: any, i: number) => {
@@ -164,12 +170,12 @@ export const fetchShoppingList = async (store:any)=>{
 			  let ingFilterByIdAndAisle = ingredients.filter(
 				(ing: any) => ing.id === id
 			  );
-			  if (ingFilterByIdAndAisle[0].amount > 1) {
-				ingFilterByIdAndAisle[0].measure =
-				  ingFilterByIdAndAisle[0].measure.slice(-1) === "s"
-					? ingFilterByIdAndAisle[0].measure
-					: ingFilterByIdAndAisle[0].measure + "s";
-			  }
+			//   if (ingFilterByIdAndAisle[0].amount > 1) {
+			// 	ingFilterByIdAndAisle[0].measure =
+			// 	  ingFilterByIdAndAisle[0].measure.slice(-1) === "s"
+			// 		? ingFilterByIdAndAisle[0].measure
+			// 		: ingFilterByIdAndAisle[0].measure + "s";
+			//   }
 			  
 			  ingredientObject.ingredients.push(ingFilterByIdAndAisle);
   

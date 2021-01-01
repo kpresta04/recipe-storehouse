@@ -120,13 +120,7 @@ export default Vue.extend({
             const aisle = ingredient.aisle;
             const measure =
               ingredient.unit !== ""
-                ? amount > 1
-                  ? ingredient.unit.slice(-1) === "s"
-                    ? ingredient.unit
-                    : ingredient.unit + "s"
-                  : ingredient.unit.slice(-1) === "s"
-                  ? ingredient.unit.slice(0, -1)
-                  : ingredient.unit
+                ? ingredient.unit
                 : ingredient.measures.us.unitLong;
             let newCalc;
             if (String(amount).includes(".")) {
@@ -191,13 +185,7 @@ export default Vue.extend({
         const aisle = ingredient.aisle;
         const measure =
           ingredient.unit !== ""
-            ? amount > 1
-              ? ingredient.unit.slice(-1) === "s"
-                ? ingredient.unit
-                : ingredient.unit + "s"
-              : ingredient.unit.slice(-1) === "s"
-              ? ingredient.unit.slice(0, -1)
-              : ingredient.unit
+            ? ingredient.unit
             : ingredient.measures.us.unitLong;
 
         const ingObject = {

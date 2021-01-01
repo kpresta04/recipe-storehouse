@@ -241,7 +241,7 @@ export default Vue.extend({
             startDate
           })
         }).then(res => res.json());
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         console.log(error);
       }

@@ -109,7 +109,7 @@ router.delete("/recipe/:id/tag", authenticateToken, async (req, res) => {
       //     }
       //   }
       // });
-      res.send(shoppingList);
+      res.send({ shoppingList });
     } catch (error) {
       console.log(error);
       res.send({ message: "jablowie" });

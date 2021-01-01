@@ -25,16 +25,6 @@
         </li>
       </ul>
     </v-card-text>
-
-    <v-card-actions>
-      <!-- <v-spacer></v-spacer> -->
-      <v-btn color="black darken-1" text @click="close">
-        Cancel
-      </v-btn>
-      <v-btn color="green darken-1" text @click="addToShoppingList">
-        Add to Shopping List
-      </v-btn>
-    </v-card-actions>
   </div>
 </template>
 
@@ -232,5 +222,18 @@ ul {
 .v-input--checkbox {
   margin: 0;
   padding: 0;
+}
+input {
+  max-width: 4rem !important;
+}
+h3 {
+  color: gray;
+}
+.title {
+  margin-top: 1rem;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>

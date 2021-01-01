@@ -20,8 +20,8 @@
     </template>
     <v-card>
       <slot name="cardTitle" />
-
-      <v-card-text
+      <slot name="cardBody" />
+      <!-- <v-card-text
         >Servings:
         <input
           type="number"
@@ -45,7 +45,7 @@
             ></v-checkbox>
           </li>
         </ul>
-      </v-card-text>
+      </v-card-text> -->
       <v-card-actions>
         <!-- <v-spacer></v-spacer> -->
         <slot name="cardActions" />

@@ -128,6 +128,9 @@
             Add to Shopping List
           </v-card-title>
         </template>
+        <template v-slot:cardBody>
+          <IngredientList :recipe="recipe" :baseServings="baseServings" />
+        </template>
         <template v-slot:cardActions>
           <v-btn class="actionButton" color="black darken-1" text>
             Cancel
@@ -189,8 +192,10 @@
 
 <script lang="ts">
 import Vue from "vue";
+import IngredientList from "~/components/IngredientList.vue";
 
 export default Vue.extend({
+  components: { IngredientList },
   middleware: "authenticated",
   data() {
     return {

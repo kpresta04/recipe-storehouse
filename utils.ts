@@ -30,7 +30,7 @@ export const fetchShoppingList = async (store:any)=>{
   
 	  if (shoppingList.ingredients) {
 		//full array
-		// console.log(shoppingList.ingredients);
+		
 		let idList: any = [];
 		let aisleList: any = [];
   
@@ -38,6 +38,7 @@ export const fetchShoppingList = async (store:any)=>{
 		  idList.push(ingredient.id);
 		  aisleList.push(ingredient.aisle);
 		});
+		// console.log(idList)
 		idList = new Set(idList);
 		aisleList = new Set(aisleList);
   
@@ -118,6 +119,20 @@ export const fetchShoppingList = async (store:any)=>{
   
 			  // console.log(idArray[0].name, ingSum, "same unit diff amount sum");
 			}
+		  } else{
+			  //check for decimal to avoid large amount of digits
+			  if (String(idArray[0].amount).includes(".")) {
+				  
+				const amountInt = Math.floor(idArray[0].amount);
+				let amountDecimal = Number(idArray[0].amount - amountInt)
+  
+				if (amountDecimal !== 0.5) {
+				  amountDecimal = Number(amountDecimal.toFixed(2))
+				//   console.log(amountDecimal)
+				//   console.log(amountInt)
+				}
+				idArray[0].amount = amountInt + amountDecimal
+			  }
 		  }
 		});
 		//separate each array into own object

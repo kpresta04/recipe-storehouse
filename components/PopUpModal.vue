@@ -72,6 +72,11 @@ export default Vue.extend({
       this.selected.push(ingredient.id);
     });
     document.addEventListener("click", this.closeDialog);
+    // console.log("mounted");
+  },
+  destroyed() {
+    document.removeEventListener("click", this.closeDialog);
+    // console.log("destro");
   },
   methods: {
     closeDialog(e: any) {

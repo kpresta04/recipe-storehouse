@@ -12,28 +12,14 @@
     >
       {{ tag }}
     </v-chip>
-    <v-toolbar class="toolbar" color="teal">
-      <v-label dark>Add Tag</v-label>
-      <v-autocomplete
-        v-model="select"
-        :loading="loading"
-        :items="items"
-        :search-input.sync="search"
-        cache-items
-        class="mx-4"
-        flat
-        :allow-overflow="false"
-        hide-no-data
-        hide-details
-        @input="handleChange"
-        solo-inverted
-        chips
-        deletable-chips
-        multiple
-      >
-        <template v-slot:selection> </template>
-      </v-autocomplete>
-    </v-toolbar>
+    <v-row color="teal">
+      <form @submit.prevent="handleSubmit">
+        <v-text-field v-model="text" class="mx-4" flat :allow-overflow="false">
+          <template v-slot:selection> </template>
+        </v-text-field>
+        <v-btn @click="handleSubmit" dark>Add Tag</v-btn>
+      </form>
+    </v-row>
   </div>
 </template>
 
@@ -44,6 +30,7 @@ export default Vue.extend({
   data() {
     return {
       loading: false,
+      text: "",
       items: <any>[],
       search: null,
       select: <any>this.tags,
@@ -84,6 +71,14 @@ export default Vue.extend({
       } else {
         const filteredArray = this.tags.filter((text: any) => text !== tag);
         this.$emit("changeTag", filteredArray);
+      }
+    },
+    handleSubmit() {
+      if (this.text) {
+        this.select.push(this.text);
+        this.text = "";
+
+        this.$emit("changeTag", this.select);
       }
     },
     handleChange() {

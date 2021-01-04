@@ -30,12 +30,9 @@ router.delete("/recipe/:id/tag", authenticateToken, async (req, res) => {
     const startDate = dayjs(dayjs().day(0)).format("DD/MM/YYYY");
 
     try {
-      const shoppingList = await prisma.shoppingList.findOne({
+      const shoppingList = await prisma.shoppingList.findUnique({
         where: {
-          startDate_userId: {
-            startDate,
-            userId: user.id
-          }
+          userId: user.id
         }
       });
       if (shoppingList !== null) {
@@ -50,15 +47,14 @@ router.delete("/recipe/:id/tag", authenticateToken, async (req, res) => {
   }),
   router.post("/shopping-list", authenticateToken, async (req, res) => {
     const user = JSON.parse(JSON.stringify(req.user));
+    const startDate = dayjs(dayjs().day(0)).format("DD/MM/YYYY");
+
     // console.log(req.body);
     // res.send(req.body);
     try {
-      const shoppingList = await prisma.shoppingList.findOne({
+      const shoppingList = await prisma.shoppingList.findUnique({
         where: {
-          startDate_userId: {
-            startDate: req.body.startDate,
-            userId: user.id
-          }
+          userId: user.id
         }
       });
       // console.log(shoppingList);
@@ -67,17 +63,32 @@ router.delete("/recipe/:id/tag", authenticateToken, async (req, res) => {
 
       if (shoppingList !== null) {
         //update shopping list
-        returnedList = await prisma.shoppingList.update({
-          where: {
-            startDate_userId: {
-              startDate: req.body.startDate,
+        if (shoppingList.startDate === startDate) {
+          //update current List
+
+          returnedList = await prisma.shoppingList.update({
+            where: {
               userId: user.id
+            },
+            data: {
+              ingredients: [
+                ...shoppingList.ingredients,
+                ...req.body.ingredients
+              ]
             }
-          },
-          data: {
-            ingredients: [...shoppingList.ingredients, ...req.body.ingredients]
-          }
-        });
+          });
+        } else {
+          //List is from last week, erase
+          returnedList = await prisma.shoppingList.update({
+            where: {
+              userId: user.id
+            },
+            data: {
+              ingredients: req.body.ingredients,
+              startDate: req.body.startDate
+            }
+          });
+        }
       } else {
         //create shopping list
         returnedList = await prisma.shoppingList.create({
@@ -109,10 +120,10 @@ router.delete("/recipe/:id/tag", authenticateToken, async (req, res) => {
       //     }
       //   }
       // });
-      res.send({ shoppingList });
+      res.send({ returnedList });
     } catch (error) {
       console.log(error);
-      res.send({ message: "jablowie" });
+      res.send({ message: error });
     }
   }),
   router.post("/recipe/:id/tag", authenticateToken, async (req, res) => {
@@ -154,7 +165,7 @@ router.delete("/recipe/:id/tag", authenticateToken, async (req, res) => {
 
     try {
       const id = Number(req.params.id);
-      const recipe = await prisma.recipe.findOne({
+      const recipe = await prisma.recipe.findUnique({
         where: { id: id },
         include: {
           notes: {
@@ -197,7 +208,7 @@ router.get("/userInfo", authenticateToken, async (req, res) => {
   const user = JSON.parse(JSON.stringify(req.user));
 
   try {
-    const info = await prisma.user.findOne({
+    const info = await prisma.user.findUnique({
       where: { email: user.email },
       include: {
         recipes: true,
@@ -217,7 +228,7 @@ router.get("/recipes", authenticateToken, async (req, res) => {
 
   try {
     const recipes = await prisma.user
-      .findOne({ where: { email: user.email } })
+      .findUnique({ where: { email: user.email } })
       .recipes();
 
     // {

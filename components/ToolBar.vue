@@ -13,8 +13,14 @@
       {{ tag }}
     </v-chip>
     <v-row color="teal">
-      <form @submit.prevent="handleSubmit">
-        <v-text-field v-model="text" class="mx-4" flat :allow-overflow="false">
+      <form id="tagForm" @submit.prevent="handleSubmit">
+        <v-text-field
+          v-model="text"
+          class="mx-4"
+          flat
+          :allow-overflow="false"
+          placeholder="E.g. 'Breakfast'"
+        >
           <template v-slot:selection> </template>
         </v-text-field>
         <v-btn @click="handleSubmit" dark>Add Tag</v-btn>
@@ -115,5 +121,9 @@ export default Vue.extend({
 }
 .mabl-2 {
   margin: 8px 8px 8px 0;
+}
+#tagForm {
+  display: flex;
+  place-items: center;
 }
 </style>

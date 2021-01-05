@@ -48,7 +48,7 @@
 
     <v-expand-transition>
       <div v-show="showIngredients">
-        <v-card-text>
+        <v-card-text class="cardText">
           <ul>
             <li
               v-for="(ingredient, i) in this.recipe.extendedIngredients"
@@ -71,7 +71,7 @@
     </h2>
     <v-expand-transition>
       <div v-show="showMethod">
-        <v-card-text>
+        <v-card-text class="cardText">
           <ol v-if="this.recipe">
             <li
               v-for="(step, i) in this.recipe.analyzedInstructions[0].steps"
@@ -385,5 +385,8 @@ h3 {
 .tags {
   display: flex;
   flex-wrap: wrap;
+}
+.cardText {
+  padding-left: 0;
 }
 </style>

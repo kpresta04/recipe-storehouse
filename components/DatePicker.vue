@@ -22,12 +22,12 @@ export default {
       .format("YYYY-MM-DD"),
     dateSelected: dayjs().format("YYYY-MM-DD")
   }),
-  mounted() {
-    const day = dayjs()
-      .day(0)
-      .format("YYYY-MM-DD");
-    console.log(day);
-  },
+  //   mounted() {
+  //     const day = dayjs()
+  //       .day(0)
+  //       .format("YYYY-MM-DD");
+  //     console.log(day);
+  //   },
 
   methods: {
     allowedDates: val => parseInt(val.split("-")[2], 10) % 2 === 0

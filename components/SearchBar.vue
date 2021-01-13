@@ -25,7 +25,7 @@ export default {
   props: ["recipes"],
   mounted() {
     this.items = this.recipes.flatMap(recipe => recipe.title);
-    console.log(this.items);
+    // console.log(this.items);
   }
 };
 </script>

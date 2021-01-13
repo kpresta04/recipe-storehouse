@@ -39,7 +39,7 @@
               </template>
               <template v-slot:cardActions>
                 <v-spacer></v-spacer>
-                <v-btn>YOlo</v-btn>
+                <v-btn class="actionButton" @click="boodles">YOlo</v-btn>
               </template>
             </PopUpModal>
             <!-- <v-menu bottom right> 
@@ -213,6 +213,9 @@ export default {
     // console.log(this.$refs);
   },
   methods: {
+    boodles() {
+      console.log("boodles");
+    },
     viewDay({ date }) {
       this.focus = date;
       this.type = "day";
@@ -278,7 +281,7 @@ export default {
         });
       }
 
-      this.events = events;
+      // this.events = events;
     },
     rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a;

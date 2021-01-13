@@ -72,7 +72,7 @@
     <v-expand-transition>
       <div v-show="showMethod">
         <v-card-text class="cardText">
-          <ol v-if="this.recipe">
+          <ol v-if="this.recipe.analyzedInstructions.length > 0">
             <li
               v-for="(step, i) in this.recipe.analyzedInstructions[0].steps"
               :key="i"

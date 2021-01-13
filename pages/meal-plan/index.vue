@@ -33,11 +33,14 @@
                   Add Recipe to Meal Plan
                 </v-card-title>
               </template>
-              <!-- <template v-slot:buttonIcon>
-          <v-icon dark right>
-            mdi-cart
-          </v-icon>
-        </template> -->
+              <template v-slot:cardBody>
+                <SearchBar :recipes="recipes" />
+                <DatePicker />
+              </template>
+              <template v-slot:cardActions>
+                <v-spacer></v-spacer>
+                <v-btn>YOlo</v-btn>
+              </template>
             </PopUpModal>
             <!-- <v-menu bottom right> 
             <template v-slot:activator="{ on, attrs }">

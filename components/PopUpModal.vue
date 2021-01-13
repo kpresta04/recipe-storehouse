@@ -79,6 +79,10 @@ export default Vue.extend({
     // console.log("destro");
   },
   methods: {
+    selectRecipe(rec: any) {
+      this.selected = rec;
+    },
+
     closeDialog(e: any) {
       // console.log(e);
       if (

@@ -35,7 +35,7 @@
               </template>
               <template v-slot:cardBody>
                 <SearchBar :recipes="recipes" />
-                <DatePicker />
+                <DatePicker :start="start" :end="end" />
               </template>
               <template v-slot:cardActions>
                 <v-spacer></v-spacer>
@@ -148,6 +148,8 @@ export default {
   data: () => ({
     focus: "",
     type: "week",
+    start: null,
+    end: null,
     typeToLabel: {
       month: "Month",
       week: "Week",
@@ -278,6 +280,8 @@ export default {
       nativeEvent.stopPropagation();
     },
     updateRange({ start, end }) {
+      this.start = start.date;
+      this.end = end.date;
       const startDate = dayjs(dayjs().day(start.weekday)).format("DD/MM/YYYY");
       const endDate = dayjs(dayjs().day(end.weekday)).format("DD/MM/YYYY");
 

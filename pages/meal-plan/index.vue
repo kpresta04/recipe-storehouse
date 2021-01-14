@@ -39,7 +39,7 @@
               </template>
               <template v-slot:cardActions>
                 <v-spacer></v-spacer>
-                <v-btn class="actionButton" @click="boodles">YOlo</v-btn>
+                <v-btn class="actionButton" @click="addRecipe">Submit</v-btn>
               </template>
             </PopUpModal>
             <!-- <v-menu bottom right> 
@@ -199,7 +199,7 @@ export default {
         throw err;
       });
 
-    console.log(data);
+    // console.log(data);
 
     const { recipes, MealPlans, shoppingLists } = data;
 
@@ -213,8 +213,34 @@ export default {
     // console.log(this.$refs);
   },
   methods: {
-    boodles() {
-      console.log("boodles");
+    addRecipe() {
+      // console.log(this.recipes.indexOf);
+      // console.log(this.$store.state.recipeObject);
+      if (this.$store.state.recipeObject.name) {
+        let eventObject = {
+          name: this.$store.state.recipeObject.name,
+          start: this.$store.state.recipeObject.date,
+          end: this.$store.state.recipeObject.date,
+          color: this.colors[this.rnd(0, this.colors.length - 1)]
+        };
+
+        for (let i = 0; i < this.recipes.length; i++) {
+          if (this.recipes[i].title === eventObject.name) {
+            eventObject.index = i;
+            break;
+          }
+        }
+        // console.log(eventObject);
+        this.events.push(eventObject);
+        // events.push({
+        //   name: this.recipes[i].title,
+        //   start: first,
+        //   end: second,
+        //   color: this.colors[this.rnd(0, this.colors.length - 1)],
+        //   timed: !allDay,
+        //   index: i
+        // });
+      }
     },
     viewDay({ date }) {
       this.focus = date;
@@ -255,7 +281,8 @@ export default {
       const startDate = dayjs(dayjs().day(start.weekday)).format("DD/MM/YYYY");
       const endDate = dayjs(dayjs().day(end.weekday)).format("DD/MM/YYYY");
 
-      console.log(startDate, " - ", endDate);
+      // console.log(start.date, " - ", end.date);
+      // console.log(dayjs(start.date).format("DD/MM/YYYY"));
 
       const events = [];
 
@@ -281,7 +308,7 @@ export default {
         });
       }
 
-      // this.events = events;
+      this.events = events;
     },
     rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a;

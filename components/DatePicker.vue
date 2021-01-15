@@ -13,16 +13,18 @@
 import dayjs from "dayjs";
 
 export default {
-  data: () => ({
-    date: dayjs().format("YYYY-MM-DD"),
-    // min: dayjs()
-    //   .day(0)
-    //   .format("YYYY-MM-DD"),
-    max: dayjs()
-      .day(6)
-      .format("YYYY-MM-DD"),
-    dateSelected: dayjs().format("YYYY-MM-DD")
-  }),
+  data() {
+    return {
+      date: dayjs().format("YYYY-MM-DD"),
+      // min: dayjs()
+      //   .day(0)
+      //   .format("YYYY-MM-DD"),
+      max: dayjs()
+        .day(6)
+        .format("YYYY-MM-DD"),
+      dateSelected: dayjs().format("YYYY-MM-DD")
+    };
+  },
   computed: {
     min: function() {
       if (dayjs(this.start).isBefore(dayjs(this.date))) {

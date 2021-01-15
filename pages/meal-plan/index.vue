@@ -298,7 +298,7 @@ export default {
 
       nativeEvent.stopPropagation();
     },
-    updateRange({ start, end }) {
+    async updateRange({ start, end }) {
       // console.log("update func running");
       this.start = start.date;
       this.end = end.date;
@@ -307,30 +307,50 @@ export default {
 
       // console.log(start.date, " - ", end.date);
       // console.log(dayjs(start.date).format("DD/MM/YYYY"));
+      try {
+        const mealPlan = await fetch(
+          `/api/mealPlan/${start.date}`,
 
-      const events = [];
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              accessToken: this.$store.state.accessToken
+            }
+          }
+        ).then(res => res.json());
+        // console.log(mealPlan);
 
-      const min = new Date(`${start.date}T00:00:00`);
-      const max = new Date(`${end.date}T23:59:59`);
-      const days = (max.getTime() - min.getTime()) / 86400000;
-      const eventCount = this.recipes.length;
-
-      for (let i = 0; i < eventCount; i++) {
-        const allDay = this.rnd(0, 3) === 0;
-        const firstTimestamp = this.rnd(min.getTime(), max.getTime());
-        const first = new Date(firstTimestamp - (firstTimestamp % 900000));
-        const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000;
-        const second = new Date(first.getTime() + 1);
-
-        events.push({
-          name: this.recipes[i].title,
-          start: first,
-          end: second,
-          color: this.colors[this.rnd(0, this.colors.length - 1)],
-          timed: !allDay,
-          index: i
-        });
+        if (mealPlan) {
+          const events = mealPlan.recipes;
+          this.events = events;
+        }
+      } catch (error) {
+        console.log(error);
       }
+
+      //random events for testing
+      // const min = new Date(`${start.date}T00:00:00`);
+      // const max = new Date(`${end.date}T23:59:59`);
+      // const days = (max.getTime() - min.getTime()) / 86400000;
+      // const eventCount = this.recipes.length;
+
+      // for (let i = 0; i < eventCount; i++) {
+      //   const allDay = this.rnd(0, 3) === 0;
+      //   const firstTimestamp = this.rnd(min.getTime(), max.getTime());
+      //   const first = new Date(firstTimestamp - (firstTimestamp % 900000));
+      //   const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000;
+      //   const second = new Date(first.getTime() + 1);
+
+      //   events.push({
+      //     name: this.recipes[i].title,
+      //     start: first,
+      //     end: second,
+      //     color: this.colors[this.rnd(0, this.colors.length - 1)],
+      //     timed: !allDay,
+      //     index: i
+      //   });
+      // }
 
       // this.events = events;
     },

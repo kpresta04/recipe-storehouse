@@ -219,21 +219,7 @@ export default Vue.extend({
         (tagText: string) => tagText !== tag
       );
     },
-    async handleShoppingListAdd() {
-      try {
-        const response = await fetch("/api/shopping-list", {
-          method: "POST", // or 'PUT'
-          headers: {
-            "Content-Type": "application/json",
-            accessToken: this.$store.state.accessToken
-          }
-          // body: JSON.stringify({ tagList: select })
-        }).then(res => res.json());
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
-    },
+
     async handleChangeTag(select: string[]) {
       // console.log(select);
       if (select.length > 0) {

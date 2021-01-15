@@ -90,7 +90,7 @@
           >
             <!-- <v-card color="grey lighten-4" min-width="350px" flat> -->
             <RecipeCard
-              :recipe_id="selectedEvent.index"
+              :recipe_id="selectedEvent.id"
               :color="selectedEvent.color"
             >
               <template v-slot:toolbar>
@@ -111,21 +111,18 @@
                 </v-toolbar>
               </template>
               <template v-slot:image>
-                <v-img
-                  :src="recipes[selectedEvent.index].imageURL"
-                  height="200px"
-                ></v-img>
+                <v-img :src="selectedEvent.imageURL" height="200px"></v-img>
               </template>
               <template v-slot:title>
-                {{ recipes[selectedEvent.index].title }}
+                {{ selectedEvent.name }}
               </template>
               <template v-slot:servings>
-                Serves {{ recipes[selectedEvent.index].servings }}
+                Serves {{ selectedEvent.servings }}
               </template>
               <template v-slot:link>
                 <v-btn
                   nuxt
-                  :to="'/my-recipes/' + recipes[selectedEvent.index].id"
+                  :to="'/my-recipes/' + selectedEvent.id"
                   :color="selectedEvent.color"
                   text
                 >
@@ -207,6 +204,7 @@ export default {
     // console.log(data);
 
     const { recipes, MealPlans, shoppingLists } = data;
+    // console.log(recipes);
 
     store.commit("SET_RECIPES", recipes);
 
@@ -217,6 +215,14 @@ export default {
     this.$refs.calendar.checkChange();
     // console.log(this.$refs);
   },
+  // computed: {
+  //   selectedRecipe: function() {
+  //     const found = this.recipes.find(
+  //       element => element.id === this.selectedEvent.id
+  //     );
+  //     return found;
+  //   }
+  // },
   methods: {
     async saveMealPlan(startDate) {
       try {
@@ -237,7 +243,7 @@ export default {
       }
     },
     addRecipe() {
-      // console.log(this.recipes.indexOf);
+      // console.log(this.recipes.idOf);
       // console.log(this.$store.state.recipeObject);
       if (this.$store.state.recipeObject.name) {
         let eventObject = {
@@ -247,12 +253,18 @@ export default {
           color: this.colors[this.rnd(0, this.colors.length - 1)]
         };
 
-        for (let i = 0; i < this.recipes.length; i++) {
-          if (this.recipes[i].title === eventObject.name) {
-            eventObject.index = i;
-            break;
-          }
-        }
+        const recipe = this.recipes.find(rec => rec.title === eventObject.name);
+        // console.log(recipe);
+        eventObject.id = recipe.id;
+        eventObject.servings = recipe.servings;
+        eventObject.imageURL = recipe.imageURL;
+
+        // for (let i = 0; i < this.recipes.length; i++) {
+        //   if (this.recipes[i].title === eventObject.name) {
+        //     eventObject.index = i;
+        //     break;
+        //   }
+        // }
         // console.log(eventObject);
         this.events.push(eventObject);
         this.saveMealPlan(this.start);

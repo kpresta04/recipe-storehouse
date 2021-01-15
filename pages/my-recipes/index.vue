@@ -81,7 +81,7 @@ export default Vue.extend({
         throw err;
       });
 
-    console.log(data);
+    // console.log(data);
     return { recipeList: data };
   },
   middleware: "authenticated"

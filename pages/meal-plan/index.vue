@@ -215,6 +215,24 @@ export default {
     // console.log(this.$refs);
   },
   methods: {
+    async saveMealPlan(startDate) {
+      try {
+        const response = await fetch(
+          `/api/mealPlan/${startDate}`,
+
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              accessToken: this.$store.state.accessToken
+            },
+            body: JSON.stringify({ recipes: this.events })
+          }
+        ).then(res => res.json());
+      } catch (error) {
+        console.log(error);
+      }
+    },
     addRecipe() {
       // console.log(this.recipes.indexOf);
       // console.log(this.$store.state.recipeObject);
@@ -234,6 +252,7 @@ export default {
         }
         // console.log(eventObject);
         this.events.push(eventObject);
+        this.saveMealPlan(this.start);
         // events.push({
         //   name: this.recipes[i].title,
         //   start: first,
@@ -280,6 +299,7 @@ export default {
       nativeEvent.stopPropagation();
     },
     updateRange({ start, end }) {
+      // console.log("update func running");
       this.start = start.date;
       this.end = end.date;
       const startDate = dayjs(dayjs().day(start.weekday)).format("DD/MM/YYYY");
@@ -312,7 +332,7 @@ export default {
         });
       }
 
-      this.events = events;
+      // this.events = events;
     },
     rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a;

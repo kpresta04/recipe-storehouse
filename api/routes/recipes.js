@@ -126,6 +126,39 @@ router.delete("/recipe/:id/tag", authenticateToken, async (req, res) => {
       res.send({ message: error });
     }
   }),
+  router.post("/mealPlan/:startDate", authenticateToken, async (req, res) => {
+    const user = JSON.parse(JSON.stringify(req.user));
+    const startDate = req.params.startDate;
+    // console.log(startDate)
+    console.log(req.body.recipes);
+    try {
+      const mealPlan = await prisma.mealPlan.upsert({
+        where: {
+          startDate_userId: {
+            startDate: startDate,
+            userId: user.id
+          }
+        },
+        update: {
+          recipes: req.body.recipes
+        },
+        create: {
+          recipes: req.body.recipes,
+          // recipeId: recipeID,
+          // userId: user.id,
+          startDate: startDate,
+          name: startDate,
+          user: {
+            connect: { id: user.id }
+          }
+        }
+      });
+
+      res.send(mealPlan);
+    } catch (error) {
+      console.log(error);
+    }
+  }),
   router.post("/recipe/:id/tag", authenticateToken, async (req, res) => {
     const user = JSON.parse(JSON.stringify(req.user));
     const recipeID = Number(req.params.id);

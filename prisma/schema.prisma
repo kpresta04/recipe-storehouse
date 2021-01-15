@@ -8,46 +8,39 @@ datasource db {
 }
 
 model User {
-  id            Int            @id @default(autoincrement())
-  email         String         @unique
+  id            Int           @id @default(autoincrement())
+  email         String        @unique
   firstName     String?
   lastName      String?
-  isAdmin       Boolean        @default(false)
+  isAdmin       Boolean       @default(false)
   hash          String
+  MealPlans     MealPlan[]
+  notes         Note[]
+  shoppingLists ShoppingList?
+  tags          Tag[]
   tokens        Token[]
   recipes       Recipe[]
-  notes         Note[]
-  tags          Tag[]
-  shoppingLists ShoppingList[]
-  MealPlans     MealPlan[]
 }
 
 model ShoppingList {
-  id          Int      @id @default(autoincrement())
-  user        User     @relation(fields: [userId], references: [id])
   ingredients Json?
-  startDate   String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  userId      Int      @unique
   name        String?
-
-
-  userId Int @unique
-
-  // @@id([startDate, userId])
+  startDate   String
+  id          Int      @id @default(autoincrement())
+  user        User     @relation(fields: [userId], references: [id])
 }
 
 model MealPlan {
-  // id          Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id])
-  meals     Json?
+  recipes   Json?
   startDate String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name      String
-
-
-  userId Int
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
 
   @@id([startDate, userId])
 }
@@ -64,34 +57,27 @@ model Token {
 }
 
 model Note {
-
   text     String
-  Recipe   Recipe @relation(fields: [recipeId], references: [id])
   recipeId Int
-  User     User   @relation(fields: [userId], references: [id])
   userId   Int
-
+  Recipe   Recipe @relation(fields: [recipeId], references: [id])
+  User     User   @relation(fields: [userId], references: [id])
 
   @@id([recipeId, userId])
 }
 
 model Tag {
-  //tagList: array of tags, unique to each recipe and user
+  recipeId Int
+  userId   Int
   tagList  Json
   Recipe   Recipe @relation(fields: [recipeId], references: [id])
-  recipeId Int
   User     User   @relation(fields: [userId], references: [id])
-  userId   Int
-
 
   @@id([recipeId, userId])
 }
 
 model Recipe {
   id                   Int     @id @default(autoincrement())
-  title                String
-  sourceURL            String  @unique
-  tags                 Tag[]
   analyzedInstructions Json?
   servings             Int
   cuisines             Json?
@@ -99,11 +85,11 @@ model Recipe {
   dishTypes            Json?
   extendedIngredients  Json
   imageURL             String?
+  sourceURL            String  @unique
+  title                String
   notes                Note[]
+  tags                 Tag[]
   users                User[]
-
-
-
 }
 
 enum UserRole {

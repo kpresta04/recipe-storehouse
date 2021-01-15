@@ -89,7 +89,10 @@
             offset-x
           >
             <!-- <v-card color="grey lighten-4" min-width="350px" flat> -->
-            <RecipeCard :color="selectedEvent.color">
+            <RecipeCard
+              :recipe_id="selectedEvent.index"
+              :color="selectedEvent.color"
+            >
               <template v-slot:toolbar>
                 <v-toolbar :color="selectedEvent.color" dark>
                   <v-btn icon>

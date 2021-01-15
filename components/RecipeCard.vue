@@ -62,7 +62,7 @@ export default {
   data: () => ({
     items: [
       { title: "Add to Shopping List" },
-      { title: "Add to Meal Plan" },
+      // { title: "Add to Meal Plan" },
       { title: "Delete recipe" }
     ]
   }),
@@ -81,6 +81,6 @@ export default {
 .hoverClass:hover {
   cursor: pointer;
 
-  background-color: rgb(59, 151, 120);
+  background-color: rgb(216, 216, 216);
 }
 </style>

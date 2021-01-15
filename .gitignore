@@ -90,4 +90,5 @@ sw.*
 *.swp
 
 prisma/migrations
+prisma/migrationsOld
 

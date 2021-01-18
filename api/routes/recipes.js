@@ -35,7 +35,11 @@ router.delete("/recipe/:id/tag", authenticateToken, async (req, res) => {
           userId: user.id
         }
       });
-      if (shoppingList !== null) {
+      if (shoppingList !== null && shoppingList.startDate === startDate) {
+        // console.log(shoppingList.startDate);
+        // console.log(startDate);
+
+        // console.log(shoppingList.startDate === startDate);
         res.send(shoppingList);
       } else {
         res.send({ message: "No shopping list found" });

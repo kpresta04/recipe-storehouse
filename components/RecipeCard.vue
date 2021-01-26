@@ -3,44 +3,51 @@
     <slot name="toolbar" />
 
     <slot name="image" />
-    <v-card-title class="cardTitle">
-      <slot name="title" />
-    </v-card-title>
+    <div class="cardBody">
+      <v-card-title class="cardTitle">
+        <slot name="title" />
+      </v-card-title>
 
-    <v-card-subtitle>
-      <slot name="servings" />
-    </v-card-subtitle>
+      <v-card-subtitle>
+        <slot name="servings" />
+      </v-card-subtitle>
 
-    <v-card-actions>
-      <slot name="link" />
+      <v-card-actions class="actions">
+        <slot name="link" />
 
-      <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
 
-      <v-menu transition="slide-y-transition" bottom>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn :color="color ? color : 'teal'" dark v-bind="attrs" v-on="on">
-            Actions
-          </v-btn>
-        </template>
-        <v-list>
-          <v-list-item
-            @click="deleteClick"
-            class="hoverClass"
-            v-for="(item, i) in items"
-            :key="i"
-          >
-            <v-list-item-title class="listItem">{{
-              item.title
-            }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+        <v-menu transition="slide-y-transition" bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              :color="color ? color : 'teal'"
+              dark
+              v-bind="attrs"
+              v-on="on"
+            >
+              Actions
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+              @click="deleteClick"
+              class="hoverClass"
+              v-for="(item, i) in items"
+              :key="i"
+            >
+              <v-list-item-title class="listItem">{{
+                item.title
+              }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
 
-      <!-- <v-btn>
+        <!-- <v-btn>
         Actions
          <v-icon>{{ show ? "mdi-chevron-up" : "mdi-chevron-down" }}</v-icon> 
       </v-btn> -->
-    </v-card-actions>
+      </v-card-actions>
+    </div>
 
     <!-- <v-expand-transition>
       <div v-show="show">
@@ -85,5 +92,24 @@ export default {
   cursor: pointer;
 
   background-color: rgb(216, 216, 216);
+}
+.cardBody {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.actions {
+  margin-top: auto;
+}
+
+.recipeCard {
+  margin: 16px auto;
+  display: flex;
+  flex-direction: column;
+
+  img {
+    max-height: 200px;
+  }
 }
 </style>

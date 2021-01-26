@@ -13,7 +13,7 @@
         </v-card-title>
       </template>
       <template v-slot:image>
-        <v-img :src="recipe.imageURL" height="200px"></v-img>
+        <v-img :src="recipe.imageURL" max-height="200px"></v-img>
       </template>
       <template v-slot:title>
         {{ recipe.title }}
@@ -98,8 +98,5 @@ export default Vue.extend({
   color: teal;
   text-decoration: none;
   text-transform: capitalize;
-}
-.recipeCard {
-  margin: 16px auto;
 }
 </style>

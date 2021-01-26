@@ -3,7 +3,7 @@
     <slot name="toolbar" />
 
     <slot name="image" />
-    <v-card-title>
+    <v-card-title class="cardTitle">
       <slot name="title" />
     </v-card-title>
 
@@ -78,6 +78,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.cardTitle {
+  word-break: break-word;
+}
 .hoverClass:hover {
   cursor: pointer;
 

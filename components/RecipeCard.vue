@@ -107,9 +107,5 @@ export default {
   margin: 16px auto;
   display: flex;
   flex-direction: column;
-
-  img {
-    max-height: 200px;
-  }
 }
 </style>

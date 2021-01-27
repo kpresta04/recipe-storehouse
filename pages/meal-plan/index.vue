@@ -83,6 +83,7 @@
             @change="updateRange"
           ></v-calendar>
           <v-menu
+            class="menuWhoopsie"
             v-model="selectedOpen"
             :close-on-content-click="false"
             :activator="selectedElement"
@@ -92,6 +93,7 @@
             <RecipeCard
               :recipe_id="selectedEvent.id"
               :color="selectedEvent.color"
+              style="margin:0;"
             >
               <template v-slot:toolbar>
                 <v-toolbar :color="selectedEvent.color" dark>
@@ -380,7 +382,12 @@ export default {
 .v-calendar-daily__body {
   display: none;
 }
-
+/* .v-menu__content {
+  box-shadow: none;
+} */
+/* .recipeCard {
+  margin: 0 !important;
+} */
 .theme--light.v-calendar-daily {
   border-left: none;
   border-top: none;

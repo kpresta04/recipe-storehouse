@@ -339,7 +339,7 @@ export default {
         ).then(res => res.json());
         // console.log(mealPlan);
 
-        if (mealPlan) {
+        if (!mealPlan.message) {
           const events = mealPlan.recipes;
           this.events = events;
         }

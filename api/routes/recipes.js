@@ -145,7 +145,11 @@ router.delete("/recipe/:id/tag", authenticateToken, async (req, res) => {
         }
       });
 
-      res.send(mealPlan);
+      if (mealPlan) {
+        res.send(mealPlan);
+      } else {
+        res.send({ message: "no meal plan for this date" });
+      }
     } catch (error) {
       console.log(error);
     }

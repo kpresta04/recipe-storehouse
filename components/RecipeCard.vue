@@ -65,6 +65,7 @@
   </v-card>
 </template>
 <script>
+import { delRecipe } from "~/utils.ts";
 export default {
   data: () => ({
     items: [
@@ -79,6 +80,8 @@ export default {
     deleteClick(e) {
       if (e.target.textContent === "Delete recipe") {
         this.$emit("deleteRecipe", this.recipe_id);
+
+        delRecipe(this.recipe_id, this.$store);
       }
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <v-card class="recipeCard mx-auto" max-width="344">
+  <v-card class="recipeCard" max-width="344">
     <slot name="toolbar" />
 
     <slot name="image" />

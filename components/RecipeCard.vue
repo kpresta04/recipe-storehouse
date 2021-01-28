@@ -30,7 +30,7 @@
           </template>
           <v-list>
             <v-list-item
-              @click="deleteClick"
+              @click="handleItemClick"
               class="hoverClass"
               v-for="(item, i) in items"
               :key="i"
@@ -77,11 +77,13 @@ export default {
   props: ["source", "recipe_id", "color"],
 
   methods: {
-    deleteClick(e) {
+    handleItemClick(e) {
       if (e.target.textContent === "Delete recipe") {
         this.$emit("deleteRecipe", this.recipe_id);
 
         delRecipe(this.recipe_id, this.$store);
+      } else if (e.target.textContent === "Add to Shopping List") {
+        console.log("add to shopping list");
       }
     }
   }

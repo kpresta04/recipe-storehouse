@@ -24,7 +24,16 @@ export class Ingredient {
     this.string = string;
   }
 }
-
+export interface Aisle {
+  aisle: string;
+  ingredients: Ingredient[];
+}
+export class AisleListWithIngredients {
+  aisles: Aisle[];
+  constructor(aisles: Aisle[]) {
+    this.aisles = aisles;
+  }
+}
 export class Recipe {
   name: string;
   ingredients: Ingredient[];
@@ -59,10 +68,10 @@ export const fetchShoppingList = async (store: any) => {
     }
   }).then(res => res.json());
 
-  // console.log(shoppingList);
+  console.log(shoppingList);
 
-  if (shoppingList.ingredients) {
-    //full array
+  if (!shoppingList.aisleListWithIngredients) {
+    //shopping list exists but aisleList not saved
 
     let idList: any = [];
     let aisleList: any = [];
@@ -224,20 +233,55 @@ export const fetchShoppingList = async (store: any) => {
       }
     });
 
+    //save aisle list to db
+    patchShoppingList(store, aisleListWithIngredients);
+
+    // console.log("list exists but aisleList not saved");
+    // console.log(aisleListWithIngredients);
+
     return {
       shoppingList,
       aisleListWithIngredients,
       dateString,
       message: null
     };
-  } else {
+  } else if (!shoppingList.ingredients) {
+    // no shopping list
     return {
       message: "No shopping list found",
       dateString
     };
+  } else {
+    //aisle list pulled from db
+    // console.log("pulled from db");
+    aisleListWithIngredients = shoppingList.aisleListWithIngredients;
+    return {
+      shoppingList,
+      aisleListWithIngredients,
+      dateString,
+      message: null
+    };
   }
 };
+export const patchShoppingList = async (
+  store: any,
+  al: AisleListWithIngredients
+) => {
+  // console.log(al);
 
+  try {
+    const shoppingList = await fetch(`/api/shopping-list/al`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        accessToken: store.state.accessToken
+      },
+      body: JSON.stringify(al)
+    }).then(res => res.json());
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const delRecipe = async (id: number, store: any) => {
   try {
     const response = await fetch(`/api/recipe/${id}`, {

@@ -5,15 +5,34 @@ export class Ingredient {
   unit: string;
   amount: number;
   id: number;
+  aisle: string;
 
-  constructor(name: string, unit: string, amount: number, id: number) {
+  constructor(
+    name: string,
+    unit: string,
+    amount: number,
+    id: number,
+    aisle: string
+  ) {
     this.name = name;
     this.unit = unit;
     this.amount = amount;
     this.id = id;
+    this.aisle = aisle;
   }
 }
 
+export class Recipe {
+  name: string;
+  ingredients: Ingredient[];
+  servings: number;
+
+  constructor(name: string, ingredients: Ingredient[], servings: number) {
+    this.name = name;
+    this.ingredients = ingredients;
+    this.servings = servings;
+  }
+}
 export const fetchShoppingList = async (store: any) => {
   const startDate = dayjs(dayjs().day(0)).format("DD/MM/YYYY");
   const startDay = dayjs(dayjs().day(0)).format("DD");

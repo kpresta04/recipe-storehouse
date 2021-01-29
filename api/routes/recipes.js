@@ -52,8 +52,6 @@ router.delete("/recipe/:id/tag", authenticateToken, async (req, res) => {
   router.patch("/shopping-list/al", authenticateToken, async (req, res) => {
     //patch aisle list with ingredient field
     const user = JSON.parse(JSON.stringify(req.user));
-    // const startDate = dayjs(dayjs().day(0)).format("DD/MM/YYYY");
-    // console.log(req.body);
 
     try {
       const returnedList = await prisma.shoppingList.update({
@@ -65,11 +63,6 @@ router.delete("/recipe/:id/tag", authenticateToken, async (req, res) => {
         }
       });
       if (returnedList !== null) {
-        // console.log(shoppingList.startDate);
-        // console.log(startDate);
-
-        // console.log(shoppingList.startDate === startDate);
-        // console.log(returnedList);
         res.send(returnedList);
       } else {
         res.send({ message: "No shopping list found" });

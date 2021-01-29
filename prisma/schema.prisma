@@ -23,14 +23,15 @@ model User {
 }
 
 model ShoppingList {
-  ingredients Json?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  userId      Int      @unique
-  name        String?
-  startDate   String
-  id          Int      @id @default(autoincrement())
-  user        User     @relation(fields: [userId], references: [id])
+  ingredients              Json?
+  aisleListWithIngredients Json?
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
+  userId                   Int      @unique
+  name                     String?
+  startDate                String
+  id                       Int      @id @default(autoincrement())
+  user                     User     @relation(fields: [userId], references: [id])
 }
 
 model MealPlan {

@@ -2,23 +2,26 @@ import dayjs from "dayjs";
 
 export class Ingredient {
   name: string;
-  unit: string;
+  measure: string;
   amount: number;
   id: number;
   aisle: string;
+  string: string;
 
   constructor(
     name: string,
-    unit: string,
+    measure: string,
     amount: number,
     id: number,
-    aisle: string
+    aisle: string,
+    string: string
   ) {
     this.name = name;
-    this.unit = unit;
+    this.measure = measure;
     this.amount = amount;
     this.id = id;
     this.aisle = aisle;
+    this.string = string;
   }
 }
 
@@ -64,11 +67,11 @@ export const fetchShoppingList = async (store: any) => {
     let idList: any = [];
     let aisleList: any = [];
 
-    shoppingList.ingredients.forEach((ingredient: any) => {
+    shoppingList.ingredients.forEach((ingredient: Ingredient) => {
       idList.push(ingredient.id);
       aisleList.push(ingredient.aisle);
     });
-    // console.log(idList)
+    // console.log(idList);
     idList = new Set(idList);
     aisleList = new Set(aisleList);
 

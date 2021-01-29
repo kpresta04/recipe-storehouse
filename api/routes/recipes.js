@@ -50,7 +50,7 @@ router.delete("/recipe/:id/tag", authenticateToken, async (req, res) => {
     }
   }),
   router.patch("/shopping-list/al", authenticateToken, async (req, res) => {
-    //update aisle list with ingredient field
+    //patch aisle list with ingredient field
     const user = JSON.parse(JSON.stringify(req.user));
     // const startDate = dayjs(dayjs().day(0)).format("DD/MM/YYYY");
     // console.log(req.body);

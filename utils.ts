@@ -68,7 +68,7 @@ export const fetchShoppingList = async (store: any) => {
     }
   }).then(res => res.json());
 
-  console.log(shoppingList);
+  // console.log(shoppingList);
 
   if (!shoppingList.aisleListWithIngredients) {
     //shopping list exists but aisleList not saved

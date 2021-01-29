@@ -50,7 +50,6 @@
 <script lang="ts">
 import Vue from "vue";
 
-import { set } from "~/api";
 import { fetchShoppingList } from "~/utils.ts";
 
 export default Vue.extend({

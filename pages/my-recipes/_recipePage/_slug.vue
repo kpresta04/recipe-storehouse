@@ -285,7 +285,6 @@ export default Vue.extend({
     },
 
     adjustServings() {
-      console.log("honkey");
       this.recipe.servings++;
     },
     async handleDeleteNote() {

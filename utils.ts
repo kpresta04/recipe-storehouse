@@ -70,16 +70,13 @@ export const fetchShoppingList = async (store: any) => {
 
   // console.log(shoppingList);
   if (!shoppingList.ingredients) {
-    // no shopping list
+    // no shopping list for this week
     return {
       message: "No shopping list found",
       dateString
     };
-  } else if (
-    shoppingList.ingredients &&
-    !shoppingList.aisleListWithIngredients
-  ) {
-    //shopping list exists but aisleList not saved
+  } else {
+    //shopping list exists
 
     let idList: any = [];
     let aisleList: any = [];
@@ -253,17 +250,18 @@ export const fetchShoppingList = async (store: any) => {
       dateString,
       message: null
     };
-  } else {
-    //aisle list pulled from db
-    // console.log("pulled from db");
-    aisleListWithIngredients = shoppingList.aisleListWithIngredients;
-    return {
-      shoppingList,
-      aisleListWithIngredients,
-      dateString,
-      message: null
-    };
   }
+  //  else {
+  //   //aisle list pulled from db
+  //   // console.log("pulled from db");
+  //   aisleListWithIngredients = shoppingList.aisleListWithIngredients;
+  //   return {
+  //     shoppingList,
+  //     aisleListWithIngredients,
+  //     dateString,
+  //     message: null
+  //   };
+  // }
 };
 export const patchShoppingList = async (
   store: any,

@@ -162,7 +162,7 @@ a {
   text-decoration: none;
 }
 .footer-card {
-  background-color: #353535 !important;
+  background-color: #333;
 }
 .footer {
   margin-top: 8rem;

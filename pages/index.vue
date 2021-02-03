@@ -1,10 +1,5 @@
 <template>
-  <div>
-    <nuxt-link to="/my-recipes">My recipes</nuxt-link>
-    <div>
-      <nuxt-link to="/import">Import Recipe</nuxt-link>
-    </div>
-  </div>
+  <div></div>
 </template>
 
 <script lang="ts">

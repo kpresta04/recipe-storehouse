@@ -82,6 +82,8 @@ export default Vue.extend({
   width: 100%;
   flex-wrap: wrap;
   display: flex;
+  max-width: 1580px;
+  margin: 0 auto;
 }
 .card-link {
   color: teal;

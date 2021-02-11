@@ -1,12 +1,12 @@
 <template>
   <v-app>
-    <v-app-bar absolute color="#fcb69f" dark src="/ar1.jpg" app>
-      <template v-slot:img="{ props }">
+    <v-app-bar class="appBar" color="transparent" absolute dark app>
+      <!-- <template v-slot:img="{ props }">
         <v-img
           v-bind="props"
           gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
         ></v-img>
-      </template>
+      </template> -->
 
       <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
       <v-app-bar-nav-icon
@@ -59,43 +59,55 @@
       </v-menu> -->
     </v-app-bar>
     <v-main>
-      <v-container>
-        <nuxt />
-      </v-container>
+      <nuxt />
+      <!-- <v-container>
+      </v-container> -->
     </v-main>
-    <v-footer dark padless class="footer">
-      <v-card flat tile class="footer-card lighten-1 white--text text-center">
-        <v-card-text>
-          <v-btn
-            v-for="icon in icons"
-            :key="icon"
-            class="mx-4 white--text"
-            icon
-          >
-            <v-icon size="24px">
-              {{ icon }}
-            </v-icon>
-          </v-btn>
-        </v-card-text>
-
-        <v-card-text class="white--text pt-0">
-          Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet.
-          Mauris cursus commodo interdum. Praesent ut risus eget metus luctus
-          accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim
-          a sit amet dui. Duis commodo vitae velit et faucibus. Morbi vehicula
-          lacinia malesuada. Nulla placerat augue vel ipsum ultrices, cursus
-          iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum
-          tempor vel ut orci. Orci varius natoque penatibus et magnis dis
-          parturient montes, nascetur ridiculus mus.
-        </v-card-text>
-
-        <v-divider></v-divider>
-
-        <v-card-text class="white--text">
-          {{ new Date().getFullYear() }} — <strong>RecipeDB</strong>
-        </v-card-text>
-      </v-card>
-    </v-footer>
+    <!-- <div class="footer">
+      <div class="container">
+        <div class="footer-column cc-footer">
+          <a
+            href="/"
+            aria-current="page"
+            class="navigation-logo w-inline-block w--current"
+            ><img
+              src="https://uploads-ssl.webflow.com/601f0f7d56a6413edca18d5d/601f0f7dcd749b3f1d0bc62c_logo-spoon-white.svg"
+              alt=""
+          /></a>
+          <div class="text-footer-credits">
+            © 2018 Spoon Inc, All rights reserved.
+          </div>
+        </div>
+        <div class="footer-column">
+          <div class="footer-links-list">
+            <a href="/features" class="link-footer">Features</a
+            ><a href="/premium" class="link-footer">Premium</a
+            ><a href="/pricing" class="link-footer">Pricing</a>
+          </div>
+          <div class="footer-links-list">
+            <a href="/about" class="link-footer">About</a
+            ><a href="/blog" class="link-footer">Blog</a
+            ><a href="/contact" class="link-footer">Contact</a>
+          </div>
+          
+          <div class="footer-social">
+            <a href="#" class="link-social w-inline-block"
+              ><img
+                src="https://uploads-ssl.webflow.com/601f0f7d56a6413edca18d5d/601f0f7dcd749b117b0bc636_icon-facebook.svg"
+                alt=""/></a
+            ><a href="#" class="link-social w-inline-block"
+              ><img
+                src="https://uploads-ssl.webflow.com/601f0f7d56a6413edca18d5d/601f0f7dcd749b02580bc637_icon-twitter.svg"
+                alt=""/></a
+            ><a href="#" class="link-social w-inline-block"
+              ><img
+                src="https://uploads-ssl.webflow.com/601f0f7d56a6413edca18d5d/601f0f7dcd749b95220bc638_icon-instagram.svg"
+                alt=""
+            /></a>
+          </div>
+        </div>
+      </div>
+    </div> -->
   </v-app>
 </template>
 
@@ -166,5 +178,78 @@ a {
 }
 .footer {
   margin-top: 8rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 120px 30px 150px;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  max-width: 100vw;
+  background-color: #0a0e1a;
+}
+.appBar {
+  box-shadow: none !important;
+  /* background-color: transparent !important; */
+}
+.cc-footer {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  justify-content: center;
+  /* -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column; */
+}
+.footer-column {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 50%;
+}
+.text-footer-credits {
+  margin-top: 15px;
+  font-family: "Libre Franklin", sans-serif;
+  color: #666;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 600;
+}
+.footer-social {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 25%;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+}
+.footer-links-list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding-right: 50px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1170px;
+  display: flex;
 }
 </style>

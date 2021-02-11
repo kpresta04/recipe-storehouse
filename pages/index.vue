@@ -52,6 +52,11 @@ export default Vue.extend({
   background-position: 50% 50%;
   background-size: cover;
 }
+/* @media screen and (min-width: 1200px) {
+  .hero {
+    background-image: url(/ecookLarge.jpg);
+  }
+} */
 .header-content {
   color: white;
   max-width: 770px;
@@ -60,6 +65,7 @@ export default Vue.extend({
   -webkit-transition: opacity 200ms ease;
   transition: opacity 200ms ease;
   text-align: center;
+  text-shadow: 1px 1px 6px #000;
   h1 {
     margin-top: 0px;
     margin-bottom: 30px;

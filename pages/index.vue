@@ -15,6 +15,9 @@
       </p>
       <a href="/contact" class="button w-button">Get Started</a>
     </div>
+    <div class="header-image">
+      <img class="svg" src="/sushi.svg" alt="sushi" />
+    </div>
   </div>
 </template>
 
@@ -32,13 +35,31 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+@media screen and (max-width: 1023px) {
+  .hero {
+    flex-direction: column;
+  }
+  .svg {
+    width: 100vw !important;
+  }
+  .header-image {
+    margin-top: 3rem;
+  }
+}
+.header-image {
+  height: 100%;
+  /* width: 50%;
+  background-image: url("/sushi.svg"); */
+  background-position: 50% 50%;
+  background-size: cover;
+}
 .hero {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   width: 100%;
-  margin-top: -64px;
+  margin-top: -150px;
   padding: 210px 30px 120px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -48,24 +69,25 @@ export default Vue.extend({
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  background-image: url(/ecook.jpg);
-  background-position: 50% 50%;
-  background-size: cover;
 }
 /* @media screen and (min-width: 1200px) {
   .hero {
     background-image: url(/ecookLarge.jpg);
   }
 } */
+.svg {
+  width: 70vw;
+  max-width: 1000px;
+}
 .header-content {
-  color: white;
-  max-width: 770px;
+  color: #6543af;
+  max-width: 410px;
   -webkit-perspective: 2000px;
   perspective: 2000px;
   -webkit-transition: opacity 200ms ease;
   transition: opacity 200ms ease;
   text-align: center;
-  text-shadow: 1px 1px 6px #000;
+  /* text-shadow: 1px 1px 6px #000; */
   h1 {
     margin-top: 0px;
     margin-bottom: 30px;

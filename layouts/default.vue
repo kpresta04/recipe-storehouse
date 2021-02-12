@@ -1,6 +1,13 @@
 <template>
   <v-app>
-    <v-app-bar class="appBar" color="transparent" absolute light app>
+    <v-app-bar
+      class="appBar"
+      color="transparent"
+      max-width="1400px"
+      absolute
+      light
+      app
+    >
       <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
       <v-app-bar-nav-icon
         v-if="windowWith < 1024"
@@ -9,8 +16,16 @@
       ></v-app-bar-nav-icon>
       <v-spacer v-if="windowWith < 1024"></v-spacer>
       <v-toolbar-title class="toolbar-title">
-        RecipeDB
+        <nuxt-link to="/">RecipeDB</nuxt-link>
       </v-toolbar-title>
+      <v-spacer v-if="windowWith >= 1024"></v-spacer>
+      <div class="navLinks" v-if="windowWith >= 1024">
+        <nuxt-link to="/my-recipes">My Recipes</nuxt-link>
+        <nuxt-link to="/shopping-list">Shopping List</nuxt-link>
+        <nuxt-link to="/meal-plan">Meal Plan</nuxt-link>
+
+        <nuxt-link to="/register">Sign Up</nuxt-link>
+      </div>
 
       <!-- <v-spacer></v-spacer> -->
       <v-btn v-if="!$store.state.accessToken" absolute bottom right nuxt>
@@ -54,7 +69,7 @@
       </v-menu> -->
     </v-app-bar>
     <v-main>
-      <v-container>
+      <v-container id="container">
         <nuxt />
       </v-container>
     </v-main>
@@ -177,6 +192,9 @@ export default {
       return this.$vuetify.breakpoint.width;
     }
   }
+  // mounted() {
+  //   console.log(document.querySelector("#container").clientWidth);
+  // }
 };
 </script>
 <style lang="scss" scoped>
@@ -185,9 +203,11 @@ export default {
 }
 .toolbar-title {
   padding-left: 20px;
+  font-size: 1.6rem;
+  font-weight: bold;
 }
 a {
-  color: white;
+  color: #6543af;
   text-decoration: none;
 }
 .footer-card {
@@ -211,8 +231,11 @@ a {
   max-width: 100vw;
   background-color: #0a0e1a;
 }
+
 .appBar {
   box-shadow: none !important;
+  color: #6543af;
+  margin: 0 auto;
   /* background-color: transparent !important; */
 }
 .cc-footer {

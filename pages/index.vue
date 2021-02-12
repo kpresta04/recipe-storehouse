@@ -46,6 +46,11 @@ export default Vue.extend({
     margin-top: 3rem;
   }
 }
+@media screen and (min-width: 1200px) {
+  .svg {
+    width: 70vw !important;
+  }
+}
 .header-image {
   height: 100%;
   /* width: 50%;
@@ -70,13 +75,9 @@ export default Vue.extend({
   -ms-flex-align: center;
   align-items: center;
 }
-/* @media screen and (min-width: 1200px) {
-  .hero {
-    background-image: url(/ecookLarge.jpg);
-  }
-} */
+
 .svg {
-  width: 70vw;
+  width: 50vw;
   max-width: 1000px;
 }
 .header-content {

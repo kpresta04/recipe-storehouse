@@ -1,23 +1,25 @@
 <template>
   <v-app>
-    <v-app-bar class="appBar" color="transparent" absolute dark app>
-      <!-- <template v-slot:img="{ props }">
+    <v-app-bar class="appBar" color="teal" src="/ar1.jpg" absolute dark app>
+      <template v-slot:img="{ props }">
         <v-img
           v-bind="props"
           gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
         ></v-img>
-      </template> -->
+      </template>
 
       <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
       <v-app-bar-nav-icon
+        v-if="windowWith < 1024"
         class="navIcon"
         @click="drawer = true"
       ></v-app-bar-nav-icon>
+      <v-spacer v-if="windowWith < 1024"></v-spacer>
       <v-toolbar-title class="toolbar-title">
         RecipeDB
       </v-toolbar-title>
 
-      <v-spacer></v-spacer>
+      <!-- <v-spacer></v-spacer> -->
       <v-btn v-if="!$store.state.accessToken" absolute bottom right nuxt>
         <nuxt-link to="/login">Login</nuxt-link>
       </v-btn>
@@ -59,10 +61,27 @@
       </v-menu> -->
     </v-app-bar>
     <v-main>
-      <nuxt />
-      <!-- <v-container>
-      </v-container> -->
+      <v-container>
+        <nuxt />
+      </v-container>
     </v-main>
+    <v-footer color="#0a0e1a" padless>
+      <v-row justify="center" no-gutters>
+        <v-btn
+          v-for="link in links"
+          :key="link"
+          color="white"
+          text
+          rounded
+          class="my-2"
+        >
+          {{ link }}
+        </v-btn>
+        <v-col class="py-4 text-center white--text" cols="12">
+          {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+        </v-col>
+      </v-row>
+    </v-footer>
     <!-- <div class="footer">
       <div class="container">
         <div class="footer-column cc-footer">
@@ -159,6 +178,11 @@ export default {
       links: ["Home", "About Us", "Team", "Services", "Blog", "Contact Us"],
       icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"]
     };
+  },
+  computed: {
+    windowWith() {
+      return this.$vuetify.breakpoint.width;
+    }
   }
 };
 </script>
@@ -245,11 +269,11 @@ a {
   -ms-flex-direction: column;
   flex-direction: column;
 }
-.container {
+/* .container {
   position: relative;
   z-index: 1;
   width: 100%;
   max-width: 1170px;
   display: flex;
-}
+} */
 </style>

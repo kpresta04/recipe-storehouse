@@ -14,11 +14,11 @@
         class="navIcon"
         @click="drawer = true"
       ></v-app-bar-nav-icon>
-      <v-spacer v-if="windowWith < 1024"></v-spacer>
+      <!-- <v-spacer v-if="windowWith < 1024"></v-spacer> -->
       <v-toolbar-title class="toolbar-title">
         <nuxt-link to="/">RecipeDB</nuxt-link>
       </v-toolbar-title>
-      <v-spacer v-if="windowWith >= 1024"></v-spacer>
+      <!-- <v-spacer v-if="windowWith >= 1024"></v-spacer> -->
       <div class="navLinks" v-if="windowWith >= 1024">
         <nuxt-link to="/my-recipes">My Recipes</nuxt-link>
         <nuxt-link to="/shopping-list">Shopping List</nuxt-link>
@@ -198,11 +198,28 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.navLinks {
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+  a {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.2s ease-in-out;
+  }
+  a:hover {
+    transform: scale(1.1);
+  }
+}
+.v-toolbar__content {
+  display: flex;
+  justify-content: space-between;
+}
 .navIcon {
   margin: 0 !important;
 }
 .toolbar-title {
-  padding-left: 20px;
+  /* padding-left: 20px; */
   font-size: 1.6rem;
   font-weight: bold;
 }

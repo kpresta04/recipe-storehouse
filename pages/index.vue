@@ -50,6 +50,9 @@ export default Vue.extend({
   .svg {
     width: 70vw !important;
   }
+  .hero {
+    margin-top: -150px !important;
+  }
 }
 .header-image {
   height: 100%;
@@ -64,7 +67,7 @@ export default Vue.extend({
   display: -ms-flexbox;
   display: flex;
   width: 100%;
-  margin-top: -150px;
+  margin-top: -100px;
   padding: 210px 30px 120px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;

@@ -229,7 +229,7 @@ export default {
   font-weight: bold;
 }
 a {
-  color: #6543af;
+  color: $color-primary;
   text-decoration: none;
 }
 .footer-card {
@@ -256,7 +256,8 @@ a {
 
 .appBar {
   box-shadow: none !important;
-  color: #6543af;
+  color: $color-primary;
+
   margin: 0 auto;
   /* background-color: transparent !important; */
 }

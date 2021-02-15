@@ -1,8 +1,12 @@
 <template>
   <div>
-    <div v-if="!message">
+    <div class="main" v-if="!message">
       <h2>Shopping list {{ dateString }}</h2>
-      <div v-for="(aisle, i) in aisleListWithIngredients" :key="i">
+      <div
+        class="aisle"
+        v-for="(aisle, i) in aisleListWithIngredients"
+        :key="i"
+      >
         <h4>{{ aisle.aisle }}</h4>
 
         <div v-for="(ingredient, index) in aisle.ingredients" :key="index">
@@ -34,14 +38,14 @@
           </span> -->
         </div>
       </div>
-      <v-btn to="shopping-list/print" class="ma-2">
+      <v-btn to="shopping-list/print" class="mt-2">
         Print
         <v-icon dark right>
           mdi-printer
         </v-icon>
       </v-btn>
     </div>
-    <div v-else>
+    <div class="main" v-else>
       <h2>{{ message }} for {{ dateString }}</h2>
     </div>
   </div>
@@ -86,5 +90,33 @@ export default Vue.extend({
 }
 .strike {
   text-decoration: line-through;
+}
+
+h2 {
+  font-size: 2rem;
+  word-break: break-word;
+}
+h4 {
+  font-size: 1.25rem;
+  margin-top: 1rem;
+}
+.main {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.aisle {
+  div {
+    word-break: break-word;
+  }
+}
+
+.cbLabel {
+  padding: 3px 2px;
+}
+@media screen and (min-width: 768px) {
+  h2 {
+    font-size: 2.5rem;
+  }
 }
 </style>

@@ -68,7 +68,7 @@ export default Vue.extend({
   display: flex;
   width: 100%;
   margin-top: -100px;
-  padding: 210px 30px 120px;
+  padding: 120px 30px 120px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="container-child">
     <div class="main" v-if="!message">
       <h2>Shopping list {{ dateString }}</h2>
       <div
@@ -103,6 +103,11 @@ h4 {
 .main {
   padding-left: 2rem;
   padding-right: 2rem;
+}
+
+#container-child {
+  display: flex;
+  justify-content: center;
 }
 
 .aisle {

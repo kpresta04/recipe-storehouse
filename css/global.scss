@@ -4,5 +4,6 @@
   box-sizing: border-box !important;
 }
 
-// VARIABLES
-$color-primary: #6543af;
+.nuxt-link-exact-active {
+  font-weight: bold;
+}

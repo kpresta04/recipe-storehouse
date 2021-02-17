@@ -24,12 +24,22 @@
         <nuxt-link to="/shopping-list">Shopping List</nuxt-link>
         <nuxt-link to="/meal-plan">Meal Plan</nuxt-link>
 
-        <nuxt-link to="/register">Sign Up</nuxt-link>
+        <nuxt-link v-if="!$store.state.accessToken" to="/register"
+          >Sign Up</nuxt-link
+        >
+        <nuxt-link v-else to="/account">Account</nuxt-link>
       </div>
 
       <!-- <v-spacer></v-spacer> -->
-      <v-btn v-if="!$store.state.accessToken" absolute bottom right nuxt>
-        <nuxt-link to="/login">Login</nuxt-link>
+      <v-btn
+        v-if="!$store.state.accessToken"
+        absolute
+        bottom
+        right
+        nuxt
+        to="/login"
+      >
+        Login
       </v-btn>
 
       <v-navigation-drawer app v-model="drawer" absolute temporary>

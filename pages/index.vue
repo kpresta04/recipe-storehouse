@@ -13,7 +13,9 @@
       >
         All your favorite recipes, stored in one place.
       </p>
-      <a href="/contact" class="button w-button">Get Started</a>
+      <v-btn class="mt-4 bg-primary" to="/my-recipes" nuxt rounded large dark>
+        Get Started
+      </v-btn>
     </div>
     <div class="header-image">
       <img class="svg" src="/sushi.svg" alt="sushi" />
@@ -84,7 +86,7 @@ export default Vue.extend({
   max-width: 1000px;
 }
 .header-content {
-  color: #6543af;
+  color: $color-primary;
   max-width: 410px;
   -webkit-perspective: 2000px;
   perspective: 2000px;
@@ -109,6 +111,9 @@ export default Vue.extend({
     line-height: 24px;
     font-weight: 400;
     margin-bottom: 10px;
+  }
+  .bg-primary {
+    background-color: $color-primary;
   }
 }
 </style>

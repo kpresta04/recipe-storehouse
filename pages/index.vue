@@ -81,6 +81,19 @@ export default Vue.extend({
   padding: 50px 40px;
   border: 1px solid #f7f7f7;
   box-shadow: 0 5px 20px 0 rgb(0 0 0 / 5%);
+
+  h3 {
+    margin-top: 0px;
+    margin-bottom: 10px;
+
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 24px;
+  }
 }
 .features {
   color: $color-primary;
@@ -89,6 +102,24 @@ export default Vue.extend({
   img {
     height: 120px;
     width: 120px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .h2-container {
+    width: 80%;
+    margin-bottom: 90px;
+    padding: 50px 40px;
+    font-size: 1rem !important;
+  }
+  .feature-item {
+    width: 33.33333333%;
+    height: auto;
+    /* margin: 0 2px; */
+  }
+  .features {
+    display: flex;
+    flex-wrap: wrap;
   }
 }
 @media screen and (max-width: 1023px) {
@@ -144,8 +175,8 @@ export default Vue.extend({
   max-width: 410px;
   -webkit-perspective: 2000px;
   perspective: 2000px;
-  -webkit-transition: opacity 200ms ease;
-  transition: opacity 200ms ease;
+  -webkit-transition: all 200ms ease;
+  transition: all 200ms ease;
   text-align: center;
   /* text-shadow: 1px 1px 6px #000; */
   h1 {

@@ -31,16 +31,6 @@
       </div>
 
       <!-- <v-spacer></v-spacer> -->
-      <v-btn
-        v-if="!$store.state.accessToken"
-        absolute
-        bottom
-        right
-        nuxt
-        to="/login"
-      >
-        Login
-      </v-btn>
 
       <v-navigation-drawer app v-model="drawer" absolute temporary>
         <v-list nav dense>

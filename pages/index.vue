@@ -1,24 +1,61 @@
 <template>
-  <div class="hero">
-    <div class="header-content">
-      <h1
-        style="transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; opacity: 1;"
-      >
-        Propel your cooking.
-      </h1>
-      <p
-        data-w-id="cd085e48-08fc-46a5-a6c3-97346f451e6d"
-        style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
-        class="paragraph"
-      >
-        All your favorite recipes, stored in one place.
-      </p>
-      <v-btn class="mt-4 bg-primary" to="/my-recipes" nuxt rounded large dark>
-        Get Started
-      </v-btn>
+  <div>
+    <div class="hero">
+      <div class="header-content">
+        <h1
+          style="transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d; opacity: 1;"
+        >
+          Propel your cooking.
+        </h1>
+        <p
+          data-w-id="cd085e48-08fc-46a5-a6c3-97346f451e6d"
+          style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
+          class="paragraph"
+        >
+          All your favorite recipes, stored in one place.
+        </p>
+        <v-btn class="mt-4 bg-primary" to="/my-recipes" nuxt rounded large dark>
+          Get Started
+        </v-btn>
+      </div>
+      <div class="header-image">
+        <img class="svg" src="/sushi.svg" alt="sushi" />
+      </div>
     </div>
-    <div class="header-image">
-      <img class="svg" src="/sushi.svg" alt="sushi" />
+    <div class="features">
+      <div class="h2-container">
+        <h2>
+          Organizing your home cooking with RecipeDB:
+          <span class="color-light"
+            >A responsive, full-featured app with everything you need propel
+            your cooking to the next level.</span
+          >
+        </h2>
+      </div>
+      <div class="feature-item">
+        <img src="/meal2.svg" alt="meal" />
+        <h3>Import Recipes</h3>
+        <p class="color-light">
+          Import your recipes from any online source.
+        </p>
+      </div>
+      <div class="feature-item">
+        <img src="/cl2.svg" alt="checklist" />
+
+        <h3>Generate Shopping Lists</h3>
+        <p class="color-light">
+          Generate a shopping list from any of your imported recipes with the
+          push of a button.
+        </p>
+      </div>
+      <div class="feature-item">
+        <img src="/calendar.svg" alt="meal plan" />
+
+        <h3>Create Meal plans</h3>
+        <p class="color-light">
+          Create and share meal plans with the whole family.
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -37,6 +74,23 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+.color-light {
+  color: $color-light;
+}
+.feature-item {
+  padding: 50px 40px;
+  border: 1px solid #f7f7f7;
+  box-shadow: 0 5px 20px 0 rgb(0 0 0 / 5%);
+}
+.features {
+  color: $color-primary;
+  padding: 0 30px;
+
+  img {
+    height: 120px;
+    width: 120px;
+  }
+}
 @media screen and (max-width: 1023px) {
   .hero {
     flex-direction: column;

@@ -105,7 +105,7 @@ export default Vue.extend({
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 700px) {
   .h2-container {
     width: 80%;
     margin-bottom: 90px;

@@ -104,7 +104,17 @@ export default Vue.extend({
     width: 120px;
   }
 }
-
+@media screen and (max-width: 1023px) {
+  .hero {
+    flex-direction: column;
+  }
+  .svg {
+    width: 100vw !important;
+  }
+  .header-image {
+    margin-top: 3rem;
+  }
+}
 @media screen and (min-width: 700px) {
   .h2-container {
     width: 80%;
@@ -122,17 +132,6 @@ export default Vue.extend({
     flex-wrap: wrap;
   }
 }
-@media screen and (max-width: 1023px) {
-  .hero {
-    flex-direction: column;
-  }
-  .svg {
-    width: 100vw !important;
-  }
-  .header-image {
-    margin-top: 3rem;
-  }
-}
 @media screen and (min-width: 1200px) {
   .svg {
     width: 70vw !important;
@@ -141,6 +140,7 @@ export default Vue.extend({
     margin-top: -150px !important;
   }
 }
+
 .header-image {
   height: 100%;
   /* width: 50%;

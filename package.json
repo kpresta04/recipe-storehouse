@@ -19,12 +19,12 @@
     "dayjs": "^1.9.7",
     "jsonwebtoken": "^8.5.1",
     "node-fetch": "^2.6.1",
-    "nuxt": "^2.14.6"
+    "nuxt": "^2.14.6",
+    "@nuxtjs/vuetify": "^1.11.2"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.6",
     "@nuxt/typescript-build": "^2.0.3",
-    "@nuxtjs/vuetify": "^1.11.2",
     "@vue/test-utils": "^1.1.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^26.5.0",

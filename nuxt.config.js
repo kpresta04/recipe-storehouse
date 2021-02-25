@@ -35,9 +35,9 @@ export default {
   // axios: {
   //   baseURL: process.env.BASE_URL || "http://localhost:3000/api"
   // },
-  // server: {
-  //   port: process.env.PORT || 8000
-  // },
+  server: {
+    host: "0.0.0.0"
+  },
 
   serverMiddleware: [
     { path: "/auth", handler: "~/api/index.js" },

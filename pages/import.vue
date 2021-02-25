@@ -22,6 +22,7 @@ export default Vue.extend({
   methods: {
     fetchRecipe() {
       //   console.log(this.recipeURL);
+      //
 
       fetch(
         // `https://rapidapi.p.rapidapi.com/recipes/extract?url=${this.recipeURL}`,

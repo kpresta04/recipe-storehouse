@@ -20,6 +20,8 @@
       </v-toolbar-title>
       <v-spacer v-if="windowWith >= 1024"></v-spacer>
       <div class="navLinks" v-if="windowWith >= 1024">
+        <nuxt-link to="/import">Import</nuxt-link>
+
         <nuxt-link to="/my-recipes">My Recipes</nuxt-link>
         <nuxt-link to="/shopping-list">Shopping List</nuxt-link>
         <nuxt-link to="/meal-plan">Meal Plan</nuxt-link>

@@ -1,62 +1,63 @@
 <template>
   <v-app>
-    <v-app-bar
-      class="appBar"
-      color="transparent"
-      max-width="1400px"
-      absolute
-      light
-      app
-    >
-      <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
-      <v-app-bar-nav-icon
-        v-if="windowWith < 1024"
-        class="navIcon"
-        @click="drawer = true"
-      ></v-app-bar-nav-icon>
-      <v-spacer v-if="windowWith < 1024"></v-spacer>
-      <v-toolbar-title class="toolbar-title">
-        <nuxt-link to="/">RecipeDB</nuxt-link>
-      </v-toolbar-title>
-      <v-spacer v-if="windowWith >= 1024"></v-spacer>
-      <div class="navLinks" v-if="windowWith >= 1024">
-        <nuxt-link to="/import">Import</nuxt-link>
+    <div class="barWrapper">
+      <v-app-bar
+        class="appBar"
+        color="#1b1c1f"
+        absolute
+        light
+        app
+        max-width="1440px"
+      >
+        <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
+        <v-app-bar-nav-icon
+          v-if="windowWith < 1024"
+          class="navIcon"
+          @click="drawer = true"
+        ></v-app-bar-nav-icon>
+        <v-spacer v-if="windowWith < 1024"></v-spacer>
+        <v-toolbar-title class="toolbar-title">
+          <nuxt-link to="/">RecipeDB</nuxt-link>
+        </v-toolbar-title>
+        <v-spacer v-if="windowWith >= 1024"></v-spacer>
+        <div class="navLinks" v-if="windowWith >= 1024">
+          <nuxt-link to="/import">Import</nuxt-link>
 
-        <nuxt-link to="/my-recipes">My Recipes</nuxt-link>
-        <nuxt-link to="/shopping-list">Shopping List</nuxt-link>
-        <nuxt-link to="/meal-plan">Meal Plan</nuxt-link>
+          <nuxt-link to="/my-recipes">My Recipes</nuxt-link>
+          <nuxt-link to="/shopping-list">Shopping List</nuxt-link>
+          <nuxt-link to="/meal-plan">Meal Plan</nuxt-link>
 
-        <nuxt-link v-if="!$store.state.accessToken" to="/register"
-          >Sign Up</nuxt-link
-        >
-        <nuxt-link v-else to="/account">Account</nuxt-link>
-      </div>
-
-      <!-- <v-spacer></v-spacer> -->
-
-      <v-navigation-drawer app v-model="drawer" absolute temporary>
-        <v-list nav dense>
-          <v-list-item-group
-            v-model="group"
-            active-class="deep-purple--text text--accent-4"
+          <nuxt-link v-if="!$store.state.accessToken" to="/register"
+            >Sign Up</nuxt-link
           >
-            <v-list-item v-for="(item, i) in items" :key="i" :to="item.to">
-              <v-list-item-icon>
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>
-                {{ item.title }}
-              </v-list-item-title>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-      </v-navigation-drawer>
+          <nuxt-link v-else to="/account">Account</nuxt-link>
+        </div>
 
-      <!-- <v-btn icon>
+        <!-- <v-spacer></v-spacer> -->
+
+        <v-navigation-drawer app v-model="drawer" absolute temporary>
+          <v-list nav dense>
+            <v-list-item-group
+              v-model="group"
+              active-class="deep-purple--text text--accent-4"
+            >
+              <v-list-item v-for="(item, i) in items" :key="i" :to="item.to">
+                <v-list-item-icon>
+                  <v-icon>{{ item.icon }}</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>
+                  {{ item.title }}
+                </v-list-item-title>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-navigation-drawer>
+
+        <!-- <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
       </v-btn> -->
 
-      <!-- <v-menu left bottom>
+        <!-- <v-menu left bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on">
             <v-icon>mdi-dots-vertical</v-icon>
@@ -69,7 +70,9 @@
           </v-list-item>
         </v-list>
       </v-menu> -->
-    </v-app-bar>
+      </v-app-bar>
+    </div>
+
     <v-main>
       <v-container id="container">
         <nuxt />
@@ -210,20 +213,27 @@ export default {
   display: flex;
   justify-content: space-evenly;
   a {
+    padding: 15px;
     text-transform: uppercase;
     letter-spacing: 2px;
     transition: all 0.2s ease-in-out;
   }
   a:hover {
-    transform: scale(1.1);
-    /* background-color: #e4def1;
-    padding: 8px;
-    border-radius: 16px; */
+    /* transform: scale(1.1); */
+    background-color: #0c0c0c;
+    /* padding: 8px;
+    border-radius: 16px;  */
   }
 }
 
+.barWrapper {
+  height: 64px;
+  width: 100%;
+  background-color: $wrapper-color;
+}
 .navIcon {
   margin: 0 !important;
+  color: white !important;
 }
 .toolbar-title {
   padding-left: 20px;
@@ -231,7 +241,7 @@ export default {
   font-weight: bold;
 }
 a {
-  color: $color-primary;
+  color: white;
   text-decoration: none;
 }
 .footer-card {
@@ -253,12 +263,12 @@ a {
   -ms-flex-align: center;
   align-items: center;
   max-width: 100vw;
-  background-color: #0a0e1a;
+  background-color: $wrapper-color;
 }
 
 .appBar {
   box-shadow: none !important;
-  color: $color-primary;
+  color: white;
 
   margin: 0 auto;
   /* background-color: transparent !important; */

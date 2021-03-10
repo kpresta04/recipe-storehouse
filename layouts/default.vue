@@ -74,9 +74,9 @@
     </div>
 
     <v-main>
-      <v-container id="container">
-        <nuxt />
-      </v-container>
+      <!-- <v-container id="container"> -->
+      <nuxt />
+      <!-- </v-container> -->
     </v-main>
     <v-footer color="#0a0e1a" padless>
       <v-row justify="center" no-gutters>
@@ -209,7 +209,7 @@ export default {
   }
 }
 .navLinks {
-  width: 50%;
+  width: 67%;
   display: flex;
   justify-content: space-evenly;
   a {

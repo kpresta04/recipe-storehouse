@@ -14,12 +14,9 @@
         >
           All your favorite recipes, stored in one place.
         </p>
-        <v-btn class="mt-4 bg-primary" to="/my-recipes" nuxt large dark>
+        <v-btn class="mt-4" to="/my-recipes" nuxt large dark>
           Get Started
         </v-btn>
-      </div>
-      <div class="header-image">
-        <img class="svg" src="/sushi.svg" alt="sushi" />
       </div>
     </div>
     <div class="features">
@@ -98,6 +95,7 @@ export default Vue.extend({
 .features {
   color: $color-primary;
   padding: 0 30px;
+  margin: 6rem auto;
 
   img {
     height: 120px;
@@ -122,6 +120,9 @@ export default Vue.extend({
     padding: 50px 40px;
     font-size: 1rem !important;
   }
+  .header-content {
+    margin: 7rem auto !important;
+  }
   .feature-item {
     width: 33.33333333%;
     height: auto;
@@ -132,12 +133,14 @@ export default Vue.extend({
     flex-wrap: wrap;
   }
 }
-@media screen and (min-width: 1200px) {
-  .svg {
-    width: 70vw !important;
+@media screen and (min-width: 1024px) {
+  .header-content {
+    margin: 12rem auto !important;
   }
-  .hero {
-    margin-top: -150px !important;
+}
+@media screen and (min-width: 1200px) {
+  .header-content {
+    margin: 15rem auto !important;
   }
 }
 
@@ -154,8 +157,7 @@ export default Vue.extend({
   display: -ms-flexbox;
   display: flex;
   width: 100vw;
-  margin-top: -100px;
-  padding: 120px 30px 120px;
+  /* padding: 120px 30px 120px; */
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
@@ -164,13 +166,14 @@ export default Vue.extend({
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  /* background-image: url("https://assets.website-files.com/5a5f93d570152900015df4fa/5a8c685dfcefd3000119b257_White.jpg"),
+  background-image: url("https://assets.website-files.com/5a5f93d570152900015df4fa/5a8c685dfcefd3000119b257_White.jpg"),
     linear-gradient(225deg, rgba(52, 16, 177, 0.97), rgba(106, 60, 204, 0.97)),
     url("/heuvel.jpg");
   background-position: 50% 100%, 0px 0px, 50% 50%;
-  background-size: 1px 74px, auto, cover;
+  background-size: 0px 74px, auto, cover;
   background-repeat: repeat-x, repeat, no-repeat;
-  background-attachment: scroll, scroll, fixed; */
+  background-attachment: scroll, scroll, fixed;
+  margin-top: -1px;
 }
 
 .svg {
@@ -178,20 +181,22 @@ export default Vue.extend({
   max-width: 1000px;
 }
 .header-content {
-  color: $color-primary;
+  color: white;
   max-width: 410px;
   -webkit-perspective: 2000px;
   perspective: 2000px;
   -webkit-transition: all 200ms ease;
   transition: all 200ms ease;
   text-align: center;
+  margin: 5rem auto;
+  font-size: 14px;
   /* text-shadow: 1px 1px 6px #000; */
   h1 {
     margin-top: 0px;
     margin-bottom: 30px;
     font-family: "Libre Franklin", sans-serif;
 
-    font-size: 4.5rem;
+    font-size: 4.5em;
     line-height: 78px;
     font-weight: 800;
     letter-spacing: -1px;
@@ -199,7 +204,7 @@ export default Vue.extend({
 
   p {
     font-family: "IBM Plex Mono", sans-serif;
-    font-size: 14px;
+    font-size: 1.15em;
     line-height: 24px;
     font-weight: 400;
     margin-bottom: 10px;

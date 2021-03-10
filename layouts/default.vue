@@ -213,6 +213,9 @@ export default {
   display: flex;
   justify-content: space-evenly;
   a {
+    display: flex;
+    text-align: center;
+    align-items: center;
     padding: 15px;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -269,6 +272,7 @@ a {
 .appBar {
   box-shadow: none !important;
   color: white;
+  overflow-y: hidden;
 
   margin: 0 auto;
   /* background-color: transparent !important; */

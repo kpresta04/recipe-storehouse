@@ -136,6 +136,8 @@ export default Vue.extend({
 @media screen and (min-width: 1024px) {
   .header-content {
     margin: 12rem auto !important;
+    max-width: 1200px !important;
+    font-size: 16px !important;
   }
   .features {
     margin: 12rem auto;
@@ -144,6 +146,14 @@ export default Vue.extend({
 @media screen and (min-width: 1200px) {
   .header-content {
     margin: 15rem auto !important;
+
+    h1 {
+      font-size: 7.5em !important;
+      margin-bottom: 50px !important;
+    }
+    p {
+      margin-bottom: 20px !important;
+    }
   }
 }
 

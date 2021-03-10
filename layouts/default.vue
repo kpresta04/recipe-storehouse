@@ -4,7 +4,7 @@
       <v-app-bar
         class="appBar"
         color="#1b1c1f"
-        absolute
+        fixed
         light
         app
         max-width="1440px"

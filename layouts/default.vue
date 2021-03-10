@@ -208,6 +208,11 @@ export default {
     padding: 0 !important;
   }
 }
+@media screen and (min-width: 1200px) {
+  .appBar {
+    position: absolute !important;
+  }
+}
 .navLinks {
   width: 67%;
   display: flex;

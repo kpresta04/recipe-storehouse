@@ -279,7 +279,7 @@ a {
   color: white;
   overflow-y: hidden;
 
-  margin: 0 auto;
+  margin: -1px auto 0 auto !important;
   /* background-color: transparent !important; */
 }
 .cc-footer {

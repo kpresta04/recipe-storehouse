@@ -207,7 +207,7 @@ export default Vue.extend({
   h1 {
     margin-top: 0px;
     margin-bottom: 30px;
-    font-family: "Libre Franklin", sans-serif;
+    /* font-family: "Libre Franklin", sans-serif; */
 
     font-size: 4.5em;
     line-height: 78px;
@@ -216,7 +216,7 @@ export default Vue.extend({
   }
 
   p {
-    font-family: "IBM Plex Mono", sans-serif;
+    /* font-family: "IBM Plex Mono", sans-serif; */
     font-size: 1.15em;
     line-height: 24px;
     font-weight: 400;

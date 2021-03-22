@@ -5,6 +5,7 @@
         class="appBar"
         color="#1b1c1f"
         fixed
+        height="64px"
         light
         app
         max-width="1440px"
@@ -214,6 +215,7 @@ export default {
   }
 }
 .navLinks {
+  height: 64px;
   width: 67%;
   display: flex;
   justify-content: space-evenly;
@@ -278,7 +280,7 @@ a {
   box-shadow: none !important;
   color: white;
   overflow-y: hidden;
-
+  /* height: 64px !important; */
   margin: -1px auto 0 auto !important;
   /* background-color: transparent !important; */
 }

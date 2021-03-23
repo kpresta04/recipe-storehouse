@@ -12,7 +12,7 @@
           style="opacity: 1; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
           class="paragraph"
         >
-          Organize your recipes, and eat better with RecipeDB.
+          All your favorite recipes, stored in one place.
         </p>
         <v-btn class="mt-4" to="/my-recipes" nuxt large dark>
           Get Started
@@ -22,10 +22,12 @@
     <div class="features">
       <div class="h2-container">
         <h2>
-          Organizing your home cooking with RecipeDB:
+          RecipeDB: the all-in-one recipe organizer, meal planner and shopping
+          list manager.
           <span class="color-light"
-            >A responsive, full-featured app with everything you need propel
-            your cooking to the next level.</span
+            >Providing a hub for your ever-growing collection of recipes. Import
+            from any recipe site including allrecipes, Food Network, BBC Food
+            and more! Never lose your recipes again.</span
           >
         </h2>
       </div>

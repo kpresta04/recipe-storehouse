@@ -220,13 +220,14 @@ export default {
   display: flex;
   justify-content: space-evenly;
   a {
-    display: flex;
+    display: grid;
     text-align: center;
     align-items: center;
     padding: 15px;
     text-transform: uppercase;
     letter-spacing: 2px;
     transition: all 0.2s ease-in-out;
+    width: 100%;
   }
   a:hover {
     /* transform: scale(1.1); */

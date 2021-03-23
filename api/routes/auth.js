@@ -44,11 +44,11 @@ router.post("/register", async (req, res) => {
       lastName: req.body.lastName,
       hash: hashedPassword
     };
-    await prisma.user.create({ data: user });
+    const createUser = await prisma.user.create({ data: user });
 
-    res.send(user);
+    res.send({ message: "success" });
   } catch (error) {
-    res.send({ message: error.message });
+    res.status(403).send({ error: error.message });
   }
 });
 

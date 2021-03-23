@@ -1,56 +1,57 @@
 <template>
-  <div>
+  <div class="container">
+    <h1>Sign up for RecipeDB</h1>
     <form @submit.prevent="userRegister">
-      <div>
-        <label>First Name</label>
+      <div class="form-grp">
+        <div class="input-grp">
+          <label for="firstName">First Name</label>
 
-        <input
-          type="text"
-          name="firstName"
-          id="firstName"
-          v-model="login.firstName"
-        />
-      </div>
-      <div class="break"></div>
+          <input
+            type="text"
+            name="firstName"
+            id="firstName"
+            v-model="login.firstName"
+          />
+        </div>
 
-      <div>
-        <label>Last Name</label>
+        <div class="input-grp">
+          <label for="lastName">Last Name</label>
 
-        <input
-          type="lastName"
-          name="lastName"
-          id="lastName"
-          v-model="login.lastName"
-        />
-      </div>
-      <div class="break"></div>
+          <input
+            type="lastName"
+            name="lastName"
+            id="lastName"
+            v-model="login.lastName"
+          />
+        </div>
 
-      <div>
-        <label>Email</label>
+        <div class="input-grp">
+          <label for="email">Email</label>
 
-        <input
-          type="email"
-          name="email"
-          id="email"
-          v-model="login.email"
-          required
-        />
-      </div>
-      <div class="break"></div>
-      <div>
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          required
-          id="password"
-          v-model="login.password"
-        />
-      </div>
-      <div class="break"></div>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            v-model="login.email"
+            required
+          />
+        </div>
 
-      <div>
-        <button type="submit">Submit</button>
+        <div class="input-grp">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            required
+            id="password"
+            v-model="login.password"
+          />
+        </div>
+
+        <div>
+          <p>{{ error }}</p>
+          <v-btn type="submit" depressed color="primary"> Submit</v-btn>
+        </div>
       </div>
     </form>
   </div>
@@ -65,7 +66,8 @@ export default {
         password: "",
         firstName: "",
         lastName: ""
-      }
+      },
+      error: ""
     };
   },
   methods: {
@@ -79,30 +81,19 @@ export default {
       })
         .then(response => response.json())
         .then(data => {
-          console.log("Success:", data);
+          // console.log(data);
+          if (data.error) {
+            this.error = "An error ocurred.";
+          } else {
+            this.$router.push("/login");
+          }
         })
         .catch(error => {
-          console.error("Error:", error);
+          console.error("Error: ", error);
         });
     }
   }
 };
 </script>
 
-<style lang="scss" scoped>
-form {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-
-  input {
-    margin: 1rem;
-  }
-  button {
-    margin: 1rem auto;
-  }
-}
-.break {
-  width: 100%;
-}
-</style>
+<style lang="scss" scoped></style>

@@ -15,10 +15,7 @@ router.post("/login", async (req, res) => {
         email: req.body.email
       }
     });
-    if (!user) {
-      //Email does not exist
-      res.status(401).send({ error: "Incorrect email" });
-    } else if (await bcrypt.compare(req.body.password, user.hash)) {
+    if (user && (await bcrypt.compare(req.body.password, user.hash))) {
       //Login successful
       const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "30d"
@@ -29,8 +26,8 @@ router.post("/login", async (req, res) => {
       //
       res.send({ accessToken });
     } else {
-      //Wrong password
-      res.status(401).send({ error: "Wrong Password" });
+      //Wrong password or email
+      res.status(401).send({ error: "Login failed: incorrect credentials" });
     }
   } catch (error) {
     console.log(error);

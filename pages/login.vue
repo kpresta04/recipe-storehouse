@@ -1,32 +1,35 @@
 <template>
-  <div>
+  <div class="container">
+    <h1>Login to RecipeDB</h1>
     <form @submit.prevent="userLogin">
-      <div>
-        <label>Email</label>
+      <div class="form-grp">
+        <div class="input-grp">
+          <label for="email">Email</label>
 
-        <input
-          required
-          type="email"
-          name="email"
-          id="email"
-          v-model="login.email"
-        />
-      </div>
-      <div class="break"></div>
-      <div>
-        <label>Password</label>
-        <input
-          required
-          type="password"
-          name="password"
-          id="password"
-          v-model="login.password"
-        />
-      </div>
-      <div class="break"></div>
+          <input
+            required
+            type="email"
+            name="email"
+            id="email"
+            v-model="login.email"
+          />
+        </div>
 
-      <div>
-        <button type="submit">Submit</button>
+        <div class="input-grp">
+          <label for="password">Password</label>
+          <input
+            required
+            type="password"
+            name="password"
+            id="password"
+            v-model="login.password"
+          />
+        </div>
+
+        <div>
+          <p>{{ error }}</p>
+          <v-btn type="submit" depressed color="primary"> Submit</v-btn>
+        </div>
       </div>
     </form>
   </div>
@@ -39,7 +42,8 @@ export default {
       login: {
         email: "",
         password: ""
-      }
+      },
+      error: ""
     };
   },
   methods: {
@@ -58,31 +62,17 @@ export default {
             this.$store.commit("SET_TOKEN", data.accessToken);
             localStorage.setItem("accessToken", data.accessToken);
             this.$router.push("/");
+          } else {
+            this.error = "Incorrect email or password";
           }
           // console.log(data);
         })
         .catch(error => {
-          console.error("Error:", error);
+          console.error("Error: ", error);
         });
     }
   }
 };
 </script>
 
-<style lang="scss" scoped>
-form {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-
-  input {
-    margin: 1rem;
-  }
-  button {
-    margin: 1rem auto;
-  }
-}
-.break {
-  width: 100%;
-}
-</style>
+<style lang="scss" scoped></style>

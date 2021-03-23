@@ -1,9 +1,15 @@
 <template>
-  <div>
+  <div class="container">
+    <h1>Import a recipe</h1>
     <form @submit.prevent="fetchRecipe">
-      <label for="url">Recipe URL</label>
-      <input required type="text" name="url" id="url" v-model="recipeURL" />
-      <button type="submit">Submit</button>
+      <div class="form-grp">
+        <div class="input-grp">
+          <label for="url">Recipe URL</label>
+          <input required type="text" name="url" id="url" v-model="recipeURL" />
+        </div>
+        <p>{{ error }}</p>
+        <v-btn type="submit" depressed color="primary"> Submit</v-btn>
+      </div>
     </form>
   </div>
 </template>
@@ -16,7 +22,8 @@ export default Vue.extend({
 
   data() {
     return {
-      recipeURL: ""
+      recipeURL: "",
+      error: ""
     };
   },
   methods: {
@@ -36,11 +43,16 @@ export default Vue.extend({
           body: JSON.stringify({ recipeURL: this.recipeURL })
         }
       )
-        .then(response => {
-          //   console.log(response);
-          return response.json();
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            //error handling
+            this.error =
+              "There was an error importing the recipe. Please try again.";
+          } else {
+            this.$router.push(`/my-recipes/${data.id}`);
+          }
         })
-        .then(data => console.log(data))
         .catch(err => {
           console.error(err);
         });

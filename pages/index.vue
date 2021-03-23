@@ -25,9 +25,7 @@
           RecipeDB: the all-in-one recipe organizer, meal planner and shopping
           list manager.
           <span class="color-light"
-            >Providing a hub for your ever-growing collection of recipes. Import
-            from any recipe site including allrecipes, Food Network, BBC Food
-            and more! Never lose your recipes again.</span
+            >Providing a hub for your ever-growing collection of recipes.</span
           >
         </h2>
       </div>

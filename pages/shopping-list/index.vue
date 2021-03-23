@@ -1,5 +1,5 @@
 <template>
-  <div id="container-child">
+  <div class="container" id="container-child">
     <div class="main" v-if="!message">
       <h2>Shopping list {{ dateString }}</h2>
       <div

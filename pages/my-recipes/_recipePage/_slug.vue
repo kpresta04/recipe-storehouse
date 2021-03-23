@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <v-img
       v-if="this.recipe && this.recipe.imageURL"
       max-height="150"

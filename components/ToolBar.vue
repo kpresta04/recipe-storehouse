@@ -123,7 +123,9 @@ export default Vue.extend({
   margin: 8px 8px 8px 0;
 }
 #tagForm {
-  display: flex;
+  display: inline-flex;
   place-items: center;
+  max-width: 400px;
+  margin: 2rem 0;
 }
 </style>

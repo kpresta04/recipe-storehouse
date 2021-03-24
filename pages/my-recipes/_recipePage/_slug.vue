@@ -1,23 +1,24 @@
 <template>
   <div class="container">
-    <v-img
-      v-if="this.recipe && this.recipe.imageURL"
-      max-height="150"
-      max-width="250"
-      :src="this.recipe.imageURL"
-    ></v-img>
-    <h1>{{ this.recipe && this.recipe.title }}</h1>
-    <h3>
-      Servings:
-      {{ this.baseServings }}
-      <!-- <input
+    <div class="recipe">
+      <v-img
+        v-if="this.recipe && this.recipe.imageURL"
+        max-height="150"
+        max-width="250"
+        :src="this.recipe.imageURL"
+      ></v-img>
+      <h1>{{ this.recipe && this.recipe.title }}</h1>
+      <h3>
+        Servings:
+        {{ this.baseServings }}
+        <!-- <input
         :value="this.baseServings"
         type="number"
         min="1"
         name="servings"
         id="servings"
       /> -->
-      <!-- <v-text-field readonly :value="this.recipe.servings">
+        <!-- <v-text-field readonly :value="this.recipe.servings">
         <v-icon @click="adjustServings" slot="append" color="blue">
           mdi-plus
         </v-icon>
@@ -25,168 +26,173 @@
           mdi-minus
         </v-icon>
       </v-text-field> -->
-      <!-- <v-btn text color="primary">
+        <!-- <v-btn text color="primary">
         Adjust
       </v-btn> -->
-    </h3>
-    <!-- <h5>Original recipe yields&nbsp;{{ this.baseServings }} servings</h5> -->
-    <!-- <div class="title">
+      </h3>
+      <!-- <h5>Original recipe yields&nbsp;{{ this.baseServings }} servings</h5> -->
+      <!-- <div class="title">
     </div> -->
 
-    <ToolBar
-      v-on:changeTag="handleChangeTag"
-      :tags="this.recipe.tags.length > 0 ? this.recipe.tags : []"
-    />
-    <h2>
-      Ingredients
-      <v-btn icon @click="showIngredients = !showIngredients">
-        <v-icon>{{
-          showIngredients ? "mdi-chevron-up" : "mdi-chevron-down"
-        }}</v-icon>
-      </v-btn>
-    </h2>
+      <ToolBar
+        v-on:changeTag="handleChangeTag"
+        :tags="this.recipe.tags.length > 0 ? this.recipe.tags : []"
+      />
+      <h2>
+        Ingredients
+        <v-btn icon @click="showIngredients = !showIngredients">
+          <v-icon>{{
+            showIngredients ? "mdi-chevron-up" : "mdi-chevron-down"
+          }}</v-icon>
+        </v-btn>
+      </h2>
 
-    <v-expand-transition>
-      <div v-show="showIngredients">
-        <v-card-text class="cardText">
-          <ul>
-            <li
-              v-for="(ingredient, i) in this.recipe.extendedIngredients"
-              :key="i"
-            >
-              {{ ingredient.originalString }}
-            </li>
-          </ul>
-        </v-card-text>
-      </div>
-    </v-expand-transition>
-
-    <h2>
-      Method
-      <v-btn icon @click="showMethod = !showMethod">
-        <v-icon>{{
-          showMethod ? "mdi-chevron-up" : "mdi-chevron-down"
-        }}</v-icon>
-      </v-btn>
-    </h2>
-    <v-expand-transition>
-      <div v-show="showMethod">
-        <v-card-text class="cardText">
-          <ol v-if="this.recipe.analyzedInstructions.length > 0">
-            <li
-              v-for="(step, i) in this.recipe.analyzedInstructions[0].steps"
-              :key="i"
-            >
-              {{ step.step }}
-            </li>
-          </ol>
-        </v-card-text>
-      </div>
-    </v-expand-transition>
-
-    <h2>
-      Notes
-      <v-btn icon @click="showNotes = !showNotes">
-        <v-icon>{{ showNotes ? "mdi-chevron-up" : "mdi-chevron-down" }}</v-icon>
-      </v-btn>
-    </h2>
-    <v-expand-transition>
-      <div v-show="showNotes">
-        <!-- <v-card-text> -->
-        <v-textarea
-          :value="this.recipe.notes.length > 0 ? this.recipe.notes[0].text : ''"
-          @input="handleChange"
-          id="notes"
-          outlined
-          shaped
-        ></v-textarea>
-        <div>
-          <v-btn
-            @click="handleSave"
-            :disabled="!this.textChanged"
-            color="primary"
-          >
-            Save
-          </v-btn>
-          <v-btn @click="handleDeleteNote" color="error">
-            Delete
-          </v-btn>
+      <v-expand-transition>
+        <div v-show="showIngredients">
+          <v-card-text class="cardText">
+            <ul>
+              <li
+                v-for="(ingredient, i) in this.recipe.extendedIngredients"
+                :key="i"
+              >
+                {{ ingredient.originalString }}
+              </li>
+            </ul>
+          </v-card-text>
         </div>
-        <!-- </v-card-text> -->
-      </div>
-    </v-expand-transition>
-    <h2>Options</h2>
-    <v-row align="center">
-      <PopUpModal
-        :recipe="recipe"
-        :baseServings="baseServings"
-        color="primary"
-        buttonText="Add to Shopping List"
-      >
-        <template v-slot:cardTitle>
-          <v-card-title class="headline">
-            Add to Shopping List
-          </v-card-title>
-        </template>
-        <template v-slot:cardBody>
-          <IngredientList :recipe="recipe" :baseServings="baseServings" />
-        </template>
-        <template v-slot:cardActions>
-          <v-btn class="actionButton" color="black darken-1" text>
-            Cancel
-          </v-btn>
-          <v-btn
-            id="addListBtn"
-            class="actionButton"
-            color="green darken-1"
-            text
-          >
-            Add to Shopping List
-          </v-btn>
-        </template>
-        <template v-slot:buttonIcon>
-          <v-icon dark right>
-            mdi-cart
-          </v-icon>
-        </template>
-      </PopUpModal>
-      <!-- <v-btn @click="handleShoppingListAdd" class="ma-2" color="primary" dark>
+      </v-expand-transition>
+
+      <h2>
+        Method
+        <v-btn icon @click="showMethod = !showMethod">
+          <v-icon>{{
+            showMethod ? "mdi-chevron-up" : "mdi-chevron-down"
+          }}</v-icon>
+        </v-btn>
+      </h2>
+      <v-expand-transition>
+        <div v-show="showMethod">
+          <v-card-text class="cardText">
+            <ol v-if="this.recipe.analyzedInstructions.length > 0">
+              <li
+                v-for="(step, i) in this.recipe.analyzedInstructions[0].steps"
+                :key="i"
+              >
+                {{ step.step }}
+              </li>
+            </ol>
+          </v-card-text>
+        </div>
+      </v-expand-transition>
+
+      <h2>
+        Notes
+        <v-btn icon @click="showNotes = !showNotes">
+          <v-icon>{{
+            showNotes ? "mdi-chevron-up" : "mdi-chevron-down"
+          }}</v-icon>
+        </v-btn>
+      </h2>
+      <v-expand-transition>
+        <div v-show="showNotes">
+          <!-- <v-card-text> -->
+          <v-textarea
+            :value="
+              this.recipe.notes.length > 0 ? this.recipe.notes[0].text : ''
+            "
+            @input="handleChange"
+            id="notes"
+            outlined
+            shaped
+          ></v-textarea>
+          <div>
+            <v-btn
+              @click="handleSave"
+              :disabled="!this.textChanged"
+              color="primary"
+            >
+              Save
+            </v-btn>
+            <v-btn @click="handleDeleteNote" color="error">
+              Delete
+            </v-btn>
+          </div>
+          <!-- </v-card-text> -->
+        </div>
+      </v-expand-transition>
+      <h2>Options</h2>
+      <v-row align="center">
+        <PopUpModal
+          :recipe="recipe"
+          :baseServings="baseServings"
+          color="primary"
+          buttonText="Add to Shopping List"
+        >
+          <template v-slot:cardTitle>
+            <v-card-title class="headline">
+              Add to Shopping List
+            </v-card-title>
+          </template>
+          <template v-slot:cardBody>
+            <IngredientList :recipe="recipe" :baseServings="baseServings" />
+          </template>
+          <template v-slot:cardActions>
+            <v-btn class="actionButton" color="black darken-1" text>
+              Cancel
+            </v-btn>
+            <v-btn
+              id="addListBtn"
+              class="actionButton"
+              color="green darken-1"
+              text
+            >
+              Add to Shopping List
+            </v-btn>
+          </template>
+          <template v-slot:buttonIcon>
+            <v-icon dark right>
+              mdi-cart
+            </v-icon>
+          </template>
+        </PopUpModal>
+        <!-- <v-btn @click="handleShoppingListAdd" class="ma-2" color="primary" dark>
         Add to Shopping List
         <v-icon dark right>
           mdi-cart
         </v-icon>
       </v-btn> -->
 
-      <v-btn dark class="ma-2" color="teal">
-        Add to Meal Plan
-        <v-icon right> mdi-calendar </v-icon>
-      </v-btn>
-      <v-btn @click="handleDeleteRecipe" class="ma-2" color="red" dark>
-        Delete
-        <v-icon dark right>
-          mdi-delete
-        </v-icon>
-      </v-btn>
-      <v-btn :to="'/my-recipes/' + this.slug + '/print'" class="ma-2">
-        Print
-        <v-icon dark right>
-          mdi-printer
-        </v-icon>
-      </v-btn>
-      <v-btn
-        dark
-        :href="this.recipe.sourceURL"
-        color="purple"
-        class="ma-2"
-        target="_blank"
-        rel="noopener"
-      >
-        View Source
-        <v-icon dark right>
-          mdi-web
-        </v-icon>
-      </v-btn>
-    </v-row>
+        <v-btn dark class="ma-2" color="teal">
+          Add to Meal Plan
+          <v-icon right> mdi-calendar </v-icon>
+        </v-btn>
+        <v-btn @click="handleDeleteRecipe" class="ma-2" color="red" dark>
+          Delete
+          <v-icon dark right>
+            mdi-delete
+          </v-icon>
+        </v-btn>
+        <v-btn :to="'/my-recipes/' + this.slug + '/print'" class="ma-2">
+          Print
+          <v-icon dark right>
+            mdi-printer
+          </v-icon>
+        </v-btn>
+        <v-btn
+          dark
+          :href="this.recipe.sourceURL"
+          color="purple"
+          class="ma-2"
+          target="_blank"
+          rel="noopener"
+        >
+          View Source
+          <v-icon dark right>
+            mdi-web
+          </v-icon>
+        </v-btn>
+      </v-row>
+    </div>
   </div>
 </template>
 
@@ -358,8 +364,17 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-input {
-  max-width: 4rem !important;
+.recipe {
+  display: block;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+h1 {
+  text-align: left;
+}
+h2 {
+  margin: 1.5rem 0;
 }
 h3 {
   color: gray;

@@ -57,3 +57,7 @@ form {
 footer {
   margin-top: 6rem;
 }
+.v-text-field__slot input {
+  // max-width: 4rem !important;
+  background-color: transparent !important;
+}

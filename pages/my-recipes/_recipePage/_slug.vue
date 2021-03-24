@@ -378,7 +378,6 @@ h2 {
 }
 .recipe ol,
 ul {
-  padding: 0;
   font-size: 1rem;
 }
 h3 {

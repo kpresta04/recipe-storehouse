@@ -390,8 +390,12 @@ export default {
   margin: 0 !important;
 } */
 .theme--light.v-calendar-daily {
-  border-left: none;
-  border-top: none;
+  border-left: none !important;
+  border-top: none !important;
+}
+
+.v-calendar-daily__scroll-area {
+  display: none !important;
 }
 .v-calendar-daily__intervals-head {
   display: none;

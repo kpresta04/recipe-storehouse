@@ -3,7 +3,7 @@
     <div class="barWrapper">
       <v-app-bar
         class="appBar"
-        color="#1b1c1f"
+        color="#0a0e1a"
         fixed
         height="64px"
         light
@@ -231,7 +231,7 @@ export default {
   }
   a:hover {
     /* transform: scale(1.1); */
-    background-color: #0c0c0c;
+    background-color: #1d212c;
     /* padding: 8px;
     border-radius: 16px;  */
   }
@@ -240,7 +240,7 @@ export default {
 .barWrapper {
   height: 64px;
   width: 100%;
-  background-color: $wrapper-color;
+  background-color: #0a0e1a;
 }
 .navIcon {
   margin: 0 !important;

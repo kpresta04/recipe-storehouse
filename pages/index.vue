@@ -180,7 +180,7 @@ export default Vue.extend({
   -ms-flex-align: center;
   align-items: center;
   background-image: url("https://assets.website-files.com/5a5f93d570152900015df4fa/5a8c685dfcefd3000119b257_White.jpg"),
-    linear-gradient(225deg, rgba(52, 16, 177, 0.97), rgba(106, 60, 204, 0.97)),
+    linear-gradient(8deg, rgba(52, 16, 177, 0.97), rgba(106, 60, 204, 0.97)),
     url("/heuvel.jpg");
   background-position: 50% 100%, 0px 0px, 50% 50%;
   background-size: 0px 74px, auto, cover;

@@ -8,6 +8,9 @@ const prisma = new PrismaClient();
 
 const router = Router();
 
+router.get("/refresh", async (req, res) => {
+  res.send("rf done");
+});
 router.post("/login", async (req, res) => {
   try {
     const user = await prisma.user.findUnique({

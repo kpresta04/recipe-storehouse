@@ -218,6 +218,7 @@ export default {
 .navLinks {
   height: 64px;
   width: 70%;
+  min-width: fit-content;
   display: flex;
   justify-content: space-evenly;
   a {
@@ -229,6 +230,7 @@ export default {
     letter-spacing: 2px;
     transition: all 0.2s ease-in-out;
     height: 100%;
+    min-width: fit-content;
   }
   a:hover {
     /* transform: scale(1.1); */
@@ -239,10 +241,6 @@ export default {
 }
 .accountLinks {
   display: flex;
-  a {
-    min-width: fit-content;
-  }
-
   p {
     margin: 0;
     display: grid;

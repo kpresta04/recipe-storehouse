@@ -27,10 +27,11 @@
           <nuxt-link to="/my-recipes">My Recipes</nuxt-link>
           <nuxt-link to="/shopping-list">Shopping List</nuxt-link>
           <nuxt-link to="/meal-plan">Meal Plan</nuxt-link>
-
-          <nuxt-link v-if="!$store.state.accessToken" to="/register"
-            >Sign Up</nuxt-link
-          >
+          <div class="accountLinks" v-if="!$store.state.accessToken">
+            <nuxt-link to="/register">Sign Up</nuxt-link>
+            <p>/</p>
+            <nuxt-link to="/login">Log in</nuxt-link>
+          </div>
           <nuxt-link v-else to="/account">Account</nuxt-link>
         </div>
 
@@ -216,7 +217,7 @@ export default {
 }
 .navLinks {
   height: 64px;
-  width: 67%;
+  width: 70%;
   display: flex;
   justify-content: space-evenly;
   a {
@@ -227,13 +228,25 @@ export default {
     text-transform: uppercase;
     letter-spacing: 2px;
     transition: all 0.2s ease-in-out;
-    width: 100%;
+    height: 100%;
   }
   a:hover {
     /* transform: scale(1.1); */
     background-color: #1d212c;
     /* padding: 8px;
     border-radius: 16px;  */
+  }
+}
+.accountLinks {
+  display: flex;
+  a {
+    min-width: fit-content;
+  }
+
+  p {
+    margin: 0;
+    display: grid;
+    place-items: center;
   }
 }
 

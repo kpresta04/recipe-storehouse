@@ -233,8 +233,11 @@ export default {
     min-width: fit-content;
   }
   a:hover {
-    /* transform: scale(1.1); */
-    background-color: #1d212c;
+    transform: scale(1.05);
+    /* border-bottom: 1px solid #1d212c;
+     */
+    font-weight: bold;
+    /* background-color: #1d212c; */
     /* padding: 8px;
     border-radius: 16px;  */
   }

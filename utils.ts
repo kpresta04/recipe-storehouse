@@ -72,7 +72,7 @@ export const fetchShoppingList = async (store: any) => {
   if (!shoppingList.ingredients) {
     // no shopping list for this week
     return {
-      message: "No shopping list found",
+      message: "No shopping list",
       dateString
     };
   } else {
